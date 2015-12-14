@@ -40,20 +40,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Intent intent;
         switch (id) {
             case R.id.action_donate:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QNQDESEMGWDPY"));
-                startActivity(browserIntent);
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QNQDESEMGWDPY"));
+                startActivity(intent);
                 break;
             case R.id.action_help:
-                Intent goToHelpActivity = new Intent(getApplicationContext(), HelpActivity.class);
-                startActivity(goToHelpActivity);
+                intent = new Intent(getApplicationContext(), HelpActivity.class);
+                startActivity(intent);
                 break;
             case R.id.action_contact:
-                Intent goToContactActivity = new Intent(getApplicationContext(), ContactActivity.class);
-                startActivity(goToContactActivity);
+                intent = new Intent(getApplicationContext(), ContactActivity.class);
+                startActivity(intent);
                 break;
             case R.id.action_sourceCode:
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/pbombnz/ANZGoMoneyNZMods/"));
+                startActivity(intent);
                 break;
             case R.id.action_xda:
                 break;

@@ -1,1 +1,1 @@
-# ANZGoMoneyNZMods
+# ANZ GoMoney New Zealand Mods

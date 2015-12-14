@@ -11,7 +11,6 @@
         <item>Why do I need to spoof my device?</item>
         <item>What happens if ANZ GoMoney Mods says that it is not compatible?</item>
         <item>But can\'t I just use RootCloak?</item>
-        <item>I am a Developer, I want to see your source code?</item>
         <item>How do we know your not storing our sensitive account information?</item>
         <item>Does this work for ANZ GoMoney Australia?</item>
         <item></item>
@@ -69,16 +68,9 @@
             I tried it and it didn\'t work for me. But if it works for you thats great.
         </item>
         <item>
-            Should be appearing soon after I created the XDA thread and added the module to the
-            Xposed Repository. It will be appearing on my github soon&#8230; I will be placing it
-            on my github (https://github.com/pbombnz/).
-        </item>
-        <item>
-            I have no intention of doing that. My only intentions are to show off to people about
-            how I paid for milk using my phone at the supermarket AND that is it adds to my
-            GitHub portfolio. THESE ARE MY ONLY MOTIVES. When the sourcecode is released you
-            can see for yourself that there is no code storing bank information. The last place
-            I want to be is on Police Ten 7 (or jail if you are unfamiliar with that reference).
+            I have no intention of doing that. If you are truly paranoid, the sourcecode is
+            released which can be viewed on the main menu of this module. There you can see for
+            yourself that there is no code storing bank information.
         </item>
         <item>
             No. I think the application of the ANZ GoMoney Australia application is different from
