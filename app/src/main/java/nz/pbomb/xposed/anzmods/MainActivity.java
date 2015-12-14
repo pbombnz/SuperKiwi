@@ -40,29 +40,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        Intent intent;
+        Intent intent = null;
         switch (id) {
             case R.id.action_donate:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QNQDESEMGWDPY"));
-                startActivity(intent);
                 break;
             case R.id.action_help:
                 intent = new Intent(getApplicationContext(), HelpActivity.class);
-                startActivity(intent);
                 break;
             case R.id.action_contact:
                 intent = new Intent(getApplicationContext(), ContactActivity.class);
-                startActivity(intent);
                 break;
             case R.id.action_sourceCode:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/pbombnz/ANZGoMoneyNZMods/"));
-                startActivity(intent);
                 break;
             case R.id.action_xda:
-                break;
-            default:
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623"));
                 break;
         }
+        startActivity(intent);
         return true;
     }
 

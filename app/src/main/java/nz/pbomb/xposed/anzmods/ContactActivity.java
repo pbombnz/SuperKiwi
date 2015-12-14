@@ -42,6 +42,8 @@ public class ContactActivity extends AppCompatActivity implements OnClickListene
                 startActivity(Intent.createChooser(emailIntent, "Chooser Email Client"));
                 break;
             case R.id.contact_xda_button:
+                Intent xdaIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623"));
+                startActivity(xdaIntent);
                 break;
             default:
                 break;

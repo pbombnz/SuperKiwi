@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:text="Contact Via XDA Thread "
             android:id="@+id/contact_xda_button"
-            android:enabled="false"
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
