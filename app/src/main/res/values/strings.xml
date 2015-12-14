@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ANZ GoMoney New Zealand Mods</string>
+    <string name="app_name">ANZ GoMoney NZ Mods</string>
 
     <!-- Main Activity -->
     <string name="compatibility_message_supported">Module compatible with your version of the ANZ GoMoney App.</string>
@@ -14,7 +14,7 @@
     <string name="preferences_help_summary">Displays helpful information about the module, upcoming features etc.</string>
     <string name="preferences_rootDetection_title">Root Detection</string>
     <string name="preferences_rootDetection_summary">Enable this to avoid root detection for the ANZ GoMoney app.</string>
-    <string name="preferences_spoofDevice_title">Spoof Device</string>
+    <string name="preferences_spoofDevice_title">Spoof Device (Beta Feature)</string>
     <string name="preferences_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy S6) which may allow GoMoney Wallet to work.</string>
 
     <string name="preferences_contact_title">Contact Me</string>
@@ -26,9 +26,6 @@
 
     <!-- Dialog Alert Boxes -->
     <string name="quit_title">Restart Required</string>
-    <string name="quit_message">A restart is required for your changes to be in effect.
-        \n\n
-        \'If Spoof Device\' was enabled you MUST clear all cache and data of the ANZ GoMoney application and relogin. So keep your Account Number and password on hand.
-    </string>
+    <string name="quit_message">A restart is required for your changes to be in effect.\n\n \'If Spoof Device\' was enabled you MUST clear all cache and data of the ANZ GoMoney application and relogin. So keep your Account Number and password on hand.</string>
     <string name="spoofDeviceChecked_message">In order to spoof your device you MUST clear all cache and data of the ANZ GoMoney application and re-login. So keep your Account Number and password on hand.</string>
 </resources>
