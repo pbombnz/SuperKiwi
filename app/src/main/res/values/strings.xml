@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">ANZ GoMoney New Zealand Mods</string>
+
+    <!-- Main Activity -->
+    <string name="compatibility_message_supported">Module compatible with your version of the ANZ GoMoney App.</string>
+    <string name="compatibility_message_notsupported">Module is not compatible with your version of the ANZ GoMoney App.</string>
+
+    <string name="compatibility_submessage_supported">GoMoney Wallet should work now.</string>
+    <string name="compatibility_submessage_notsupported">GoMoney Wallet will be disabled until this module is updated.</string>
+    <string name="compatibility_submessage_rootdetectiondisabled">GoMoney Wallet will be disabled when root detection is disabled.</string>
+
+    <!-- Preference -->
+    <string name="preferences_help_title">Help and FAQ\'s</string>
+    <string name="preferences_help_summary">Displays helpful information about the module, upcoming features etc.</string>
+    <string name="preferences_rootDetection_title">Root Detection</string>
+    <string name="preferences_rootDetection_summary">Enable this to avoid root detection for the ANZ GoMoney app.</string>
+    <string name="preferences_spoofDevice_title">Spoof Device</string>
+    <string name="preferences_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy S6) which may allow GoMoney Wallet to work.</string>
+
+    <string name="preferences_contact_title">Contact Me</string>
+    <string name="preferences_contact_summary">Click here to find contact information to send me feedback and bugs notice or to simply follow me on social media for updates.</string>
+    <string name="preferences_donate_title">Donate</string>
+    <string name="preferences_donate_summary">If you like my work, feel free to donate. :D</string>
+    <string name="preferences_about_title">About</string>
+    <string name="preferences_about_summary">By Prashant B. (PBombNZ)</string>
+
+    <!-- Dialog Alert Boxes -->
+    <string name="quit_title">Restart Required and Warnings</string>
+    <string name="quit_message">A restart is required for your changes to be in effect as the ANZ GoMoney App initialises its services on boot.
+        \n\nNOTE: You might possibly have to clear cache and data of the ANZ GoMoney App as well if it does not recognise changes on restart which will mean you should keep your ANZ Account Number and password handy in case login information is required.
+        \n\nNOTE 2: I have access to only one rooted device. So I cannot confirm if these mods will actually make NFC payments work. YOU are the beta tester therefore feedback is vital.
+        \n\nNOTE 3: First real android application I have ever made so dont bash me for rookie mistakes.
+    </string>
+    <string name="spoofDeviceChecked_message">In order to spoof your device you MUST clear all cache and data of the ANZ GoMoney application and relogin. So keep your Account Number and password on hand.</string>
+</resources>

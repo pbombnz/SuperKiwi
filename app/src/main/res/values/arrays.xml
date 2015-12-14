@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ANZ_supported_app_versions">
+        <item>5.0.7</item>
+    </string-array>
+
+    <string-array name="helpActivity_questions">
+        <item>What is this?</item>
+        <item>Does it work?</item>
+        <item>What happens if my device malfunctions or gets bricked?</item>
+        <item>Why do I need to spoof my device?</item>
+        <item>What happens if ANZ GoMoney Mods says that it is not compatible?</item>
+        <item>But can\'t I just use RootCloak?</item>
+        <item>I am a Developer, I want to see your source code?</item>
+        <item>How do we know your not storing our sensitive account information?</item>
+        <item>Does this work for ANZ GoMoney Australia?</item>
+        <item></item>
+    </string-array>
+
+    <string-array name="helpActivity_answers">
+        <item>
+            This is a Xposed application which hooks on the ANZ GoMoney to bypass
+            certain checks the application does so we can use rooted and non-supported devices
+            with GoMoney Wallet (NFC Payment).
+        </item>
+        <item>
+            Theoretically yes, the code should work but in reality is another question all together.
+            Since I do not go out shopping everyday or each time I modify this app, I rely on the
+            theory that it will work. I also only have one NFC-enabled rooted device so
+            my testing in the real world is also very limited. You as the end-user of this
+            application, are also a beta tester. I would like to hear your experience with this
+            application, whether it worked or not. Everyone\'s feedback is vital to me.
+        </item>
+        <item>
+            Tough. As a rooted user I suspect you knew the risks. I placed a disclaimer that when
+            GoMoney Wallet is enabled, nor I or ANZ will be responsible for any worst case
+            scenarios. To avoid bricking, do a full backup just in case anything happens.
+            USE AT YOUR OWN RISK, YOU HAVE BEEN WARNED.
+        </item>
+        <item>
+            You don\'t actually need this enabled. You only need to spoof your device if your
+            mobile phone is not on the ANZ GoMoney Compatibility List. Also this does not guarantee
+            that NFC payment will work. There are some devices out there that simply will never work
+            due to software or hardware restrictions. Furthermore, this app does NOT modify
+            \'build.prop\' so it will only affect the ANZ GoMoney application, not the entire
+            system which would be impractical.
+            \n\n
+            If spoofing is enabled, you MUST clear all cache and data of the ANZ GoMoney
+            application and relogin. So keep your Account Number and password on hand.
+        </item>
+        <item>
+            Then Root detection (and device spoofing if enabled) is disabled. This may mean that
+            GoMoney Wallet (NFC Payment) will be deactivated. You\'ll have to wait till Xposed
+            Installer tells you that the xposed module needs updating. You\'ll need to
+            follow the instructions below..
+            \n\n
+            1. Update the xposed module via Xposed Installer (Should be already enabled, but check just incase)\n
+            2. Restart Device\n
+            3. Open the ANZ New Zealand GoMoney Mods UI Application\n
+            4. Enable the features you like\n
+            5. Restart Device\n
+            6. Open GoMoney app, check if your changes are in effect (like if GoMoney Wallet appears in the settings). If they are then your\'re done, If not, then jump to step 7.\n
+            7. Clear all data and cache of the ANZ GoMoney app\n
+            8. Restart Device\n
+            9. Login to the application for the first time (Account Number and password required)\n
+            10. Done!
+        </item>
+        <item>
+            I tried it and it didn\'t work for me. But if it works for you thats great.
+        </item>
+        <item>
+            Should be appearing soon after I created the XDA thread and added the module to the
+            Xposed Repository. It will be appearing on my github soon&#8230; I will be placing it
+            on my github (https://github.com/pbombnz/).
+        </item>
+        <item>
+            I have no intention of doing that. My only intentions are to show off to people about
+            how I paid for milk using my phone at the supermarket AND that is it adds to my
+            GitHub portfolio. THESE ARE MY ONLY MOTIVES. When the sourcecode is released you
+            can see for yourself that there is no code storing bank information. The last place
+            I want to be is on Police Ten 7 (or jail if you are unfamiliar with that reference).
+        </item>
+        <item>
+            No. I think the application of the ANZ GoMoney Australia application is different from
+            the New Zealand one. Therefore dont expect compatibility even after Australia gets NFC
+            Mobile Payment features but there MIGHT be a chance. AND STOP CLAIMING THE PAVLOVA
+            IS YOURS!!!
+        </item>
+        <item></item>
+    </string-array>
+</resources>
