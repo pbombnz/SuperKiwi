@@ -35,6 +35,7 @@ public class ContactActivity extends AppCompatActivity implements OnClickListene
                         "Build Manufacturer: "+ Build.MANUFACTURER + "\n" +
                         "Build Brand: "+ Build.BRAND + "\n" +
                         "Build Model: "+ Build.MODEL + "\n" +
+                        "Build Product: "+ Build.PRODUCT + "\n" +
                         "\n" +
                         "Android OS Information: " + Build.VERSION.RELEASE + "\n" +
                         "\n" +
