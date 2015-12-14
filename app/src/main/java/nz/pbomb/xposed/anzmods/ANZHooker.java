@@ -2,6 +2,7 @@ package nz.pbomb.xposed.anzmods;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -158,7 +159,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
-                    param.setResult("[samsung SM-G920I]");
+                    param.setResult("[samsung SM-N9005]");
                 }
             }
         });
@@ -166,7 +167,16 @@ public class ANZHooker implements IXposedHookLoadPackage {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
-                    param.setResult("samsung SM-G920I");
+                    param.setResult("samsung SM-N9005");
+                }
+            }
+        });
+
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.u", loadPackageParam.classLoader, "a", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                    param.setResult(Build.FINGERPRINT.startsWith("generic") ? "HTC M7" : "SM-N9005");
                 }
             }
         });
