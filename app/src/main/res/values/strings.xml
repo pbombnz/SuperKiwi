@@ -2,6 +2,9 @@
     <string name="app_name">ANZ GoMoney NZ Mods</string>
 
     <!-- Main Activity -->
+    <string name="compatibility_message_default">Module is not compatible with your device.</string>
+    <string name="compatibility_submessage_default"></string>
+
     <string name="compatibility_message_supported">Module compatible with your version of the ANZ GoMoney App.</string>
     <string name="compatibility_message_notsupported">Module is not compatible with your version of the ANZ GoMoney App.</string>
 

@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        checkNfcExists();
     }
 
     @Override
@@ -65,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        if(!getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
+            return;
+        }
         // Check if the ANZ GoMoney application is compatible with this xposed module
 
         // Get information from the GoMoney application
@@ -115,17 +120,6 @@ public class MainActivity extends AppCompatActivity {
             rootDetectionPreference.setChecked(false);
             rootDetectionPreference.setEnabled(false);
         }
-
-        if(!getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
-            tvSubMessage.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-            tvSubMessage.setText("NFC Payment not supported on this device. Spoofing Device will not add any benefits");
-
-            PreferenceFragment prefFragment = ((PreferenceFragment) getFragmentManager().findFragmentById(R.id.prefFragment));
-            CheckBoxPreference spoofDevicePreference = (CheckBoxPreference) prefFragment.getPreferenceManager().findPreference(SETTINGS.KEYS.SPOOF_DEVICE);
-            CheckBoxPreference rootDetectionPreference = (CheckBoxPreference) prefFragment.getPreferenceManager().findPreference(SETTINGS.KEYS.ROOT_DETECTION);
-            spoofDevicePreference.setChecked(false);
-            spoofDevicePreference.setEnabled(false);
-        }
     }
 
     @Override
@@ -148,6 +142,28 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.quit_title));
         builder.setMessage(getResources().getString(R.string.quit_message));
+        builder.setCancelable(false);
+        builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MainActivity.this.finish();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    /**
+     * Displays the Alert Dialog when leaving the application
+     */
+    public void checkNfcExists() {
+        if(getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Device Not Compatible");
+        builder.setMessage("Your device is not compatible due to the lack of NFC or has no HCE support. This module will not provide any additonal benefits for you.");
         builder.setCancelable(false);
         builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
             @Override
