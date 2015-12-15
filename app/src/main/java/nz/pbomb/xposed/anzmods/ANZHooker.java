@@ -15,6 +15,7 @@ import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.XposedBridge;
 
@@ -34,7 +35,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
     }
 
     @Override
-    public void handleLoadPackage(LoadPackageParam loadPackageParam) throws Throwable {
+    public void handleLoadPackage(final LoadPackageParam loadPackageParam) throws Throwable {
         if (!loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY))
             return;
 
@@ -180,5 +181,15 @@ public class ANZHooker implements IXposedHookLoadPackage {
                 }
             }
         });
+
+
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.ak", loadPackageParam.classLoader, "a", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                //final Class<?> mClass = XposedHelpers.findClass("nz.co.anz.android.mobilebanking.i.e.ak", loadPackageParam.classLoader);
+                //final Class<?> mClass2 = XposedHelpers.findClass("com.bellid.mobile.seitc.api.SeitcKit", loadPackageParam.classLoader);
+                    XposedBridge.log("SeitcKit a is something:" + (param.getResult() != null));
+            }
+        }); 
     }
 }

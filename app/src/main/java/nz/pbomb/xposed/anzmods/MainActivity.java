@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         // Check if the ANZ GoMoney application is compatible with this xposed module
 
         // Get information from the GoMoney application
@@ -115,6 +114,17 @@ public class MainActivity extends AppCompatActivity {
             CheckBoxPreference rootDetectionPreference = (CheckBoxPreference) prefFragment.getPreferenceManager().findPreference(SETTINGS.KEYS.ROOT_DETECTION);
             rootDetectionPreference.setChecked(false);
             rootDetectionPreference.setEnabled(false);
+        }
+
+        if(!getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
+            tvSubMessage.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+            tvSubMessage.setText("NFC Payment not supported on this device. Spoofing Device will not add any benefits");
+
+            PreferenceFragment prefFragment = ((PreferenceFragment) getFragmentManager().findFragmentById(R.id.prefFragment));
+            CheckBoxPreference spoofDevicePreference = (CheckBoxPreference) prefFragment.getPreferenceManager().findPreference(SETTINGS.KEYS.SPOOF_DEVICE);
+            CheckBoxPreference rootDetectionPreference = (CheckBoxPreference) prefFragment.getPreferenceManager().findPreference(SETTINGS.KEYS.ROOT_DETECTION);
+            spoofDevicePreference.setChecked(false);
+            spoofDevicePreference.setEnabled(false);
         }
     }
 
