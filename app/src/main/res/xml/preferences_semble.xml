@@ -3,8 +3,8 @@
     <PreferenceCategory android:title="Available Modifications">
         <CheckBoxPreference
             android:key="sembleRootDetection"
-            android:title="@string/preferences_rootDetection_title"
-            android:summary="@string/preferences_rootDetection_summary"
+            android:title="@string/SemblePrefFragment_rootDetection_title"
+            android:summary="@string/SemblePrefFragment_rootDetection_summary"
             android:defaultValue="true"
         />
     </PreferenceCategory>

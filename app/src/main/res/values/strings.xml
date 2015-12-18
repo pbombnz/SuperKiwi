@@ -47,6 +47,11 @@
     <string name="preferences_spoofDevice_title">Spoof Device (Beta Feature)</string>
     <string name="preferences_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy Note 3) which may allow GoMoney Wallet to work.</string>
 
+
+    <!-- Semble's Preference Fragment -->
+    <string name="SemblePrefFragment_rootDetection_title">Root Detection</string>
+    <string name="SemblePrefFragment_rootDetection_summary">Enable to bypass the various root checks found in the Semble applications.</string>
+
     <!-- Dialog Alert Boxes -->
     <string name="quit_title">Restart Required</string>
     <string name="quit_message">A restart is required for your changes to be in effect.\n\n \'If Spoof Device\' was enabled you MUST clear all cache and data of the ANZ GoMoney application and relogin. So keep your Account Number and password on hand.</string>
