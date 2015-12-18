@@ -21,22 +21,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        onCreateValidation();
+    }
 
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor x = sharedPreferences.edit();
 
+    private void onCreateValidation() {
         PreferenceFragment preferenceFragment = (PreferenceFragment) getFragmentManager().findFragmentById(R.id.mainPrefFragment);
+        SharedPreferences sharedPref = getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
+
+        if(!sharedPref.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
+            sharedPrefEditor.apply();
+        }
 
         if(!isANZGoMoneyInstalled()) {
-            x.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, false);
-            x.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE,false);
-            x.apply();
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, false);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE,false);
+            sharedPrefEditor.apply();
+
             preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
         }
 
         if(!isSembleInstalled()) {
-            x.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, false);
-            x.apply();
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, false);
+            sharedPrefEditor.apply();
+
             preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
         }
     }
