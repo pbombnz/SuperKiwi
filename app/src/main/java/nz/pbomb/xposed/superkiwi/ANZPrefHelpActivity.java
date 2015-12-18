@@ -8,7 +8,7 @@ import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class HelpActivity extends AppCompatActivity {
+public class ANZPrefHelpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

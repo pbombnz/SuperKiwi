@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -62,14 +61,14 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
 
             if(subMessageTextView.getCurrentTextColor() != getResources().getColor(android.R.color.holo_red_dark)) {
                 subMessageTextView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-                subMessageTextView.setText(getResources().getString(R.string.compatibility_submessage_supported));
+                subMessageTextView.setText(getResources().getString(R.string.ANZPrefActivity_compatibility_submessage_supported));
             }
         } else {
             sharedPreferencesEditor.putBoolean(preference.getKey(), false).apply();
 
             if(subMessageTextView.getCurrentTextColor() != getResources().getColor(android.R.color.holo_red_dark)) {
                 subMessageTextView.setTextColor(getResources().getColor(android.R.color.holo_orange_dark));
-                subMessageTextView.setText(getResources().getString(R.string.compatibility_submessage_rootdetectiondisabled));
+                subMessageTextView.setText(getResources().getString(R.string.ANZPrefActivity_compatibility_submessage_rootdetectiondisabled));
             }
         }
 
@@ -106,7 +105,7 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        Intent goToNextActivity = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+        Intent goToNextActivity = new Intent(getActivity().getApplicationContext(), ANZPrefHelpActivity.class);
         startActivity(goToNextActivity);
         return true;
     }

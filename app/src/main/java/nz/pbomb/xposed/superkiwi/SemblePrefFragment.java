@@ -27,7 +27,7 @@ public class SemblePrefFragment extends PreferenceFragment implements Preference
         oldPreferences = (Map<String, Boolean>) sharedPreferences.getAll();
 
         //Find all preferences
-        getPreferenceManager().findPreference(PREFERENCES.KEYS.ROOT_DETECTION).setOnPreferenceChangeListener(this);
+        getPreferenceManager().findPreference(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION).setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -45,14 +45,14 @@ public class SemblePrefFragment extends PreferenceFragment implements Preference
 
             if(subMessageTextView.getCurrentTextColor() != getResources().getColor(android.R.color.holo_red_dark)) {
                 subMessageTextView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-                subMessageTextView.setText(getResources().getString(R.string.compatibility_submessage_supported));
+                subMessageTextView.setText(getResources().getString(R.string.ANZPrefActivity_compatibility_submessage_supported));
             }
         } else {
             sharedPreferencesEditor.putBoolean(preference.getKey(), false).apply();
 
             if(subMessageTextView.getCurrentTextColor() != getResources().getColor(android.R.color.holo_red_dark)) {
                 subMessageTextView.setTextColor(getResources().getColor(android.R.color.holo_orange_dark));
-                subMessageTextView.setText(getResources().getString(R.string.compatibility_submessage_rootdetectiondisabled));
+                subMessageTextView.setText(getResources().getString(R.string.ANZPrefActivity_compatibility_submessage_rootdetectiondisabled));
             }
         }
 

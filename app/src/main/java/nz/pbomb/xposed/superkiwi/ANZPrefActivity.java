@@ -72,14 +72,14 @@ public class ANZPrefActivity extends AppCompatActivity {
             tvMessage.setTextColor(getResources().getColor(android.R.color.holo_green_light));
             tvSubMessage.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
 
-            tvMessage.setText(R.string.compatibility_message_supported);
-            tvSubMessage.setText(R.string.compatibility_submessage_supported);
+            tvMessage.setText(R.string.ANZPrefActivity_compatibility_message_supported);
+            tvSubMessage.setText(R.string.ANZPrefActivity_compatibility_submessage_supported);
         } else {
             tvMessage.setTextColor(getResources().getColor(android.R.color.holo_red_light));
             tvSubMessage.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
 
-            tvMessage.setText(R.string.compatibility_message_notsupported);
-            tvSubMessage.setText(R.string.compatibility_submessage_notsupported);
+            tvMessage.setText(R.string.ANZPrefActivity_compatibility_message_notsupported);
+            tvSubMessage.setText(R.string.ANZPrefActivity_compatibility_submessage_notsupported);
 
             PreferenceFragment prefFragment = ((PreferenceFragment) getFragmentManager().findFragmentById(R.id.prefFragment));
             CheckBoxPreference rootDetectionPreference = (CheckBoxPreference) prefFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.ROOT_DETECTION);
