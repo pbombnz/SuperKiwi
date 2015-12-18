@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Application Preferences">
+        <Preference
+            android:key="anzPrefs"
+            android:title="@string/mainPrefFragement_anzPrefs_title"
+            android:summary="@string/mainPrefFragement_anzPrefs_summary"
+            />
+        <Preference
+            android:key="semblePrefs"
+            android:title="@string/mainPrefFragement_semblePrefs_title"
+            android:summary="@string/mainPrefFragement_semblePrefs_summary"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Other">
+        <Preference
+            android:key="donate"
+            android:title="@string/mainPrefFragement_donate_title"
+            android:summary="@string/mainPrefFragement_donate_summary"
+            />
+        <Preference
+            android:key="contact"
+            android:title="@string/mainPrefFragement_contact_title"
+            android:summary="@string/mainPrefFragement_contact_summary"
+            />
+        <Preference
+            android:key="about"
+            android:title="@string/mainPrefFragement_about_title"
+            android:summary="@string/mainPrefFragement_about_summary"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

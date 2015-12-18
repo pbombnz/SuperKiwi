@@ -21,15 +21,5 @@
             android:title="@string/preferences_help_title"
             android:summary="@string/preferences_help_summary"
             />
-        <Preference
-            android:key="contact"
-            android:title="@string/preferences_contact_title"
-            android:summary="@string/preferences_contact_summary"
-            />
-        <Preference
-            android:key="about"
-            android:title="@string/preferences_about_title"
-            android:summary="@string/preferences_about_summary"
-            />
     </PreferenceCategory>
 </PreferenceScreen>

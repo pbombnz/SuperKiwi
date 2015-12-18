@@ -6,19 +6,15 @@
         android:orderInCategory="1"
         android:title="@string/preferences_donate_title"/>
     <item
-        android:id="@+id/action_help"
-        android:orderInCategory="2"
-        android:title="@string/preferences_help_title"/>
-    <item
         android:id="@+id/action_contact"
-        android:orderInCategory="3"
+        android:orderInCategory="2"
         android:title="@string/preferences_contact_title" />
     <item
         android:id="@+id/action_sourceCode"
-        android:orderInCategory="4"
+        android:orderInCategory="3"
         android:title="Source Code" />
     <item
         android:id="@+id/action_xda"
-        android:orderInCategory="5"
+        android:orderInCategory="4"
         android:title="XDA Thread" />
 </menu>

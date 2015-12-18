@@ -1,12 +1,10 @@
-package nz.pbomb.xposed.anzmods;
+package nz.pbomb.xposed.superkiwi;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.util.StringBuilderPrinter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +21,6 @@ import static de.robv.android.xposed.XposedHelpers.setObjectField;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
-import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.XposedBridge;
 
@@ -37,7 +34,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
     private View walletSettingsFragmentView = null;
 
     public ANZHooker() {
-        sharedPreferences = new XSharedPreferences(PACKAGES.MODS);
+        sharedPreferences = new XSharedPreferences(PACKAGES.MODULE);
         //sharedPreferences.makeWorldReadable();
         //XposedBridge.log(sharedPreferences.getFile().getAbsolutePath());
     }

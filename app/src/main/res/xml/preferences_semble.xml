@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Available Modifications">
+        <CheckBoxPreference
+            android:key="rootDetection"
+            android:title="@string/preferences_rootDetection_title"
+            android:summary="@string/preferences_rootDetection_summary"
+            android:defaultValue="true"
+        />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,4 +1,4 @@
-package nz.pbomb.xposed.anzmods;
+package nz.pbomb.xposed.superkiwi;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -23,52 +23,22 @@ import common.SETTINGS;
  *
  * @author Prashant Bhikhu (PBombNZ)
  */
-public class MainActivity extends AppCompatActivity {
+public class ANZPrefActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_anz);
 
         checkNfcExists();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        Intent intent = null;
-        switch (id) {
-            case R.id.action_donate:
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QNQDESEMGWDPY"));
-                break;
-            case R.id.action_help:
-                intent = new Intent(getApplicationContext(), HelpActivity.class);
-                break;
-            case R.id.action_contact:
-                intent = new Intent(getApplicationContext(), ContactActivity.class);
-                break;
-            case R.id.action_sourceCode:
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/pbombnz/ANZGoMoneyNZMods/"));
-                break;
-            case R.id.action_xda:
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623"));
-                break;
-        }
-        startActivity(intent);
-        return true;
-    }
 
     @Override
     protected void onStart() {
         super.onStart();
         if(!getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
-            //return;
+            return;
         }
         // Check if the ANZ GoMoney application is compatible with this xposed module
 
@@ -125,13 +95,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Get the child preference fragment
-        MainActivity_PreferencesFragment preferenceFragment = (MainActivity_PreferencesFragment) getFragmentManager().findFragmentById(R.id.prefFragment);
+        ANZPrefFragment preferenceFragment = (ANZPrefFragment) getFragmentManager().findFragmentById(R.id.prefFragment);
 
         // Display a restart and warning dialog if values have been changed otherwise no message
         if(preferenceFragment.hasValuesChanged()) {
             onFinishAlertDialog();
         } else {
-            MainActivity.this.finish();
+            ANZPrefActivity.this.finish();
         }
     }
 
@@ -146,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                MainActivity.this.finish();
+                ANZPrefActivity.this.finish();
             }
         });
         AlertDialog alert = builder.create();
@@ -157,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
      * Displays the Alert Dialog when leaving the application
      */
     public void checkNfcExists() {
-        if(!getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
+        if(getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
             return;
         }
 
@@ -168,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                MainActivity.this.finish();
+                ANZPrefActivity.this.finish();
             }
         });
         AlertDialog alert = builder.create();

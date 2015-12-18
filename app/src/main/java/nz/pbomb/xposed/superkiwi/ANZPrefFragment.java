@@ -1,4 +1,4 @@
-package nz.pbomb.xposed.anzmods;
+package nz.pbomb.xposed.superkiwi;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,7 +17,7 @@ import java.util.Map;
 import common.SETTINGS;
 
 @SuppressWarnings("unchecked")
-public class MainActivity_PreferencesFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+public class ANZPrefFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
     private SharedPreferences sharedPreferences;
     private Map<String, Boolean> oldPreferences;
 
@@ -28,8 +28,8 @@ public class MainActivity_PreferencesFragment extends PreferenceFragment impleme
         // Make sure default values are applied.  In a real app, you would
         // want this in a shared function that is used to retrieve the
         // SharedPreferences wherever they are needed.
-        //PreferenceManager.setDefaultValues(getActivity(), R.xml.settings, false);
-        addPreferencesFromResource(R.xml.settings);
+        //PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences_anz, false);
+        addPreferencesFromResource(R.xml.preferences_anz);
 
         this.sharedPreferences = getActivity().getSharedPreferences(SETTINGS.SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
         oldPreferences = (Map<String, Boolean>) sharedPreferences.getAll();
@@ -39,7 +39,6 @@ public class MainActivity_PreferencesFragment extends PreferenceFragment impleme
         getPreferenceManager().findPreference(SETTINGS.KEYS.SPOOF_DEVICE).setOnPreferenceChangeListener(this);
 
         getPreferenceManager().findPreference(SETTINGS.KEYS.HELP).setOnPreferenceClickListener(this);
-        getPreferenceManager().findPreference(SETTINGS.KEYS.CONTACT).setOnPreferenceClickListener(this);
     }
 
     @Override

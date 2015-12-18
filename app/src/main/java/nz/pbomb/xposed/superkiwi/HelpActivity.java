@@ -1,9 +1,8 @@
-package nz.pbomb.xposed.anzmods;
+package nz.pbomb.xposed.superkiwi;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.LinearLayout;

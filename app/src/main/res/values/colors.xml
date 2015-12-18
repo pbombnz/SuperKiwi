@@ -2,5 +2,7 @@
 <resources>
     <color name="ANZ_DarkBlue">#003F60</color>
     <color name="ANZ_LightBlue">#0078BD</color>
-    <color name="ANZ_White">#FFFFFF</color>
+
+    <color name="Semble_LightPurple">#AA66CC</color>
+    <color name="Semble_DarkPurple">#9933CC</color>
 </resources>

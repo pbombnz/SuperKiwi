@@ -1,7 +1,27 @@
 <resources>
-    <string name="app_name">ANZ GoMoney NZ Mods</string>
+    <string name="app_name">SuperKiwi</string>
 
-    <!-- Main Activity -->
+    <!-- Activity Labels -->
+    <string name="label_main">SuperKiwi</string>
+    <string name="label_anz">ANZ GoMoney NZ Mods</string>
+    <string name="label_semble">Semble Root Detection</string>
+    <string name="label_anz_help">Help &amp; FAQ\'s</string>
+    <string name="label_main_contact">Contact Me</string>
+
+    <!-- Main Activity's Preference Fragment -->
+    <string name="mainPrefFragement_anzPrefs_title">ANZ GoMoney NZ</string>
+    <string name="mainPrefFragement_anzPrefs_summary">Displays the preferences that can be used to bypass ANZ GoMoney\'s Root Detection and have the ability to spoof your device to enable GoMoney Wallet (NFC Payment).</string>
+    <string name="mainPrefFragement_semblePrefs_title">Semble</string>
+    <string name="mainPrefFragement_semblePrefs_summary">Displays the preferences that can be used to bypass Semble\'s Root Detection</string>
+    <string name="mainPrefFragement_contact_title">Contact Me</string>
+    <string name="mainPrefFragement_contact_summary">Click here to find contact information to send me feedback and bugs notice or to simply follow me on social media for updates.</string>
+    <string name="mainPrefFragement_donate_title">Donate</string>
+    <string name="mainPrefFragement_donate_summary">If you like my work, feel free to donate. :D</string>
+    <string name="mainPrefFragement_about_title">About</string>
+    <string name="mainPrefFragement_about_summary">By Prashant B. (PBombNZ)</string>
+
+
+    <!-- ANZ Activity -->
     <string name="compatibility_message_default">Module is not compatible with your device.</string>
     <string name="compatibility_submessage_default"></string>
 
@@ -31,4 +51,5 @@
     <string name="quit_title">Restart Required</string>
     <string name="quit_message">A restart is required for your changes to be in effect.\n\n \'If Spoof Device\' was enabled you MUST clear all cache and data of the ANZ GoMoney application and relogin. So keep your Account Number and password on hand.</string>
     <string name="spoofDeviceChecked_message">In order to spoof your device you MUST clear all cache and data of the ANZ GoMoney application and re-login. So keep your Account Number and password on hand.</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

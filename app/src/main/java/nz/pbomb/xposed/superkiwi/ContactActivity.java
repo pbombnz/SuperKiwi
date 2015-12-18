@@ -1,4 +1,4 @@
-package nz.pbomb.xposed.anzmods;
+package nz.pbomb.xposed.superkiwi;
 
 import android.content.Intent;
 import android.net.Uri;
