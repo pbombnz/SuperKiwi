@@ -24,10 +24,6 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Make sure default values are applied.  In a real app, you would
-        // want this in a shared function that is used to retrieve the
-        // SharedPreferences wherever they are needed.
-        //PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences_anz, false);
         addPreferencesFromResource(R.xml.preferences_anz);
 
         this.sharedPreferences = getActivity().getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
