@@ -1,16 +1,24 @@
 package nz.pbomb.xposed.anzmods;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.util.StringBuilderPrinter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
+import java.lang.reflect.Method;
+
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
+import static de.robv.android.xposed.XposedHelpers.findClass;
+import static de.robv.android.xposed.XposedHelpers.findMethodBestMatch;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
+import static de.robv.android.xposed.XposedHelpers.setObjectField;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
@@ -177,19 +185,141 @@ public class ANZHooker implements IXposedHookLoadPackage {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
-                    param.setResult(Build.FINGERPRINT.startsWith("generic") ? "HTC M7" : "SM-N9005");
+                    param.setResult("SM-N9005");
                 }
             }
         });
 
-
-        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.ak", loadPackageParam.classLoader, "a", new XC_MethodHook() {
+        findAndHookMethod("com.google.android.gms.b.ao", loadPackageParam.classLoader, "a", String.class, String.class, String.class, String.class, String.class, String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                //final Class<?> mClass = XposedHelpers.findClass("nz.co.anz.android.mobilebanking.i.e.ak", loadPackageParam.classLoader);
-                //final Class<?> mClass2 = XposedHelpers.findClass("com.bellid.mobile.seitc.api.SeitcKit", loadPackageParam.classLoader);
-                    XposedBridge.log("SeitcKit a is something:" + (param.getResult() != null));
+                if (sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                    String str = (String) param.args[0];
+                    String str2 = (String) param.args[1];
+                    String str3 = (String) param.args[2];
+                    String str4 = (String) param.args[3];
+                    String str5 = "SM-9005";
+                    String str6 = (String) param.args[5];
+
+                    param.setResult(String.format("%s/%s (Linux; U; Android %s; %s; %s Build/%s)", new Object[]{str, str2, str3, str4, str5, str6}));
+                }
             }
-        }); 
+        });
+
+        Class<?> x = findClass("xxxxxx.ajaaaj", loadPackageParam.classLoader);
+
+        Method y = findMethodBestMatch(x,"b041604160416Ж0416ЖЖ0416", String.class);
+        XposedBridge.log(y.getName());
+        //xxxxxx.ajaaaj
+        //Build.Device
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b041604160416Ж0416ЖЖ0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                    setObjectField(param.thisObject, "f6987b044504450445", "hlte");
+                }
+            }
+        });
+        //Build.Model
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b0416ЖЖ04160416ЖЖ0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                    setObjectField(param.thisObject, "bх0445ххх04450445х", "SM-N9005");
+                }
+            }
+        });
+        //Build.Product
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416Ж04160416ЖЖ0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                    setObjectField(param.thisObject, "b04450445ххх04450445х", "hltexx");
+                }
+            }
+        });
+
+        /*//Build.BOARD
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416041604160416ЖЖ0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                    setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
+                }
+            }
+        });
+        //Build.CPU_ABI ~ WRONG
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b0416ЖЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                    setObjectField(param.thisObject, "bх04450445хх04450445х", "armeabi-v7a");
+                }
+            }
+        });
+        //Build.CPU_ABI2 ~ WRONG
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "m12118b041604160416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                    setObjectField(param.thisObject, "bх04450445хх04450445х", "armeabi");
+                }
+            }
+        });*/
+
+        //Build.MANUFACTURER
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416ЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                    setObjectField(param.thisObject, "b044504450445хх04450445х", "samsung");
+                }
+            }
+        });
+
+        //Build.BRAND
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b041604160416ЖЖ0416Ж0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                    setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
+                }
+            }
+        });
+
+        //Build.ID
+        findAndHookMethod("xxxxxx.hchchh", loadPackageParam.classLoader, "b04220422ТТ0422042204220422", android.content.Context.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                    StringBuilder sb = new StringBuilder(500);
+                    sb.append("hlte");
+                    sb.append("SM-N9005");
+                    sb.append("hltexx");
+                    sb.append("MSM8974");
+                    sb.append("samsung");
+                    sb.append("samsung");
+                    sb.append("Unknown"); //Hardware
+                    sb.append("Unknown"); //serial
+
+                    final TelephonyManager mTelephony = (TelephonyManager) ((Context) param.args[0]).getSystemService(Context.TELEPHONY_SERVICE);
+                    String myAndroidDeviceId = mTelephony.getDeviceId();
+
+                    sb.append(myAndroidDeviceId);
+
+                    param.setResult(sb.toString().getBytes());
+                }
+            }
+        });
+
+        //Build.FINGERPRINT
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "bЖ04160416ЖЖЖ04160416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                    setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
+                }
+            }
+        });
     }
 }

@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if(!getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
-            return;
+            //return;
         }
         // Check if the ANZ GoMoney application is compatible with this xposed module
 
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
      * Displays the Alert Dialog when leaving the application
      */
     public void checkNfcExists() {
-        if(getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
+        if(!getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
             return;
         }
 
