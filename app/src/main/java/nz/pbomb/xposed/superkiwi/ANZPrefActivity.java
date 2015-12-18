@@ -2,6 +2,7 @@ package nz.pbomb.xposed.superkiwi;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -26,7 +27,7 @@ public class ANZPrefActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anz);
 
-        checkNfcExists();
+        NfcValidation();
     }
 
 
@@ -112,7 +113,10 @@ public class ANZPrefActivity extends AppCompatActivity {
         builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ANZPrefActivity.this.finish();
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
         AlertDialog alert = builder.create();
@@ -122,21 +126,21 @@ public class ANZPrefActivity extends AppCompatActivity {
     /**
      * Displays the Alert Dialog when leaving the application
      */
-    public void checkNfcExists() {
+    public void NfcValidation() {
         if(getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
             return;
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Device Not Compatible");
-        builder.setMessage("Your device is not compatible due to the lack of NFC or has no HCE support. This module will not provide any additonal benefits for you.");
-        builder.setCancelable(false);
-        builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ANZPrefActivity.this.finish();
-            }
-        });
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+            .setTitle("Device Not Compatible")
+            .setMessage("Your device is not compatible due to the lack of NFC or lack of HCE support. These preferences will not provide any benefits for you.")
+            .setCancelable(false)
+            .setNeutralButton("Okay", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
         AlertDialog alert = builder.create();
         alert.show();
     }
