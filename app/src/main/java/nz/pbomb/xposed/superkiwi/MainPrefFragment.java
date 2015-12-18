@@ -7,7 +7,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 
-import common.SETTINGS;
+import common.PREFERENCES;
 
 
 public class MainPrefFragment extends PreferenceFragment implements OnPreferenceClickListener {
@@ -17,11 +17,11 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_main);
 
-        findPreference(SETTINGS.KEYS.MAIN.ANZ).setOnPreferenceClickListener(this);
-        findPreference(SETTINGS.KEYS.MAIN.SEMBLE).setOnPreferenceClickListener(this);
+        findPreference(PREFERENCES.KEYS.MAIN.ANZ).setOnPreferenceClickListener(this);
+        findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setOnPreferenceClickListener(this);
 
-        findPreference(SETTINGS.KEYS.MAIN.DONATE).setOnPreferenceClickListener(this);
-        findPreference(SETTINGS.KEYS.MAIN.CONTACT).setOnPreferenceClickListener(this);
+        findPreference(PREFERENCES.KEYS.MAIN.DONATE).setOnPreferenceClickListener(this);
+        findPreference(PREFERENCES.KEYS.MAIN.CONTACT).setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -29,13 +29,13 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
         String prefKey = preference.getKey();
         Intent intent = null;
 
-        if(prefKey.equals(SETTINGS.KEYS.MAIN.ANZ)) {
+        if(prefKey.equals(PREFERENCES.KEYS.MAIN.ANZ)) {
             intent = new Intent(getActivity().getApplicationContext(), ANZPrefActivity.class);
-        } else if(prefKey.equals(SETTINGS.KEYS.MAIN.SEMBLE)) {
+        } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.SEMBLE)) {
             intent = new Intent(getActivity().getApplicationContext(), SemblePrefActivity.class);
-        }else if(prefKey.equals(SETTINGS.KEYS.MAIN.DONATE)) {
+        }else if(prefKey.equals(PREFERENCES.KEYS.MAIN.DONATE)) {
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QNQDESEMGWDPY"));
-        } else if(prefKey.equals(SETTINGS.KEYS.MAIN.CONTACT)) {
+        } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.CONTACT)) {
             intent = new Intent(getActivity().getApplicationContext(), ContactActivity.class);
         }
         startActivity(intent);

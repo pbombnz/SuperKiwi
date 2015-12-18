@@ -2,13 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="Available Modifications">
         <CheckBoxPreference
-            android:key="rootDetection"
+            android:key="anzRootDetection"
             android:title="@string/preferences_rootDetection_title"
             android:summary="@string/preferences_rootDetection_summary"
             android:defaultValue="true"
         />
         <CheckBoxPreference
-            android:key="spoofDevice"
+            android:key="anzSpoofDevice"
             android:title="@string/preferences_spoofDevice_title"
             android:summary="@string/preferences_spoofDevice_summary"
             android:defaultValue="false"
@@ -17,7 +17,7 @@
 
     <PreferenceCategory android:title="Other">
         <Preference
-            android:key="help"
+            android:key="anzHelp"
             android:title="@string/preferences_help_title"
             android:summary="@string/preferences_help_summary"
             />

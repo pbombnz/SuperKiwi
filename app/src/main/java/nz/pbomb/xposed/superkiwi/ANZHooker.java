@@ -18,6 +18,7 @@ import static de.robv.android.xposed.XposedHelpers.findMethodBestMatch;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
 
+import common.PREFERENCES;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
@@ -25,7 +26,6 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.XposedBridge;
 
 import common.PACKAGES;
-import common.SETTINGS;
 import common.XPOSED_STRINGS;
 
 
@@ -50,7 +50,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.jejeee", loadPackageParam.classLoader, "isRooted", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.ROOT_DETECTION, SETTINGS.DEFAULT_VALUES.ROOT_DETECTION)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -59,7 +59,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.jejeee", loadPackageParam.classLoader, "isRootedQuickCheck", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.ROOT_DETECTION, SETTINGS.DEFAULT_VALUES.ROOT_DETECTION)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -68,7 +68,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.jejeee", loadPackageParam.classLoader, "isDebug", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.ROOT_DETECTION, SETTINGS.DEFAULT_VALUES.ROOT_DETECTION)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -82,7 +82,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("nz.co.anz.android.mobilebanking.h.a.n", loadPackageParam.classLoader, "l", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.ROOT_DETECTION, SETTINGS.DEFAULT_VALUES.ROOT_DETECTION)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -92,7 +92,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("nz.co.anz.android.mobilebanking.h.a.n", loadPackageParam.classLoader, "m", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.ROOT_DETECTION, SETTINGS.DEFAULT_VALUES.ROOT_DETECTION)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -102,7 +102,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.ah", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.ROOT_DETECTION, SETTINGS.DEFAULT_VALUES.ROOT_DETECTION)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -112,7 +112,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("nz.co.anz.android.mobilebanking.model.k", loadPackageParam.classLoader, "g", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.ROOT_DETECTION, SETTINGS.DEFAULT_VALUES.ROOT_DETECTION)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(true);
                 }
             }
@@ -132,9 +132,9 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("nz.co.anz.android.mobilebanking.presentation.wallet.view.WalletSettingsFragment", loadPackageParam.classLoader, "onActivateSwitchChecked", boolean.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                XposedBridge.log(String.valueOf(sharedPreferences.getBoolean(SETTINGS.KEYS.ROOT_DETECTION, SETTINGS.DEFAULT_VALUES.ROOT_DETECTION)));
+                XposedBridge.log(String.valueOf(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)));
 
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.ROOT_DETECTION, SETTINGS.DEFAULT_VALUES.ROOT_DETECTION)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     Switch activateSwitch = (Switch) getObjectField(param.thisObject, "activateSwitch");
                     //XposedBridge.log("wallet_invalid_rooted_device = false");
 
@@ -164,7 +164,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("[samsung SM-N9005]");
                 }
             }
@@ -172,7 +172,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader, "b", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("samsung SM-N9005");
                 }
             }
@@ -181,7 +181,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.u", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("SM-N9005");
                 }
             }
@@ -190,7 +190,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("com.google.android.gms.b.ao", loadPackageParam.classLoader, "a", String.class, String.class, String.class, String.class, String.class, String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if (sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     String str = (String) param.args[0];
                     String str2 = (String) param.args[1];
                     String str3 = (String) param.args[2];
@@ -212,7 +212,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b041604160416Ж0416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if (sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "f6987b044504450445", "hlte");
                 }
             }
@@ -221,7 +221,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b0416ЖЖ04160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "bх0445ххх04450445х", "SM-N9005");
                 }
             }
@@ -230,7 +230,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416Ж04160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "b04450445ххх04450445х", "hltexx");
                 }
             }
@@ -240,7 +240,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416041604160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
                 }
             }
@@ -249,7 +249,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b0416ЖЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "bх04450445хх04450445х", "armeabi-v7a");
                 }
             }
@@ -258,7 +258,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "m12118b041604160416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "bх04450445хх04450445х", "armeabi");
                 }
             }
@@ -268,7 +268,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416ЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "b044504450445хх04450445х", "samsung");
                 }
             }
@@ -278,7 +278,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b041604160416ЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
                 }
             }
@@ -288,7 +288,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.hchchh", loadPackageParam.classLoader, "b04220422ТТ0422042204220422", android.content.Context.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     StringBuilder sb = new StringBuilder(500);
                     sb.append("hlte");
                     sb.append("SM-N9005");
@@ -313,7 +313,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "bЖ04160416ЖЖЖ04160416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(sharedPreferences.getBoolean(SETTINGS.KEYS.SPOOF_DEVICE, SETTINGS.DEFAULT_VALUES.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
                 }
             }

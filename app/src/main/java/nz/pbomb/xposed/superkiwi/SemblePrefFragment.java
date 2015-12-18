@@ -1,11 +1,7 @@
 package nz.pbomb.xposed.superkiwi;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -14,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.Map;
 
-import common.SETTINGS;
+import common.PREFERENCES;
 
 @SuppressWarnings("unchecked")
 public class SemblePrefFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
@@ -25,17 +21,13 @@ public class SemblePrefFragment extends PreferenceFragment implements Preference
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Make sure default values are applied.  In a real app, you would
-        // want this in a shared function that is used to retrieve the
-        // SharedPreferences wherever they are needed.
-        //PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences_anz, false);
         addPreferencesFromResource(R.xml.preferences_semble);
 
-        this.sharedPreferences = getActivity().getSharedPreferences(SETTINGS.SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
+        this.sharedPreferences = getActivity().getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
         oldPreferences = (Map<String, Boolean>) sharedPreferences.getAll();
 
         //Find all preferences
-        getPreferenceManager().findPreference(SETTINGS.KEYS.ROOT_DETECTION).setOnPreferenceChangeListener(this);
+        getPreferenceManager().findPreference(PREFERENCES.KEYS.ROOT_DETECTION).setOnPreferenceChangeListener(this);
     }
 
     @Override

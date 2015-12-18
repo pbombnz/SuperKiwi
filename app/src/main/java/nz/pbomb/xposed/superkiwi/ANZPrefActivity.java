@@ -2,20 +2,16 @@ package nz.pbomb.xposed.superkiwi;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.content.pm.PackageInfo;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 import common.PACKAGES;
-import common.SETTINGS;
+import common.PREFERENCES;
 
 
 /**
@@ -86,7 +82,7 @@ public class ANZPrefActivity extends AppCompatActivity {
             tvSubMessage.setText(R.string.compatibility_submessage_notsupported);
 
             PreferenceFragment prefFragment = ((PreferenceFragment) getFragmentManager().findFragmentById(R.id.prefFragment));
-            CheckBoxPreference rootDetectionPreference = (CheckBoxPreference) prefFragment.getPreferenceManager().findPreference(SETTINGS.KEYS.ROOT_DETECTION);
+            CheckBoxPreference rootDetectionPreference = (CheckBoxPreference) prefFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.ROOT_DETECTION);
             rootDetectionPreference.setChecked(false);
             rootDetectionPreference.setEnabled(false);
         }

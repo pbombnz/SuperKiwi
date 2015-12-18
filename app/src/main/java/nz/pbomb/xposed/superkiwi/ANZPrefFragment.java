@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.Map;
 
-import common.SETTINGS;
+import common.PREFERENCES;
 
 @SuppressWarnings("unchecked")
 public class ANZPrefFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -31,21 +31,21 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
         //PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences_anz, false);
         addPreferencesFromResource(R.xml.preferences_anz);
 
-        this.sharedPreferences = getActivity().getSharedPreferences(SETTINGS.SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
+        this.sharedPreferences = getActivity().getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
         oldPreferences = (Map<String, Boolean>) sharedPreferences.getAll();
 
         //Find all preferences
-        getPreferenceManager().findPreference(SETTINGS.KEYS.ROOT_DETECTION).setOnPreferenceChangeListener(this);
-        getPreferenceManager().findPreference(SETTINGS.KEYS.SPOOF_DEVICE).setOnPreferenceChangeListener(this);
+        getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.ROOT_DETECTION).setOnPreferenceChangeListener(this);
+        getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE).setOnPreferenceChangeListener(this);
 
-        getPreferenceManager().findPreference(SETTINGS.KEYS.HELP).setOnPreferenceClickListener(this);
+        getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.HELP).setOnPreferenceClickListener(this);
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if(preference.getKey().equals(SETTINGS.KEYS.ROOT_DETECTION)) {
+        if(preference.getKey().equals(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
             return onRootDetectionPreferenceChange(preference, newValue);
-        } else /*if(preference.getKey().equals(SETTINGS.KEYS.SPOOF_DEVICE))*/ {
+        } else /*if(preference.getKey().equals(PREFERENCES.KEYS.SPOOF_DEVICE))*/ {
             return onSpoofDevicePreferenceChange(preference, newValue);
         } /*else {
             return false;
@@ -106,16 +106,8 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        if(preference.getKey().equals(SETTINGS.KEYS.HELP)) {
-            Intent goToNextActivity = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-            startActivity(goToNextActivity);
-        } else if(preference.getKey().equals(SETTINGS.KEYS.DONATE)) {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QNQDESEMGWDPY"));
-            startActivity(browserIntent);
-        } else if(preference.getKey().equals(SETTINGS.KEYS.CONTACT)) {
-            Intent goToNextActivity = new Intent(getActivity().getApplicationContext(), ContactActivity.class);
-            startActivity(goToNextActivity);
-        }
+        Intent goToNextActivity = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+        startActivity(goToNextActivity);
         return true;
     }
 
