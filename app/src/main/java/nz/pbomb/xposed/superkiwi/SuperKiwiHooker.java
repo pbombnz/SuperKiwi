@@ -29,11 +29,11 @@ import common.PACKAGES;
 import common.XPOSED_STRINGS;
 
 
-public class ANZHooker implements IXposedHookLoadPackage {
+public class SuperKiwiHooker implements IXposedHookLoadPackage {
     private XSharedPreferences sharedPreferences;
     private View walletSettingsFragmentView = null;
 
-    public ANZHooker() {
+    public SuperKiwiHooker() {
         sharedPreferences = new XSharedPreferences(PACKAGES.MODULE);
         //sharedPreferences.makeWorldReadable();
         //XposedBridge.log(sharedPreferences.getFile().getAbsolutePath());
@@ -198,7 +198,7 @@ public class ANZHooker implements IXposedHookLoadPackage {
                     String str5 = "SM-9005";
                     String str6 = (String) param.args[5];
 
-                    param.setResult(String.format("%s/%s (Linux; U; Android %s; %s; %s Build/%s)", new Object[]{str, str2, str3, str4, str5, str6}));
+                    param.setResult(String.format("%s/%s (Linux; U; Android %s; %s; %s Build/%s)", str, str2, str3, str4, str5, str6));
                 }
             }
         });
