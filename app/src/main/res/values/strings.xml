@@ -3,9 +3,9 @@
 
     <!-- Activity Labels -->
     <string name="label_main">SuperKiwi</string>
-    <string name="label_anz">ANZ GoMoney NZ Mods</string>
-    <string name="label_semble">Semble Root Detection Bypasss</string>
-    <string name="label_anz_help">Help &amp; FAQ\'s</string>
+    <string name="label_anz">ANZ GoMoney NZ Tweaks</string>
+    <string name="label_semble">Semble Tweaks</string>
+    <string name="label_help">Help &amp; FAQ\'s</string>
     <string name="label_main_contact">Contact Me</string>
 
     <!-- Main Activity's Settings -->
@@ -57,5 +57,4 @@
     <string name="quit_title">Restart Required</string>
     <string name="quit_message">A restart is required for your changes to be in effect.\n\n \'If Spoof Device\' was enabled you MUST clear all cache and data of the ANZ GoMoney application and relogin. So keep your Account Number and password on hand.</string>
     <string name="spoofDeviceChecked_message">In order to spoof your device you MUST clear all cache and data of the ANZ GoMoney application and re-login. So keep your Account Number and password on hand.</string>
-    <string name="title_activity_main">MainActivity</string>
 </resources>
