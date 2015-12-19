@@ -16,7 +16,7 @@ import java.util.Map;
 import common.PREFERENCES;
 
 @SuppressWarnings("unchecked")
-public class ANZPrefFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+public class ANZPrefFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
     private SharedPreferences sharedPreferences;
     private Map<String, Boolean> oldPreferences;
 
@@ -32,8 +32,6 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
         //Find all preferences
         getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.ROOT_DETECTION).setOnPreferenceChangeListener(this);
         getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE).setOnPreferenceChangeListener(this);
-
-        getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.HELP).setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -99,12 +97,6 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
         return false;
     }
 
-    @Override
-    public boolean onPreferenceClick(Preference preference) {
-        Intent goToNextActivity = new Intent(getActivity().getApplicationContext(), ANZPrefHelpActivity.class);
-        startActivity(goToNextActivity);
-        return true;
-    }
 
     /**
      * Displays the Alert Dialog when leaving the application

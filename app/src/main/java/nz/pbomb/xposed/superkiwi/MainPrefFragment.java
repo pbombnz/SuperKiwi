@@ -20,6 +20,7 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
         findPreference(PREFERENCES.KEYS.MAIN.ANZ).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setOnPreferenceClickListener(this);
 
+        findPreference(PREFERENCES.KEYS.MAIN.HELP).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.DONATE).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.CONTACT).setOnPreferenceClickListener(this);
     }
@@ -33,7 +34,9 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
             intent = new Intent(getActivity().getApplicationContext(), ANZPrefActivity.class);
         } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.SEMBLE)) {
             intent = new Intent(getActivity().getApplicationContext(), SemblePrefActivity.class);
-        }else if(prefKey.equals(PREFERENCES.KEYS.MAIN.DONATE)) {
+        } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.HELP)) {
+            intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+        } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.DONATE)) {
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QNQDESEMGWDPY"));
         } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.CONTACT)) {
             intent = new Intent(getActivity().getApplicationContext(), ContactActivity.class);

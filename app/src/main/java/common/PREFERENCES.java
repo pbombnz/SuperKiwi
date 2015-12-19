@@ -18,8 +18,6 @@ public final class PREFERENCES {
         public static final class ANZ {
             public static final String ROOT_DETECTION = "anzRootDetection";
             public static final String SPOOF_DEVICE = "anzSpoofDevice";
-
-            public static final String HELP = "anzHelp";
         }
 
         public static final class SEMBLE {
@@ -30,6 +28,7 @@ public final class PREFERENCES {
             public static final String ANZ = "anzPrefs";
             public static final String SEMBLE = "semblePrefs";
 
+            public static final String HELP = "help";
             public static final String DONATE = "donate";
             public static final String CONTACT = "contact";
         }

@@ -14,12 +14,4 @@
             android:defaultValue="false"
         />
     </PreferenceCategory>
-
-    <PreferenceCategory android:title="Other">
-        <Preference
-            android:key="anzHelp"
-            android:title="@string/preferences_help_title"
-            android:summary="@string/preferences_help_summary"
-            />
-    </PreferenceCategory>
 </PreferenceScreen>

@@ -24,12 +24,19 @@ public class MainActivity extends AppCompatActivity {
         onCreateValidation();
     }
 
-
+    /**
+     * Validates operations when the application is created. Firstly check that the
+     * SharedPreferences exist and if it doesn't then create the SharedPreferences accordingly.
+     * Also checks whether either ANZ or Semble (any version) is installed
+     */
     private void onCreateValidation() {
+        // Get the preference fragment displayed on this activity
         PreferenceFragment preferenceFragment = (PreferenceFragment) getFragmentManager().findFragmentById(R.id.mainPrefFragment);
+        // Get the SharedPreferences for this module (and produce and editor as well)
         SharedPreferences sharedPref = getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
 
+        // Create the SharedPreferences and set the defaults if they aren't already created
         if(!sharedPref.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
@@ -37,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
             sharedPrefEditor.apply();
         }
 
+        // Checks if ANZ GoMoney is installed and if its not disable the preference option in the
+        // fragment and disable any related modifications
         if(!isANZGoMoneyInstalled()) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, false);
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE,false);
@@ -45,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
         }
 
+        // Checks if Semble is installed and if its not disable the preference option in the
+        // fragment and disable any related modifications
         if(!isSembleInstalled()) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, false);
             sharedPrefEditor.apply();
@@ -55,15 +66,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);  // Creates menu
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Determine which MenuItem was pressed and act accordingly based on the button pressed
         int id = item.getItemId();
         Intent intent = null;
         switch (id) {
+            case R.id.action_help:
+                intent = new Intent(getApplicationContext(), HelpActivity.class);
+                break;
             case R.id.action_donate:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QNQDESEMGWDPY"));
                 break;
@@ -81,15 +96,31 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
+    /**
+     * Checks if the ANZ GoMoney Application is installed.
+     *
+     * @return True if it is installed, otherwise return false.
+     */
     private boolean isANZGoMoneyInstalled() {
         return isApplicationInstalled(PACKAGES.ANZ_GOMONEY);
     }
 
+    /**
+     *  Checks if any of the Semble Application variants (from either 2Degrees, Spark or Vodafone
+     *  are installed.
+     *
+     * @return True if it is installed, otherwise return false.
+     */
     private boolean isSembleInstalled() {
         return isApplicationInstalled(PACKAGES.SEMBLE_2DEGREES) || isApplicationInstalled(PACKAGES.SEMBLE_SPARK) || isApplicationInstalled(PACKAGES.SEMBLE_VODAFONE);
     }
 
+    /**
+     * Determines if an application is installed or not
+     *
+     * @param uri The package name of the application
+     * @return True, if the package is installed, otherwise false
+     */
     private boolean isApplicationInstalled(String uri) {
         PackageManager pm = getPackageManager();
         boolean appInstalled;

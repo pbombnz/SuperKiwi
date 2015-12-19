@@ -15,6 +15,11 @@
 
     <PreferenceCategory android:title="Other">
         <Preference
+            android:key="help"
+            android:title="@string/preferences_help_title"
+            android:summary="@string/preferences_help_summary"
+        />
+        <Preference
             android:key="donate"
             android:title="@string/MainPrefFragement_donate_title"
             android:summary="@string/MainPrefFragement_donate_summary"

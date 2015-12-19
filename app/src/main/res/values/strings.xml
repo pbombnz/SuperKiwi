@@ -9,6 +9,7 @@
     <string name="label_main_contact">Contact Me</string>
 
     <!-- Main Activity's Settings -->
+    <string name="MainPrefActivity_settings_help">Help &amp; FAQ\'s</string>
     <string name="MainPrefActivity_settings_donate">Donate</string>
     <string name="MainPrefActivity_settings_contact">Contact Me</string>
     <string name="MainPrefActivity_settings_sourceCode">Source Code</string>

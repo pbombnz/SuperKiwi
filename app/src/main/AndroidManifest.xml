@@ -40,7 +40,7 @@
         </activity>
 
         <activity
-            android:name=".ANZPrefHelpActivity"
+            android:name=".HelpActivity"
             android:label="@string/label_anz_help"
             android:theme="@style/AnzTheme" />
 

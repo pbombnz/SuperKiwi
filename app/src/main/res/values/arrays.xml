@@ -4,48 +4,59 @@
         <item>5.0.7</item>
     </string-array>
 
-    <string-array name="helpActivity_questions">
+    <string-array name="helpQuestions_General">
         <item>What is this?</item>
-        <item>Does it work?</item>
         <item>What happens if my device malfunctions or gets bricked?</item>
-        <item>Why do I need to spoof my device?</item>
-        <item>What happens if ANZ GoMoney Mods says that it is not compatible?</item>
         <item>But can\'t I just use RootCloak?</item>
         <item>How do we know your not storing our sensitive account information?</item>
-        <item>Does this work for ANZ GoMoney Australia?</item>
-        <item></item>
     </string-array>
 
-    <string-array name="helpActivity_answers">
+    <string-array name="helpAnswers_General">
         <item>
-            This is a Xposed application which hooks on the ANZ GoMoney to bypass
-            certain checks the application does so we can use rooted and non-supported devices
-            with GoMoney Wallet (NFC Payment).
+            This is a Xposed application which hooks on the ANZ GoMoney and/or Semble to bypass
+            certain root checks the application does so we can use rooted and non-supported devices
+            with GoMoney Wallet or Semble Services respectively.
         </item>
         <item>
-            Theoretically yes, the code should work but in reality is another question all together.
-            Since I do not go out shopping everyday or each time I modify this app, I rely on the
-            theory that it will work. I also only have one NFC-enabled rooted device so
-            my testing in the real world is also very limited. You as the end-user of this
-            application, are also a beta tester. I would like to hear your experience with this
-            application, whether it worked or not. Everyone\'s feedback is vital to me.
-        </item>
-        <item>
-            Tough. As a rooted user I suspect you knew the risks. I placed a disclaimer that when
-            GoMoney Wallet is enabled, nor I or ANZ will be responsible for any worst case
-            scenarios. To avoid bricking, do a full backup just in case anything happens.
+            As a rooted user I suspect you knew the risks. I placed a disclaimer within this
+            application that states I, ANZ or Semble and their partners will not be responsible
+            for any worst case scenarios. To avoid bricking, do a full (nandroid) backup just in
+            case anything happens. The likelihood of something happening is very slim, but don\'t
+            take unnecessary chances.
+
             USE AT YOUR OWN RISK, YOU HAVE BEEN WARNED.
         </item>
         <item>
-            You don\'t actually need this enabled. You only need to spoof your device if your
-            mobile phone is not on the ANZ GoMoney Compatibility List. Also this does not guarantee
-            that NFC payment will work. There are some devices out there that simply will never work
-            due to software or hardware restrictions. Furthermore, this app does NOT modify
-            \'build.prop\' so it will only affect the ANZ GoMoney application, not the entire
-            system which would be impractical.
+            RootCloak rarely works for banking applications as the source code used is too generic
+            to target all applications hence why it doesn\'t work for Semble or ANZ GoMoney hence
+            why this application was created.
+        </item>
+        <item>
+            I have no intention of doing that. If you are truly paranoid, the source code is on
+            GitHub which can be viewed on the main menu of this module. There you can see for
+            yourself that there is no code storing bank information.
+        </item>
+    </string-array>
+
+    <string-array name="helpQuestions_ANZ">
+        <item>Why does the "Spoof Device" feature do?</item>
+        <item>What happens if ANZ GoMoney NZ Mods says that it is not compatible?</item>
+        <item>Does this work for ANZ GoMoney Australia?</item>
+        <item/>
+    </string-array>
+
+    <string-array name="helpAnswers_ANZ">
+        <item>
+            This changes the way your device appears to ANZ GoMoney application. You only need
+            this enabled if your mobile phone is not on the ANZ GoMoney Compatibility List but
+            know it has NFC with HCE support. Also this does not guarantee that NFC payment will
+            work as this is a Beta feature but also because yhere are some devices out there that
+            simply will never work due to software or hardware restrictions. Furthermore, this app
+            does NOT modify \'build.prop\' so it will only affect the ANZ GoMoney application, not
+            the entire system which would be impractical.
             \n\n
             If spoofing is enabled, you MUST clear all cache and data of the ANZ GoMoney
-            application and relogin. So keep your Account Number and password on hand.
+            application and re-login. So keep your Account Number and password on hand.
         </item>
         <item>
             Then Root detection (and device spoofing if enabled) is disabled. This may mean that
@@ -65,19 +76,10 @@
             10. Done!
         </item>
         <item>
-            I tried it and it didn\'t work for me. But if it works for you thats great.
+            No. I think the ANZ GoMoney Australia application is different from the New Zealand
+            version therefore don\'t expect compatibility even after Australia gets NFC Mobile
+            Payment features. AND STOP CLAIMING THE PAVLOVA IS YOURS!!!
         </item>
-        <item>
-            I have no intention of doing that. If you are truly paranoid, the sourcecode is
-            released which can be viewed on the main menu of this module. There you can see for
-            yourself that there is no code storing bank information.
-        </item>
-        <item>
-            No. I think the application of the ANZ GoMoney Australia application is different from
-            the New Zealand one. Therefore dont expect compatibility even after Australia gets NFC
-            Mobile Payment features but there MIGHT be a chance. AND STOP CLAIMING THE PAVLOVA
-            IS YOURS!!!
-        </item>
-        <item></item>
+        <item/>
     </string-array>
 </resources>
