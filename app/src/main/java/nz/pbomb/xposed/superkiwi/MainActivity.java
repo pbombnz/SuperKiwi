@@ -1,6 +1,8 @@
 package nz.pbomb.xposed.superkiwi;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -9,11 +11,13 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import common.PACKAGES;
 import common.PREFERENCES;
+import common.XPOSED_STRINGS;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         onCreateValidation();
+        createDisclaimerDialog();
     }
 
     /**
@@ -70,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Checks if Semble is installed and if its not disable the preference option in the
         // fragment and disable any related modifications
+        Log.e("SuperKiwiHooker", "isSembleInstalled - " +String.valueOf(isSembleInstalled()));
         if(!isSembleInstalled()) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, false);
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, false);
@@ -155,5 +161,19 @@ public class MainActivity extends AppCompatActivity {
             appInstalled = false;
         }
         return appInstalled;
+    }
+
+    private void createDisclaimerDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setCancelable(false);
+        alertDialog.setTitle(XPOSED_STRINGS.DISCLAIMER_TITLE);
+        alertDialog.setMessage(XPOSED_STRINGS.DISCLAIMER_SUMMARY);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 }

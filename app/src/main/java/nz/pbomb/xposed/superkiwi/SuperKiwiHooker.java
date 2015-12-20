@@ -1,21 +1,13 @@
 package nz.pbomb.xposed.superkiwi;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Switch;
 
 import java.lang.reflect.Method;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.findMethodBestMatch;
-import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
 
 import common.PREFERENCES;
@@ -26,12 +18,11 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.XposedBridge;
 
 import common.PACKAGES;
-import common.XPOSED_STRINGS;
 
 
 public class SuperKiwiHooker implements IXposedHookLoadPackage {
     private XSharedPreferences sharedPreferences;
-    private View walletSettingsFragmentView = null;
+    //private View walletSettingsFragmentView = null;
 
     public SuperKiwiHooker() {
         sharedPreferences = new XSharedPreferences(PACKAGES.MODULE);
@@ -118,13 +109,13 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
     @Override
     public void handleLoadPackage(final LoadPackageParam loadPackageParam) throws Throwable {
         //XposedBridge.log("[SuperKiwiHooker] LoadPackageParam - "+loadPackageParam.packageName);
-        if (!(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY) ||
+        /*if (!(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY) ||
             loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
             loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
             loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE))) {
             XposedBridge.log("[SuperKiwiHooker] LoadPackageParam - "+loadPackageParam.packageName);
             return;
-        }
+        }*/
 
         if(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY)) {
             XposedBridge.log("[SuperKiwiHooker] LoadPackageParam - ANZ Found and Hooked");
@@ -218,7 +209,7 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
         /**
          * Display Disclaimer Hooks
          */
-        findAndHookMethod("nz.co.anz.android.mobilebanking.presentation.wallet.view.WalletSettingsFragment", loadPackageParam.classLoader, "onCreateView", LayoutInflater.class, ViewGroup.class, Bundle.class,  new XC_MethodHook() {
+        /*findAndHookMethod("nz.co.anz.android.mobilebanking.presentation.wallet.view.WalletSettingsFragment", loadPackageParam.classLoader, "onCreateView", LayoutInflater.class, ViewGroup.class, Bundle.class,  new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 walletSettingsFragmentView = (View) param.getResult();
@@ -251,7 +242,7 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
                     }
                 }
             }
-        });
+        });*/
 
 
         /**

@@ -9,6 +9,7 @@
         <item>What happens if my device malfunctions or gets bricked?</item>
         <item>But can\'t I just use RootCloak?</item>
         <item>How do we know your not storing our sensitive account information?</item>
+        <item>How come the ANZ GoMoney NZ or Semble preferences is disabled on my device?</item>
     </string-array>
 
     <string-array name="helpAnswers_General">
@@ -35,6 +36,12 @@
             I have no intention of doing that. If you are truly paranoid, the source code is on
             GitHub which can be viewed on the main menu of this module. There you can see for
             yourself that there is no code storing bank information.
+        </item>
+        <item>
+            If an option is disabled it means that either ANZ GoMoney NZ or any variant of Semble
+            is not installed depending on which option is disabled. For instance, if I dont have
+            any of the variants of Semble (either from Vodafone, 2Degrees of Spark), the option
+            is disabled because it would provide no additional benefits of having it enabled.
         </item>
     </string-array>
 
