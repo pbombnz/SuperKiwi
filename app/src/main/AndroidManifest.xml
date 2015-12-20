@@ -41,8 +41,7 @@
 
         <activity
             android:name="nz.pbomb.xposed.anzmods.HelpActivity"
-            android:label="@string/label_help"
-            android:theme="@style/AnzTheme" />
+            android:label="@string/label_help" />
 
         <activity
             android:name="nz.pbomb.xposed.anzmods.ContactActivity"
