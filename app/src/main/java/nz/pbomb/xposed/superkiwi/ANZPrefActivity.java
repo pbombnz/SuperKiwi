@@ -82,7 +82,7 @@ public class ANZPrefActivity extends AppCompatActivity {
             tvMessage.setText(R.string.ANZPrefActivity_compatibility_message_notsupported);
             tvSubMessage.setText(R.string.ANZPrefActivity_compatibility_submessage_notsupported);
 
-            PreferenceFragment prefFragment = ((PreferenceFragment) getFragmentManager().findFragmentById(R.id.prefFragment));
+            PreferenceFragment prefFragment = ((PreferenceFragment) getFragmentManager().findFragmentById(R.id.anz_prefFragment));
             CheckBoxPreference rootDetectionPreference = (CheckBoxPreference) prefFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.ROOT_DETECTION);
             rootDetectionPreference.setChecked(false);
             rootDetectionPreference.setEnabled(false);
@@ -92,7 +92,7 @@ public class ANZPrefActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Get the child preference fragment
-        ANZPrefFragment preferenceFragment = (ANZPrefFragment) getFragmentManager().findFragmentById(R.id.prefFragment);
+        ANZPrefFragment preferenceFragment = (ANZPrefFragment) getFragmentManager().findFragmentById(R.id.anz_prefFragment);
 
         // Display a restart and warning dialog if values have been changed otherwise no message
         if(preferenceFragment.hasValuesChanged()) {
@@ -107,8 +107,8 @@ public class ANZPrefActivity extends AppCompatActivity {
      */
     public void onFinishAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getResources().getString(R.string.quit_title));
-        builder.setMessage(getResources().getString(R.string.quit_message));
+        builder.setTitle(getResources().getString(R.string.ANZPrefActivity_quit_title));
+        builder.setMessage(getResources().getString(R.string.ANZPrefActivity_quit_message));
         builder.setCancelable(false);
         builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
             @Override

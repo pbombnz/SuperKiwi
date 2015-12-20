@@ -54,7 +54,10 @@
     <string name="SemblePrefFragment_rootDetection_summary">Enable to bypass the various root checks found in the Semble applications.</string>
 
     <!-- Dialog Alert Boxes -->
-    <string name="quit_title">Restart Required</string>
-    <string name="quit_message">A restart is required for your changes to be in effect.\n\n \'If Spoof Device\' was enabled you MUST clear all cache and data of the ANZ GoMoney application and relogin. So keep your Account Number and password on hand.</string>
-    <string name="spoofDeviceChecked_message">In order to spoof your device you MUST clear all cache and data of the ANZ GoMoney application and re-login. So keep your Account Number and password on hand.</string>
+    <string name="ANZPrefActivity_quit_title">Restart Required</string>
+    <string name="ANZPrefActivity_quit_message">A restart is required for your changes to be in effect.\n\n \'If Spoof Device\' was enabled you MUST clear all cache and data of the ANZ GoMoney application and relogin. So keep your Account Number and password on hand.</string>
+    <string name="ANZPrefActivity_spoofDeviceChecked_message">In order to spoof your device you MUST clear all cache and data of the ANZ GoMoney application and re-login. So keep your Account Number and password on hand.</string>
+
+    <string name="SemblePrefActivity_quit_title">Restart Required</string>
+    <string name="SemblePrefActivity_quit_message">A restart is required for your changes to be in effect.\n\n You might have clear all cache and data of the Semble application and re-login. So keep your login information on hand. Although its very unlikely you\'ll need to do clear data with Semble (unlike ANZ GoMoney NZ)</string>
 </resources>

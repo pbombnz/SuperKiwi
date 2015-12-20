@@ -103,7 +103,7 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
      */
     public void displaypoofDeviceCheckedAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(getResources().getString(R.string.spoofDeviceChecked_message));
+        builder.setMessage(getResources().getString(R.string.ANZPrefActivity_spoofDeviceChecked_message));
         builder.setCancelable(false);
         builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
             @Override
