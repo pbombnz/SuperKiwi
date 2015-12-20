@@ -1,4 +1,4 @@
-package nz.pbomb.xposed.superkiwi;
+package nz.pbomb.xposed.anzmods;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

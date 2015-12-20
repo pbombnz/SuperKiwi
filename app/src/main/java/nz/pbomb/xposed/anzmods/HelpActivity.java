@@ -1,4 +1,4 @@
-package nz.pbomb.xposed.superkiwi;
+package nz.pbomb.xposed.anzmods;
 
 import android.graphics.Typeface;
 import android.os.Bundle;

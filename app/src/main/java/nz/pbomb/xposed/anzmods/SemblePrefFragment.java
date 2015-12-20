@@ -1,4 +1,4 @@
-package nz.pbomb.xposed.superkiwi;
+package nz.pbomb.xposed.anzmods;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.widget.TextView;
 
 import java.util.Map;
 

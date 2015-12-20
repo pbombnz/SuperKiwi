@@ -7,6 +7,6 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="nz.pbomb.xposed.superkiwi.MainPrefFragment"
+        android:name="nz.pbomb.xposed.anzmods.MainPrefFragment"
         android:id="@+id/mainPrefFragment" />
 </LinearLayout>
