@@ -3,7 +3,9 @@ package nz.pbomb.xposed.superkiwi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,42 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
         sharedPreferences = new XSharedPreferences(PACKAGES.MODULE);
         //sharedPreferences.makeWorldReadable();
         //XposedBridge.log(sharedPreferences.getFile().getAbsolutePath());
+    }
+
+    /**
+     * Validates operations when like checking whether the SharedPreferences exist and if it
+     * doesn't then create the SharedPreferences accordingly.
+     */
+    private void sharedPreferencesValidation() {
+        // Get the SharedPreferences for this module (and produce and editor as well)
+        SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
+
+        // Create the SharedPreferences and set the defaults if they aren't already created
+        if(!sharedPreferences.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
+            sharedPrefEditor.apply();
+        }
+
+        /*// Checks if ANZ GoMoney is installed and if its not disable the preference option in the
+        // fragment and disable any related modifications
+        if(!isANZGoMoneyInstalled()) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, false);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE,false);
+            sharedPrefEditor.apply();
+
+            preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
+        }
+
+        // Checks if Semble is installed and if its not disable the preference option in the
+        // fragment and disable any related modifications
+        if(!isSembleInstalled()) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, false);
+            sharedPrefEditor.apply();
+
+            preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
+        }*/
     }
 
     @Override
