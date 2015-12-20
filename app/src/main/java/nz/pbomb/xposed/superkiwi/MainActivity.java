@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
+
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED, PREFERENCES.DEFAULT_VALUES.OTHER.ANZ_INSTALLED);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, PREFERENCES.DEFAULT_VALUES.OTHER.SEMBLE_INSTALLED);
+
             sharedPrefEditor.apply();
         }
 
@@ -48,19 +52,38 @@ public class MainActivity extends AppCompatActivity {
         // fragment and disable any related modifications
         if(!isANZGoMoneyInstalled()) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, false);
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE,false);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, false);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED, false);
             sharedPrefEditor.apply();
 
             preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
+        } else {
+            // If the ANZ GoMoney application has been installed recently, re-enable the default preferences
+            if(!sharedPref.getBoolean(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED, PREFERENCES.DEFAULT_VALUES.OTHER.ANZ_INSTALLED)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED, true);
+
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
+            }
+
         }
 
         // Checks if Semble is installed and if its not disable the preference option in the
         // fragment and disable any related modifications
         if(!isSembleInstalled()) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, false);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, false);
             sharedPrefEditor.apply();
 
             preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
+        } else {
+            // If the Semble application has been installed recently, re-enable the default preferences
+            if(!sharedPref.getBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, PREFERENCES.DEFAULT_VALUES.OTHER.SEMBLE_INSTALLED)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, true);
+
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
+            }
+
         }
     }
 

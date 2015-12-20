@@ -12,6 +12,11 @@ public final class PREFERENCES {
         public static final class SEMBLE {
             public static final boolean ROOT_DETECTION = true;
         }
+
+        public static final class OTHER {
+            public static final boolean ANZ_INSTALLED = true;
+            public static final boolean SEMBLE_INSTALLED = true;
+        }
     }
 
     public static final class KEYS {
@@ -31,6 +36,11 @@ public final class PREFERENCES {
             public static final String HELP = "help";
             public static final String DONATE = "donate";
             public static final String CONTACT = "contact";
+        }
+
+        public static final class OTHER {
+            public static final String ANZ_INSTALLED = "anzInstalled";
+            public static final String SEMBLE_INSTALLED = "sembleInstalled";
         }
     }
 }

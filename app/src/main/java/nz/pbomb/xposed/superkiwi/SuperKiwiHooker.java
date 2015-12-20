@@ -3,9 +3,7 @@ package nz.pbomb.xposed.superkiwi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,51 +35,111 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
 
     public SuperKiwiHooker() {
         sharedPreferences = new XSharedPreferences(PACKAGES.MODULE);
+        //sharedPreferencesValidation();
         //sharedPreferences.makeWorldReadable();
         //XposedBridge.log(sharedPreferences.getFile().getAbsolutePath());
     }
 
-    /**
-     * Validates operations when like checking whether the SharedPreferences exist and if it
-     * doesn't then create the SharedPreferences accordingly.
-     */
-    private void sharedPreferencesValidation() {
+    /*private void sharedPreferencesValidation() {
         // Get the SharedPreferences for this module (and produce and editor as well)
+        SharedPreferences sharedPref = sharedPreferences;
         SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
 
         // Create the SharedPreferences and set the defaults if they aren't already created
-        if(!sharedPreferences.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
+        if(!sharedPref.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
+
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED, PREFERENCES.DEFAULT_VALUES.OTHER.ANZ_INSTALLED);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, PREFERENCES.DEFAULT_VALUES.OTHER.SEMBLE_INSTALLED);
+
             sharedPrefEditor.apply();
         }
 
-        /*// Checks if ANZ GoMoney is installed and if its not disable the preference option in the
+        // Checks if ANZ GoMoney is installed and if its not disable the preference option in the
         // fragment and disable any related modifications
         if(!isANZGoMoneyInstalled()) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, false);
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE,false);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, false);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED, false);
             sharedPrefEditor.apply();
+        } else {
+            // If the ANZ GoMoney application has been installed recently, re-enable the default preferences
+            if(!sharedPref.getBoolean(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED, PREFERENCES.DEFAULT_VALUES.OTHER.ANZ_INSTALLED)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED, true);
 
-            preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
+            }
+
         }
 
         // Checks if Semble is installed and if its not disable the preference option in the
         // fragment and disable any related modifications
         if(!isSembleInstalled()) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, false);
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, false);
             sharedPrefEditor.apply();
+        } else {
+            // If the Semble application has been installed recently, re-enable the default preferences
+            if(!sharedPref.getBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, PREFERENCES.DEFAULT_VALUES.OTHER.SEMBLE_INSTALLED)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, true);
 
-            preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
-        }*/
-    }
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
+            }
+
+        }
+    }*/
+
+
+    /*private boolean isANZGoMoneyInstalled() {
+        return isApplicationInstalled(PACKAGES.ANZ_GOMONEY);
+    }*/
+
+    /*private boolean isSembleInstalled() {
+        return isApplicationInstalled(PACKAGES.SEMBLE_2DEGREES) || isApplicationInstalled(PACKAGES.SEMBLE_SPARK) || isApplicationInstalled(PACKAGES.SEMBLE_VODAFONE);
+    }*/
+
+    /*private boolean isApplicationInstalled(String uri) {
+        Activity mainActivity = (Activity) XposedHelpers.newInstance(MainActivity.class);
+        PackageManager pm = mainActivity.getPackageManager();
+        boolean appInstalled;
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            appInstalled = true;
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            appInstalled = false;
+        }
+        return appInstalled;
+    }*/
 
     @Override
     public void handleLoadPackage(final LoadPackageParam loadPackageParam) throws Throwable {
-        if (!loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY))
+        //XposedBridge.log("[SuperKiwiHooker] LoadPackageParam - "+loadPackageParam.packageName);
+        if (!(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY) ||
+            loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
+            loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
+            loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE))) {
+            XposedBridge.log("[SuperKiwiHooker] LoadPackageParam - "+loadPackageParam.packageName);
             return;
+        }
 
+        if(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY)) {
+            XposedBridge.log("[SuperKiwiHooker] LoadPackageParam - ANZ Found and Hooked");
+            hookAnzGoMoneyApplication(loadPackageParam);
+        }
+
+        if(loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
+           loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
+           loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE)) {
+            XposedBridge.log("[SuperKiwiHooker] LoadPackageParam - Semble Found and Hooked");
+            hookSembleApplication(loadPackageParam);
+        }
+    }
+
+    public void hookAnzGoMoneyApplication(final LoadPackageParam loadPackageParam) {
         /**
          * Seitc API Root Check Hooks
          */
@@ -354,6 +412,26 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
                 }
+            }
+        });
+    }
+
+    private void hookSembleApplication(LoadPackageParam loadPackageParam) {
+        if(!sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
+            return;
+        }
+
+        findAndHookMethod("com.csam.wallet.integrity.IntegrityCheckerImpl", loadPackageParam.classLoader, "checkDeviceIntegrity", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                param.setResult(true);
+            }
+        });
+
+        findAndHookMethod("com.mastercard.mtp.mobileclientutilities.DeviceUtility", loadPackageParam.classLoader, "isOSPossiblyCompromised", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                param.setResult(false);
             }
         });
     }
