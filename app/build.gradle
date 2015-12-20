@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "nz.pbomb.xposed.superkiwi"
+        applicationId "nz.pbomb.xposed.anzmods"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 3

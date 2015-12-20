@@ -40,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
 
+        // Older version of this module was installed previously. Clear all data and preferences
+        if(!sharedPref.contains(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED) && sharedPref.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
+            sharedPrefEditor.clear();
+            sharedPrefEditor.apply();
+        }
+
         // Create the SharedPreferences and set the defaults if they aren't already created
         if(!sharedPref.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
