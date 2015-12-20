@@ -12,7 +12,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="Allows users to bypass root detection on the ANZ GoMoney (New Zealand only) to take advantage of features such as GoMoney Wallet." />
+            android:value="Allows users to bypass root detection on ANZ GoMoney New Zealand and Semble applications to take advantage of Wallet features from either application from rooted or non-supported devices." />
         <meta-data
             android:name="xposedminversion"
             android:value="30" />
