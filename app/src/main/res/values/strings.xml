@@ -18,7 +18,7 @@
     <!-- Main Activity's Preference Fragment -->
     <string name="MainPrefFragement_anzPrefs_title">ANZ GoMoney NZ</string>
     <string name="MainPrefFragement_anzPrefs_summary">Displays the preferences that can be used to bypass ANZ GoMoney\'s Root Detection and have the ability to spoof your device to enable GoMoney Wallet (NFC Payment).</string>
-    <string name="MainPrefFragement_semblePrefs_title">Semble</string>
+    <string name="MainPrefFragement_semblePrefs_title">Semble (Beta Feature)</string>
     <string name="MainPrefFragement_semblePrefs_summary">Displays the preferences that can be used to bypass Semble\'s Root Detection</string>
     <string name="MainPrefFragement_contact_title">Contact Me</string>
     <string name="MainPrefFragement_contact_summary">Displays my contact information where you can send me feedback, bug information, feature requests or to simply follow me on social media for updates.</string>
