@@ -46,7 +46,7 @@
     </string-array>
 
     <string-array name="helpQuestions_ANZ">
-        <item>Why does the "Spoof Device" feature do?</item>
+        <item>What does the "Spoof Device" feature do?</item>
         <item>What happens if ANZ GoMoney NZ Mods says that it is not compatible?</item>
         <item>Does this work for ANZ GoMoney Australia?</item>
         <item/>
@@ -57,7 +57,7 @@
             This changes the way your device appears to ANZ GoMoney application. You only need
             this enabled if your mobile phone is not on the ANZ GoMoney Compatibility List but
             know it has NFC with HCE support. Also this does not guarantee that NFC payment will
-            work as this is a Beta feature but also because yhere are some devices out there that
+            work as this is a Beta feature but also because there are some devices out there that
             simply will never work due to software or hardware restrictions. Furthermore, this app
             does NOT modify \'build.prop\' so it will only affect the ANZ GoMoney application, not
             the entire system which would be impractical.
@@ -66,21 +66,19 @@
             application and re-login. So keep your Account Number and password on hand.
         </item>
         <item>
-            Then Root detection (and device spoofing if enabled) is disabled. This may mean that
-            GoMoney Wallet (NFC Payment) will be deactivated. You\'ll have to wait till Xposed
-            Installer tells you that the xposed module needs updating. You\'ll need to
-            follow the instructions below..
+            Any ANZ Tweaks will be is disabled (to avoid application glitches) and will result in
+            GoMoney Wallet (NFC Payment) to be deactivated. You\'ll have to wait till I update the
+            Xposed module to support any newer versions of ANZ GoMoney applications. When an update
+            is present#8230;
             \n\n
-            1. Update the xposed module via Xposed Installer (Should be already enabled, but check just incase)\n
-            2. Restart Device\n
-            3. Open the ANZ New Zealand GoMoney Mods UI Application\n
-            4. Enable the features you like\n
-            5. Restart Device\n
-            6. Open GoMoney app, check if your changes are in effect (like if GoMoney Wallet appears in the settings). If they are then your\'re done, If not, then jump to step 7.\n
-            7. Clear all data and cache of the ANZ GoMoney app\n
-            8. Restart Device\n
-            9. Login to the application for the first time (Account Number and password required)\n
-            10. Done!
+            1. Download the lastest version of the module, and enable it within Xposed Installer and restart your device.
+            2. Open the SuperKiwi Application (Has to be opened at least once to save settings)\n
+            3. Enable the tweaks you like and exit application.\n
+            4. Restart Device.\n
+            5. Clear all data and cache of the ANZ GoMoney application.\n
+            6. Login to the ANZ GoMoney application (Account Number and password required).\n
+            7. Done! If everything is working, no "Root detected" messages should appear and you
+            should be able to enable GoMoney Wallet as the option is visible.
         </item>
         <item>
             No. I think the ANZ GoMoney Australia application is different from the New Zealand
