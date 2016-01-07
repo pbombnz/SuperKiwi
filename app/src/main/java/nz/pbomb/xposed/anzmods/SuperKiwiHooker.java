@@ -2,6 +2,7 @@ package nz.pbomb.xposed.anzmods;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.lang.reflect.Method;
 
@@ -10,6 +11,7 @@ import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.findMethodBestMatch;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
 
+import common.GLOBAL;
 import common.PREFERENCES;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
@@ -22,10 +24,19 @@ import common.PACKAGES;
 
 public class SuperKiwiHooker implements IXposedHookLoadPackage {
     private XSharedPreferences sharedPreferences;
-    //private View walletSettingsFragmentView = null;
 
     public SuperKiwiHooker() {
         sharedPreferences = new XSharedPreferences(PACKAGES.MODULE);
+
+        if(GLOBAL.DEBUG) {
+            XposedBridge.log("[SuperKiwi] Module Loaded (Debug Mode: " + (GLOBAL.DEBUG ? "ON" : "OFF") + ")");
+            XposedBridge.log("[SuperKiwi] Loaded Shared Preferences:");
+            //XposedBridge.log("[SuperKiwi]\t ANZ GoMoney Application Installed: ");
+            XposedBridge.log("[SuperKiwi]\t ANZ Root Detection Enabled: " + sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION));
+            XposedBridge.log("[SuperKiwi]\t ANZ Spoof Enabled: " + sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE));
+            //XposedBridge.log("[SuperKiwi]\t Semble Application Installed: ");
+            XposedBridge.log("[SuperKiwi]\t Semble Root Detection Enabled: " + sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION));
+        }
     }
 
     @Override
@@ -50,6 +61,9 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
+                    if(GLOBAL.DEBUG) {
+                        XposedBridge.log("[SuperKiwi][ANZ] xxxxxx.jejeee.isRooted() Hooked");
+                    }
                 }
             }
         });
@@ -59,6 +73,9 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
+                    if(GLOBAL.DEBUG) {
+                        XposedBridge.log("[SuperKiwi][ANZ] xxxxxx.jejeee.isRootedQuickCheck() Hooked");
+                    }
                 }
             }
         });
@@ -68,6 +85,9 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
+                    if(GLOBAL.DEBUG) {
+                        XposedBridge.log("[SuperKiwi][ANZ] xxxxxx.jejeee.isDebug() Hooked");
+                    }
                 }
             }
         });
@@ -116,46 +136,6 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
             }
         });
 
-
-        /**
-         * Display Disclaimer Hooks
-         */
-        /*findAndHookMethod("nz.co.anz.android.mobilebanking.presentation.wallet.view.WalletSettingsFragment", loadPackageParam.classLoader, "onCreateView", LayoutInflater.class, ViewGroup.class, Bundle.class,  new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                walletSettingsFragmentView = (View) param.getResult();
-            }
-        });
-
-        findAndHookMethod("nz.co.anz.android.mobilebanking.presentation.wallet.view.WalletSettingsFragment", loadPackageParam.classLoader, "onActivateSwitchChecked", boolean.class, new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                XposedBridge.log(String.valueOf(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)));
-
-                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
-                    Switch activateSwitch = (Switch) getObjectField(param.thisObject, "activateSwitch");
-                    //XposedBridge.log("wallet_invalid_rooted_device = false");
-
-                    if (activateSwitch.isChecked()) {
-                        //final View v = (View) param.thisObject;
-                        //Context context = v.getContext();
-
-                        AlertDialog alertDialog = new AlertDialog.Builder(walletSettingsFragmentView.getContext()).create();
-                        alertDialog.setTitle(XPOSED_STRINGS.DISCLAIMER_TITLE);
-                        alertDialog.setMessage(XPOSED_STRINGS.DISCLAIMER_SUMMARY);
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                        alertDialog.show();
-                    }
-                }
-            }
-        });*/
-
-
         /**
          * Device Spoofing Hooks
          */
@@ -164,6 +144,9 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("[samsung SM-N9005]");
+                    if(GLOBAL.DEBUG) {
+                        XposedBridge.log("[SuperKiwi][ANZ] nz.co.anz.android.mobilebanking.i.e.k.a() Hooked");
+                    }
                 }
             }
         });
@@ -172,6 +155,9 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("samsung SM-N9005");
+                    if(GLOBAL.DEBUG) {
+                        XposedBridge.log("[SuperKiwi][ANZ] nz.co.anz.android.mobilebanking.i.e.k.b() Hooked");
+                    }
                 }
             }
         });
@@ -311,6 +297,7 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "bЖ04160416ЖЖЖ04160416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                Log.e("SuperKiwi", "afterHookedMethod: " + String.valueOf(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)));
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
                 }

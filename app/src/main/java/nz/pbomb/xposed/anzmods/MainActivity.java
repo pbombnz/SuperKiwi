@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import common.GLOBAL;
 import common.PACKAGES;
 import common.PREFERENCES;
 import common.XPOSED_STRINGS;
@@ -26,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         onCreateValidation();
         createDisclaimerDialog();
+
+        if(GLOBAL.DEBUG) {
+            setTitle(getTitle() + " (Debug Mode)");
+        }
     }
 
     /**
@@ -40,20 +45,12 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
 
-        // Older version of this module was installed previously. Clear all data and preferences
-        if(!sharedPref.contains(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED) && sharedPref.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
-            sharedPrefEditor.clear();
-            sharedPrefEditor.apply();
-        }
 
         // Create the SharedPreferences and set the defaults if they aren't already created
         if(!sharedPref.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
-
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED, PREFERENCES.DEFAULT_VALUES.OTHER.ANZ_INSTALLED);
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, PREFERENCES.DEFAULT_VALUES.OTHER.SEMBLE_INSTALLED);
 
             sharedPrefEditor.apply();
         }
@@ -63,38 +60,18 @@ public class MainActivity extends AppCompatActivity {
         if(!isANZGoMoneyInstalled()) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, false);
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, false);
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED, false);
             sharedPrefEditor.apply();
 
             preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
-        } else {
-            // If the ANZ GoMoney application has been installed recently, re-enable the default preferences
-            if(!sharedPref.getBoolean(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED, PREFERENCES.DEFAULT_VALUES.OTHER.ANZ_INSTALLED)) {
-                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.ANZ_INSTALLED, true);
-
-                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
-                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
-            }
-
         }
 
         // Checks if Semble is installed and if its not disable the preference option in the
         // fragment and disable any related modifications
-        Log.e("SuperKiwiHooker", "isSembleInstalled - " +String.valueOf(isSembleInstalled()));
         if(!isSembleInstalled()) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, false);
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, false);
             sharedPrefEditor.apply();
 
             preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
-        } else {
-            // If the Semble application has been installed recently, re-enable the default preferences
-            if(!sharedPref.getBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, PREFERENCES.DEFAULT_VALUES.OTHER.SEMBLE_INSTALLED)) {
-                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.OTHER.SEMBLE_INSTALLED, true);
-
-                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
-            }
-
         }
     }
 

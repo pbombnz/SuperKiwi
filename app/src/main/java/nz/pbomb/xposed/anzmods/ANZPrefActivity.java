@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.content.pm.PackageInfo;
 import android.widget.TextView;
 
+import common.GLOBAL;
 import common.PACKAGES;
 import common.PREFERENCES;
 
@@ -34,7 +35,7 @@ public class ANZPrefActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(!getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
+        if(!hasHostBasedCardEmulation()) {
             return;
         }
         // Check if the ANZ GoMoney application is compatible with this xposed module
@@ -123,11 +124,15 @@ public class ANZPrefActivity extends AppCompatActivity {
         alert.show();
     }
 
+    private boolean hasHostBasedCardEmulation() {
+        return GLOBAL.DEBUG || getPackageManager().hasSystemFeature("android.hardware.nfc.hce");
+    }
+
     /**
      * Displays the Alert Dialog when leaving the application
      */
     public void NfcValidation() {
-        if(getPackageManager().hasSystemFeature("android.hardware.nfc.hce")) {
+        if(hasHostBasedCardEmulation()) {
             return;
         }
 
