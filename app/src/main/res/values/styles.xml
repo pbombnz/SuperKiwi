@@ -3,19 +3,19 @@
     <style name="MainTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@android:color/holo_green_light</item>
         <item name="colorPrimaryDark">@android:color/holo_green_dark</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/preference</item>
     </style>
 
 
     <style name="AnzTheme" parent="MainTheme">
         <item name="colorPrimary">@color/ANZ_LightBlue</item>
         <item name="colorPrimaryDark">@color/ANZ_DarkBlue</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/preference</item>
     </style>
 
     <style name="SembleTheme" parent="MainTheme">
         <item name="colorPrimary">@color/Semble_LightPurple</item>
         <item name="colorPrimaryDark">@color/Semble_DarkPurple</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/preference</item>
     </style>
 </resources>
