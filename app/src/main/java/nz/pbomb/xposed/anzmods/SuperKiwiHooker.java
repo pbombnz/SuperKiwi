@@ -13,6 +13,7 @@ import static de.robv.android.xposed.XposedHelpers.setObjectField;
 
 import common.GLOBAL;
 import common.PREFERENCES;
+
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
@@ -23,31 +24,51 @@ import common.PACKAGES;
 
 
 public class SuperKiwiHooker implements IXposedHookLoadPackage {
-    private XSharedPreferences sharedPreferences;
+    private XSharedPreferences sharedPreferences = null;
 
     public SuperKiwiHooker() {
-        sharedPreferences = new XSharedPreferences(PACKAGES.MODULE);
-
-        if(GLOBAL.DEBUG) {
-            XposedBridge.log("[SuperKiwi] Module Loaded (Debug Mode: " + (GLOBAL.DEBUG ? "ON" : "OFF") + ")");
-            XposedBridge.log("[SuperKiwi] Loaded Shared Preferences:");
-            //XposedBridge.log("[SuperKiwi]\t ANZ GoMoney Application Installed: ");
-            XposedBridge.log("[SuperKiwi]\t ANZ Root Detection Enabled: " + sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION));
-            XposedBridge.log("[SuperKiwi]\t ANZ Spoof Enabled: " + sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE));
-            //XposedBridge.log("[SuperKiwi]\t Semble Application Installed: ");
-            XposedBridge.log("[SuperKiwi]\t Semble Root Detection Enabled: " + sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION));
-        }
+        XposedBridge.log("[SuperKiwi] Module Loaded (Debug Mode: " + (GLOBAL.DEBUG ? "ON" : "OFF") + ")");
     }
 
     @Override
     public void handleLoadPackage(final LoadPackageParam loadPackageParam) throws Throwable {
+        if(sharedPreferences == null) {
+            sharedPreferences = new XSharedPreferences(PACKAGES.MODULE);
+            boolean isWorldReadable = sharedPreferences.makeWorldReadable();
+            if (GLOBAL.DEBUG) {
+                XposedBridge.log("[SuperKiwi] Loading Shared Preferences...");
+                XposedBridge.log("[SuperKiwi] \tWorld Readable: " + isWorldReadable);
+                XposedBridge.log("[SuperKiwi] \tPath: " + sharedPreferences.getFile().getAbsolutePath());
+                XposedBridge.log("[SuperKiwi] \tFile Readable: " + sharedPreferences.getFile().canRead());
+                XposedBridge.log("[SuperKiwi] \tExists: " + sharedPreferences.getFile().exists());
+                if (sharedPreferences.getAll().size() == 0) {
+                    XposedBridge.log("[SuperKiwi] Shared Preferences seems not to be initialized or does not have read permissions. Common on Android 5.0+ with SELinux Enabled and Enforcing.");
+                }
+                XposedBridge.log("[SuperKiwi]");
+                XposedBridge.log("[SuperKiwi] Loaded Shared Preferences (Generated from Defaults or Prefs XML file)...");
+                XposedBridge.log("[SuperKiwi]\t ANZ Root Detection Enabled: " + sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION));
+                XposedBridge.log("[SuperKiwi]\t ANZ Spoof Enabled: " + sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE));
+                XposedBridge.log("[SuperKiwi]\t Semble Root Detection Enabled: " + sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION));
+            }
+        }
+
+
         if(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY)) {
+
+            if (GLOBAL.DEBUG) {
+                XposedBridge.log("[SuperKiwi] Hooking Methods for ANZ GoMoney New Zealand Application.");
+            }
             hookAnzGoMoneyApplication(loadPackageParam);
         }
 
         if(loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
            loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
            loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE)) {
+
+
+            if (GLOBAL.DEBUG) {
+                XposedBridge.log("[SuperKiwi] Hooking Methods for Semble Application.");
+            }
             hookSembleApplication(loadPackageParam);
         }
     }

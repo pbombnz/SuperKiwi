@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
             preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
         }
+
     }
 
     @Override
