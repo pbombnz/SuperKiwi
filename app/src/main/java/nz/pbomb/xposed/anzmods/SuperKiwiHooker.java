@@ -54,7 +54,6 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
 
 
         if(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY)) {
-
             if (GLOBAL.DEBUG) {
                 XposedBridge.log("[SuperKiwi] Hooking Methods for ANZ GoMoney New Zealand Application.");
             }
@@ -64,8 +63,6 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
         if(loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
            loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
            loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE)) {
-
-
             if (GLOBAL.DEBUG) {
                 XposedBridge.log("[SuperKiwi] Hooking Methods for Semble Application.");
             }
