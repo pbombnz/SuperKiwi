@@ -4,6 +4,14 @@ This is a Xposed application allows users to bypass root detection on ANZ GoMone
 any carrier variant of Semble to take advantage of Wallet features from either application 
 from rooted or non-supported devices.
 
+## Features
+- ANZ GoMoney NZ
+    - Bypass Root Detection - Enabling this will disable root checks and detection allowing you to use GoMoney Wallet
+    - Spoof Device (Beta Feature) - Spoofs your device brand and model (without modifiying the build.prop) so you can enable GoMoney.
+- Semble
+    - Bypass Root Detection - Enabling this will disable root checks and detection allowing you to use Semble. Works with any variant of Semble (either from Vodafone, 2Degrees or Spark)
+
+
 ## License 
 
 The source code is licensed under GNU General Public License v3 (GPL v3) 
