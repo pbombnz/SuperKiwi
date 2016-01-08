@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(getApplicationContext(), ContactActivity.class);
                 break;
             case R.id.action_sourceCode:
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/pbombnz/ANZGoMoneyNZMods/"));
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/pbombnz/SuperKiwi"));
                 break;
             case R.id.action_xda:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623"));
