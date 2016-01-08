@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         // Get the preference fragment displayed on this activity
         PreferenceFragment preferenceFragment = (PreferenceFragment) getFragmentManager().findFragmentById(R.id.mainPrefFragment);
         // Get the SharedPreferences for this module (and produce and editor as well)
-        SharedPreferences sharedPref = getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
         SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
 
 

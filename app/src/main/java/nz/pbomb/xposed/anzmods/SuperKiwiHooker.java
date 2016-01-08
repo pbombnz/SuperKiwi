@@ -1,6 +1,8 @@
 package nz.pbomb.xposed.anzmods;
 
 import android.content.Context;
+import android.os.Build;
+import android.os.Debug;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -16,6 +18,7 @@ import common.GLOBAL;
 import common.PREFERENCES;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
+import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
@@ -24,53 +27,68 @@ import de.robv.android.xposed.XposedBridge;
 import common.PACKAGES;
 
 
-public class SuperKiwiHooker implements IXposedHookLoadPackage {
-    private static XSharedPreferences prefs = null;
+public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPackage {
+    private static final String TAG = "SuperKiwi::SuperKiwiHooker";
 
-    public SuperKiwiHooker() {
-        XposedBridge.log("[SuperKiwi] Module Loaded (Debug Mode: " + (GLOBAL.DEBUG ? "ON" : "OFF") + ")");
+    private static XSharedPreferences prefs;
+
+    public static void logging(String message) {
+        if (GLOBAL.DEBUG) {
+            XposedBridge.log("[" + TAG + "] " + message);
+        }
+    }
+
+    @Override
+    public void initZygote(StartupParam startupParam) throws Throwable {
+        logging("Module Loaded (Debug Mode: " + (GLOBAL.DEBUG ? "ON" : "OFF") + ")");
+        getSharedPreferences();
+    }
+
+    private void getSharedPreferences() {
+        prefs = new XSharedPreferences(PACKAGES.MODULE);
+        prefs.getFile().setReadable(true, false);
+        prefs.reload();
+        boolean isWorldReadable = prefs.makeWorldReadable();
+        logging("Shared Preferences Properties:");
+        logging("\tWorld Readable: " + isWorldReadable);
+        logging("\tPath: " + prefs.getFile().getAbsolutePath());
+        logging("\tFile Readable: " + prefs.getFile().canRead());
+        logging("\tExists: " + prefs.getFile().exists());
+        if (prefs.getAll().size() == 0) {
+            logging("Shared Preferences seems not to be initialized or does not have read permissions. Common on Android 5.0+ with SELinux Enabled and Enforcing.");
+            logging("Loaded Shared Preferences Defaults Instead.");
+        } else {
+            logging("");
+            logging("Loaded Shared Preferences:");
+            Map<String, ?> prefsMap = prefs.getAll();
+            for(String key: prefsMap.keySet()) {
+                String val = prefsMap.get(key).toString();
+                logging("\t " + key + ": " + val);
+            }
+        }
     }
 
     @Override
     public void handleLoadPackage(final LoadPackageParam loadPackageParam) throws Throwable {
-        if(prefs == null) {
-            prefs = new XSharedPreferences(PACKAGES.MODULE);
-            boolean isWorldReadable = prefs.makeWorldReadable();
-            if (GLOBAL.DEBUG) {
-                XposedBridge.log("[SuperKiwi] Shared Preferences Properties:");
-                XposedBridge.log("[SuperKiwi] \tWorld Readable: " + isWorldReadable);
-                XposedBridge.log("[SuperKiwi] \tPath: " + prefs.getFile().getAbsolutePath());
-                XposedBridge.log("[SuperKiwi] \tFile Readable: " + prefs.getFile().canRead());
-                XposedBridge.log("[SuperKiwi] \tExists: " + prefs.getFile().exists());
-                if (prefs.getAll().size() == 0) {
-                    XposedBridge.log("[SuperKiwi] Shared Preferences seems not to be initialized or does not have read permissions. Common on Android 5.0+ with SELinux Enabled and Enforcing.");
-                    XposedBridge.log("[SuperKiwi] Loaded Shared Preferences Defaults Instead.");
-                } else {
-                    XposedBridge.log("[SuperKiwi]");
-                    XposedBridge.log("[SuperKiwi] Loaded Shared Preferences:");
-                    Map<String, ?> prefsMap = prefs.getAll();
-                    for(String key: prefsMap.keySet()) {
-                        String val = prefsMap.get(key).toString();
-                        XposedBridge.log("[SuperKiwi]\t " + key + ": " + val);
-                    }
-                }
-            }
+        if(loadPackageParam.packageName.equals("android")) {
+            getSharedPreferences();
         }
 
+        if(!(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY) || loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
+                loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
+                loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE))) {
+            return;
+        }
 
         if(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY)) {
-            if (GLOBAL.DEBUG) {
-                XposedBridge.log("[SuperKiwi] Hooking Methods for ANZ GoMoney New Zealand Application.");
-            }
+            logging("Hooking Methods for ANZ GoMoney New Zealand Application.");
             hookAnzGoMoneyApplication(loadPackageParam);
         }
 
         if(loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
            loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
            loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE)) {
-            if (GLOBAL.DEBUG) {
-                XposedBridge.log("[SuperKiwi] Hooking Methods for Semble Application.");
-            }
+            logging("Hooking Methods for Semble Application.");
             hookSembleApplication(loadPackageParam);
         }
     }
@@ -84,21 +102,16 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
-                    if(GLOBAL.DEBUG) {
-                        XposedBridge.log("[SuperKiwi][ANZ] xxxxxx.jejeee.isRooted() Hooked");
-                    }
                 }
             }
         });
+
 
         findAndHookMethod("xxxxxx.jejeee", loadPackageParam.classLoader, "isRootedQuickCheck", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
-                    if(GLOBAL.DEBUG) {
-                        XposedBridge.log("[SuperKiwi][ANZ] xxxxxx.jejeee.isRootedQuickCheck() Hooked");
-                    }
                 }
             }
         });
@@ -108,12 +121,10 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
-                    if(GLOBAL.DEBUG) {
-                        XposedBridge.log("[SuperKiwi][ANZ] xxxxxx.jejeee.isDebug() Hooked");
-                    }
                 }
             }
         });
+
 
 
         /**
@@ -167,9 +178,6 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("[samsung SM-N9005]");
-                    if(GLOBAL.DEBUG) {
-                        XposedBridge.log("[SuperKiwi][ANZ] nz.co.anz.android.mobilebanking.i.e.k.a() Hooked");
-                    }
                 }
             }
         });
@@ -178,9 +186,6 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("samsung SM-N9005");
-                    if(GLOBAL.DEBUG) {
-                        XposedBridge.log("[SuperKiwi][ANZ] nz.co.anz.android.mobilebanking.i.e.k.b() Hooked");
-                    }
                 }
             }
         });
@@ -346,5 +351,6 @@ public class SuperKiwiHooker implements IXposedHookLoadPackage {
                 param.setResult(false);
             }
         });
+
     }
 }
