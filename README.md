@@ -4,7 +4,7 @@ This is a Xposed application allows users to bypass root detection on ANZ GoMone
 any carrier variant of Semble to take advantage of Wallet features from either application 
 from rooted or non-supported devices.
 
-# License 
+## License 
 
 The source code is licensed under GNU General Public License v3 (GPL v3) 
 
