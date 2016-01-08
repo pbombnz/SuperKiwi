@@ -70,9 +70,9 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
 
     @Override
     public void handleLoadPackage(final LoadPackageParam loadPackageParam) throws Throwable {
-        if(loadPackageParam.packageName.equals("android")) {
+        /*if(loadPackageParam.packageName.equals("android")) {
             getSharedPreferences();
-        }
+        }*/
 
         if(!(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY) || loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
                 loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
