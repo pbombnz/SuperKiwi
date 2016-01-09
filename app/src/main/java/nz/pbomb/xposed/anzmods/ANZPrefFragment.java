@@ -24,7 +24,6 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences_anz);
-
         this.sharedPreferences = getActivity().getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
         oldPreferences = (Map<String, Boolean>) sharedPreferences.getAll();
 

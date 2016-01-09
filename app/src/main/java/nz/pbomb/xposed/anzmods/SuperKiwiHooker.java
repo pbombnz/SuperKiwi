@@ -3,9 +3,11 @@ package nz.pbomb.xposed.anzmods;
 import android.content.Context;
 import android.os.Build;
 import android.os.Debug;
+import android.os.StrictMode;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -17,10 +19,12 @@ import static de.robv.android.xposed.XposedHelpers.setObjectField;
 import common.GLOBAL;
 import common.PREFERENCES;
 
+import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.XposedBridge;
 
@@ -41,16 +45,15 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
     @Override
     public void initZygote(StartupParam startupParam) throws Throwable {
         logging("Module Loaded (Debug Mode: " + (GLOBAL.DEBUG ? "ON" : "OFF") + ")");
-        getSharedPreferences();
+        refreshSharedPreferences();
     }
 
-    private void getSharedPreferences() {
+    static void refreshSharedPreferences() {
         prefs = new XSharedPreferences(PACKAGES.MODULE);
-        prefs.getFile().setReadable(true, false);
+        prefs.makeWorldReadable();
         prefs.reload();
-        boolean isWorldReadable = prefs.makeWorldReadable();
         logging("Shared Preferences Properties:");
-        logging("\tWorld Readable: " + isWorldReadable);
+        logging("\tWorld Readable: " + prefs.makeWorldReadable());
         logging("\tPath: " + prefs.getFile().getAbsolutePath());
         logging("\tFile Readable: " + prefs.getFile().canRead());
         logging("\tExists: " + prefs.getFile().exists());
@@ -70,10 +73,6 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
 
     @Override
     public void handleLoadPackage(final LoadPackageParam loadPackageParam) throws Throwable {
-        /*if(loadPackageParam.packageName.equals("android")) {
-            getSharedPreferences();
-        }*/
-
         if(!(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY) || loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
                 loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
                 loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE))) {
@@ -100,6 +99,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("xxxxxx.jejeee", loadPackageParam.classLoader, "isRooted", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
@@ -110,6 +110,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("xxxxxx.jejeee", loadPackageParam.classLoader, "isRootedQuickCheck", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
@@ -119,6 +120,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("xxxxxx.jejeee", loadPackageParam.classLoader, "isDebug", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
@@ -134,6 +136,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("nz.co.anz.android.mobilebanking.h.a.n", loadPackageParam.classLoader, "l", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
@@ -144,6 +147,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("nz.co.anz.android.mobilebanking.h.a.n", loadPackageParam.classLoader, "m", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
@@ -154,6 +158,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.ah", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
@@ -164,6 +169,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("nz.co.anz.android.mobilebanking.model.k", loadPackageParam.classLoader, "g", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(true);
                 }
@@ -176,6 +182,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("[samsung SM-N9005]");
                 }
@@ -184,6 +191,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader, "b", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("samsung SM-N9005");
                 }
@@ -193,6 +201,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.u", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("SM-N9005");
                 }
@@ -202,6 +211,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("com.google.android.gms.b.ao", loadPackageParam.classLoader, "a", String.class, String.class, String.class, String.class, String.class, String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     String str = (String) param.args[0];
                     String str2 = (String) param.args[1];
@@ -224,6 +234,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b041604160416Ж0416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "f6987b044504450445", "hlte");
                 }
@@ -233,6 +244,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b0416ЖЖ04160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "bх0445ххх04450445х", "SM-N9005");
                 }
@@ -242,6 +254,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416Ж04160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "b04450445ххх04450445х", "hltexx");
                 }
@@ -280,6 +293,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416ЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "b044504450445хх04450445х", "samsung");
                 }
@@ -290,6 +304,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b041604160416ЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
                 }
@@ -300,6 +315,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("xxxxxx.hchchh", loadPackageParam.classLoader, "b04220422ТТ0422042204220422", android.content.Context.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     StringBuilder sb = new StringBuilder(500);
                     sb.append("hlte");
@@ -325,6 +341,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "bЖ04160416ЖЖЖ04160416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 Log.e("SuperKiwi", "afterHookedMethod: " + String.valueOf(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)));
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
@@ -341,6 +358,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("com.csam.wallet.integrity.IntegrityCheckerImpl", loadPackageParam.classLoader, "checkDeviceIntegrity", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 param.setResult(true);
             }
         });
@@ -348,6 +366,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("com.mastercard.mtp.mobileclientutilities.DeviceUtility", loadPackageParam.classLoader, "isOSPossiblyCompromised", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
                 param.setResult(false);
             }
         });

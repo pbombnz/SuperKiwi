@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.content.pm.PackageInfo;
 import android.widget.TextView;
 
+import java.io.File;
+
 import common.GLOBAL;
 import common.PACKAGES;
 import common.PREFERENCES;
@@ -148,5 +150,17 @@ public class ANZPrefActivity extends AppCompatActivity {
             });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true,false);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true,false);
+        super.onPause();
     }
 }

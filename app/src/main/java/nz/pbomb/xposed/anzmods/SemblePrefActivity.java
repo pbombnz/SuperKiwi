@@ -6,6 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import java.io.File;
+
+import common.PACKAGES;
+import common.PREFERENCES;
+
 /**
  * A UI for the xposed module that allows the users to toggle preferences and features
  *
@@ -53,5 +58,17 @@ public class SemblePrefActivity extends AppCompatActivity {
         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true,false);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true, false);
+        super.onPause();
     }
 }

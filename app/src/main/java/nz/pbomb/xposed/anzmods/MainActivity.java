@@ -10,9 +10,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.io.File;
 
 import common.GLOBAL;
 import common.PACKAGES;
@@ -73,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
             preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
         }
-
     }
 
     @Override
@@ -158,5 +158,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true,false);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true,false);
+        super.onPause();
     }
 }
