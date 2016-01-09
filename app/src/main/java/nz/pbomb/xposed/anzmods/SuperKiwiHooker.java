@@ -36,19 +36,13 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
 
     private static XSharedPreferences prefs;
 
-    public static void logging(String message) {
+    private static void logging(String message) {
         if (GLOBAL.DEBUG) {
             XposedBridge.log("[" + TAG + "] " + message);
         }
     }
 
-    @Override
-    public void initZygote(StartupParam startupParam) throws Throwable {
-        logging("Module Loaded (Debug Mode: " + (GLOBAL.DEBUG ? "ON" : "OFF") + ")");
-        refreshSharedPreferences();
-    }
-
-    static void refreshSharedPreferences() {
+    private static void refreshSharedPreferences() {
         prefs = new XSharedPreferences(PACKAGES.MODULE);
         prefs.makeWorldReadable();
         prefs.reload();
@@ -69,6 +63,13 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
                 logging("\t " + key + ": " + val);
             }
         }
+    }
+
+
+    @Override
+    public void initZygote(StartupParam startupParam) throws Throwable {
+        logging("Module Loaded (Debug Mode: " + (GLOBAL.DEBUG ? "ON" : "OFF") + ")");
+        refreshSharedPreferences();
     }
 
     @Override
@@ -351,15 +352,13 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
     }
 
     private void hookSembleApplication(LoadPackageParam loadPackageParam) {
-        if(!prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
-            return;
-        }
-
         findAndHookMethod("com.csam.wallet.integrity.IntegrityCheckerImpl", loadPackageParam.classLoader, "checkDeviceIntegrity", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
-                param.setResult(true);
+                if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
+                    param.setResult(true);
+                }
             }
         });
 
@@ -367,7 +366,9 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
-                param.setResult(false);
+                if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
             }
         });
 
