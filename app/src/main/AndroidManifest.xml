@@ -49,6 +49,12 @@
         <activity
             android:name="nz.pbomb.xposed.anzmods.ContactActivity"
             android:label="@string/label_main_contact"/>
+
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/label_about">
+        </activity>
     </application>
+
 
 </manifest>

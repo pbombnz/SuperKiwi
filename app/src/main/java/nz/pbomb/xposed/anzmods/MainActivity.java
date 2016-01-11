@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, false);
             sharedPrefEditor.apply();
 
-            preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
+            preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
         }
 
         // Checks if Semble is installed and if its not disable the preference option in the
@@ -72,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, false);
             sharedPrefEditor.apply();
 
-            preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
+            preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
         }
 
         // Checks if TVNZ is installed and if its not disable the preference option in the
         // fragment and disable any related modifications
         if(!isTVNZOnDemandInstalled()) {
-            preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);
+            preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);
         }
     }
 
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623"));
                 break;
             case R.id.action_about:
-                //intent = new Intent(Intent.ACTION_VIEW, );
+                intent = new Intent(getApplicationContext(), AboutActivity.class);
                 break;
         }
         startActivity(intent);
