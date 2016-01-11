@@ -19,6 +19,7 @@ import static de.robv.android.xposed.XposedHelpers.setObjectField;
 import common.GLOBAL;
 import common.PREFERENCES;
 
+import common.SupportedDevicesSemble;
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
@@ -351,7 +352,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         });
     }
 
-    private void hookSembleApplication(LoadPackageParam loadPackageParam) {
+    private void hookSembleApplication(final LoadPackageParam loadPackageParam) {
         findAndHookMethod("com.csam.wallet.integrity.IntegrityCheckerImpl", loadPackageParam.classLoader, "checkDeviceIntegrity", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -372,5 +373,20 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
             }
         });
 
+        findAndHookMethod("com.csam.mclient.core.WalletContext", loadPackageParam.classLoader, "getSystemOSVersion", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                //Log.i("SuperKiwi", "SupportedDevicesSemble.isSupportedDevice(): " + SupportedDevicesSemble.isSupportedDevice(loadPackageParam.packageName));
+                //Log.i("SuperKiwi", "SupportedDevicesSemble.isOSVersionSupported(): " + SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName));
+                if(SupportedDevicesSemble.isSupportedDevice(loadPackageParam.packageName)
+                    && !SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName)) {
+                    SupportedDevicesSemble.SupportedDevice dInfo = SupportedDevicesSemble.getSupportedDevice(loadPackageParam.packageName);
+                    if (dInfo != null) {
+                        param.setResult(dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size()-1));
+                    }
+                }
+                //param.setResult("6.0.1");
+            }
+        });
     }
 }
