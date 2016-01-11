@@ -12,7 +12,8 @@ from rooted or non-supported devices.
     - Bypass Root Detection - Enabling this will disable root checks and detection allowing you to use Semble. Works with any variant of Semble (either from Vodafone, 2Degrees or Spark)
 
 ## License 
-
+Copyright 2016 Prashant B. (PBombNZ) <pbomb.nz@gmail.com>
+ 
 The source code is licensed under GNU General Public License v3 (GPL v3) 
 
 SuperKiwi is free software: you can redistribute it and/or modify
