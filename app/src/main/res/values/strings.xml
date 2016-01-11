@@ -45,7 +45,7 @@
     <string name="preferences_help_summary">Displays helpful information about the module, upcoming features etc.</string>
     <string name="preferences_rootDetection_title">Root Detection</string>
     <string name="preferences_rootDetection_summary">Enable this to avoid root detection for the ANZ GoMoney app.</string>
-    <string name="preferences_spoofDevice_title">Spoof Device (Beta Feature)</string>
+    <string name="preferences_spoofDevice_title">Spoof Device</string>
     <string name="preferences_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy Note 3) which may allow GoMoney Wallet to work.</string>
 
 
