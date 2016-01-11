@@ -21,4 +21,9 @@
         android:id="@+id/action_xda"
         android:orderInCategory="5"
         android:title="@string/MainPrefActivity_settings_xda" />
+
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="6"
+        android:title="@string/MainPrefActivity_settings_about" />
 </menu>

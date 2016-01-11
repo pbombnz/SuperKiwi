@@ -12,6 +12,10 @@ public final class PREFERENCES {
         public static final class SEMBLE {
             public static final boolean ROOT_DETECTION = true;
         }
+
+        public static final class TVNZ {
+            public static final boolean ROOT_DETECTION = true;
+        }
     }
 
     public static final class KEYS {
@@ -22,16 +26,19 @@ public final class PREFERENCES {
 
         public static final class SEMBLE {
             public static final String ROOT_DETECTION = "sembleRootDetection";
-            public static final String MM_SUPPORT = "sembleUnofficalMMSupport";
+            public static final String MM_SUPPORT = "sembleOSSupport";
+        }
+
+        public static final class TVNZ {
+            public static final String ROOT_DETECTION = "tvnzRootDetection";
         }
 
         public static final class MAIN {
             public static final String ANZ = "anzPrefs";
             public static final String SEMBLE = "semblePrefs";
+            public static final String TVNZ = "tvnzPrefs";
 
             public static final String HELP = "help";
-            public static final String DONATE = "donate";
-            public static final String CONTACT = "contact";
         }
     }
 }

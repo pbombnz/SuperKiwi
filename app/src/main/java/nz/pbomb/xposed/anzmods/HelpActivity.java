@@ -8,6 +8,11 @@ import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
+
+import common.PACKAGES;
+import common.PREFERENCES;
+
 public class HelpActivity extends AppCompatActivity {
 
     @Override
@@ -93,5 +98,17 @@ public class HelpActivity extends AppCompatActivity {
             layout.addView(tvQuestion);
             layout.addView(tvAnswer);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true,false);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true, false);
+        super.onPause();
     }
 }

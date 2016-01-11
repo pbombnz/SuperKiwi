@@ -8,7 +8,7 @@
             android:defaultValue="true"
         />
         <CheckBoxPreference
-            android:key="sembleUnofficalMMSupport"
+            android:key="sembleOSSupport"
             android:title="@string/SemblePrefFragment_unofficialMMSupport_title"
             android:summary="@string/SemblePrefFragment_unofficialMMSupport_summary"
             android:defaultValue="true"

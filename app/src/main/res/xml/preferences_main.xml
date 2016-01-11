@@ -11,6 +11,11 @@
             android:title="@string/MainPrefFragement_semblePrefs_title"
             android:summary="@string/MainPrefFragement_semblePrefs_summary"
             />
+        <Preference
+            android:key="tvnzPrefs"
+            android:title="@string/MainPrefFragement_tvnzPrefs_title"
+            android:summary="@string/MainPrefFragement_tvnzPrefs_summary"
+            />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Other">
@@ -19,20 +24,5 @@
             android:title="@string/preferences_help_title"
             android:summary="@string/preferences_help_summary"
         />
-        <Preference
-            android:key="donate"
-            android:title="@string/MainPrefFragement_donate_title"
-            android:summary="@string/MainPrefFragement_donate_summary"
-            />
-        <Preference
-            android:key="contact"
-            android:title="@string/MainPrefFragement_contact_title"
-            android:summary="@string/MainPrefFragement_contact_summary"
-            />
-        <Preference
-            android:key="about"
-            android:title="@string/MainPrefFragement_about_title"
-            android:summary="@string/MainPrefFragement_about_summary"
-            />
     </PreferenceCategory>
 </PreferenceScreen>

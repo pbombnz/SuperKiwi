@@ -5,6 +5,7 @@
     <string name="label_main">SuperKiwi</string>
     <string name="label_anz">ANZ GoMoney NZ Tweaks</string>
     <string name="label_semble">Semble Tweaks</string>
+    <string name="label_tvnz">TVNZ onDemand Tweaks</string>
     <string name="label_help">Help &amp; FAQ\'s</string>
     <string name="label_main_contact">Contact Me</string>
 
@@ -14,19 +15,21 @@
     <string name="MainPrefActivity_settings_contact">Contact Me</string>
     <string name="MainPrefActivity_settings_sourceCode">Source Code</string>
     <string name="MainPrefActivity_settings_xda">XDA Thread</string>
+    <string name="MainPrefActivity_settings_about">About</string>
 
     <!-- Main Activity's Preference Fragment -->
     <string name="MainPrefFragement_anzPrefs_title">ANZ GoMoney NZ</string>
     <string name="MainPrefFragement_anzPrefs_summary">Displays the preferences that can be used to bypass ANZ GoMoney\'s Root Detection and have the ability to spoof your device to enable GoMoney Wallet (NFC Payment).</string>
-    <string name="MainPrefFragement_semblePrefs_title">Semble (Beta Feature)</string>
-    <string name="MainPrefFragement_semblePrefs_summary">Displays the preferences that can be used to bypass Semble\'s Root Detection</string>
-    <string name="MainPrefFragement_contact_title">Contact Me</string>
-    <string name="MainPrefFragement_contact_summary">Displays my contact information where you can send me feedback, bug information, feature requests or to simply follow me on social media for updates.</string>
-    <string name="MainPrefFragement_donate_title">Donate</string>
-    <string name="MainPrefFragement_donate_summary">If you like my work, feel free to donate. :D</string>
-    <string name="MainPrefFragement_about_title">About</string>
-    <string name="MainPrefFragement_about_summary">By Prashant B. (PBombNZ)</string>
+    <string name="MainPrefFragement_semblePrefs_title">Semble</string>
+    <string name="MainPrefFragement_semblePrefs_summary">Displays the preferences that can be used to bypass Semble\'s Root Detection and also bypass "OS not Supported" messages for Marshmallow users.</string>
+    <string name="MainPrefFragement_tvnzPrefs_title">TVNZ onDemand</string>
+    <string name="MainPrefFragement_tvnzPrefs_summary">Displays the preferences that can be used to bypass TVNZ onDemand\'s Root Detection checks when watching a onDemand video.</string>
 
+    <!-- Contact Activity -->
+    <string name="ContactActivity_contactViaTwitterButton">Contact via Twitter</string>
+    <string name="ContactActivity_contactViaEmailButton">Contact via Email</string>
+    <string name="ContactActivity_contactViaXDAButton">Contact via XDA Thread</string>
+    <string name="ContactActivity_message">You can contact me using any of the methods below where you can send me feedback (about whether its the module is working for you or not), bug reports, feature requests or to simply follow me on social media for updates.\n\nRemember to actually write an actual message when contacting me! You\'d be surprised how many people emailed me with no message.</string>
 
     <!-- ANZ Activity -->
     <string name="ANZPrefActivity_compatibility_message_default">Module is not compatible with your device.</string>
@@ -40,9 +43,10 @@
 
     <string name="ANZPrefActivity_compatibility_submessage_rootdetectiondisabled">GoMoney Wallet will be disabled when root detection is disabled.</string>
 
+
     <!-- ANZ Preference Fragment -->
     <string name="preferences_help_title">Help and FAQ\'s</string>
-    <string name="preferences_help_summary">Displays helpful information about the module, upcoming features etc.</string>
+    <string name="preferences_help_summary">Displays helpful information about the module, troubleshooting etc.</string>
     <string name="preferences_rootDetection_title">Root Detection</string>
     <string name="preferences_rootDetection_summary">Enable this to avoid root detection for the ANZ GoMoney app.</string>
     <string name="preferences_spoofDevice_title">Spoof Device</string>
@@ -55,6 +59,10 @@
     <string name="SemblePrefFragment_unofficialMMSupport_title">Marshmallow Support (Beta Feature)</string>
     <string name="SemblePrefFragment_unofficialMMSupport_summary">Bypass the "OS not supported"
         message so Marshmallow users can continue using the application. I cannot confirm (yet) whether Semble NFC payments will actually work. Only way to check if its working is if you can access the application AND if you can actually purchase things.</string>
+
+    <!-- TVNZ Preference Fragment -->
+    <string name="tvnzPrefFragment_rootDetection_title">Root Detection</string>
+    <string name="tvnzPrefFragment_rootDetection_summary">Enable to bypass the various root checks found in the TVNZ onDemand application.</string>
 
     <!-- Dialog Alert Boxes -->
     <string name="ANZPrefActivity_quit_title">Restart Required</string>

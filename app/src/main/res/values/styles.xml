@@ -6,15 +6,15 @@
         <item name="android:textColorPrimary">@color/preference</item>
     </style>
 
-    <style name="AnzTheme" parent="MainTheme">
+    <!--style name="AnzTheme" parent="MainTheme">
         <item name="colorPrimary">@color/ANZ_500</item>
         <item name="colorPrimaryDark">@color/ANZ_700</item>
         <item name="android:textColorPrimary">@color/preference</item>
-    </style>
+    </style-->
 
-    <style name="SembleTheme" parent="MainTheme">
+    <!--style name="SembleTheme" parent="MainTheme">
         <item name="colorPrimary">@color/Semble_500</item>
         <item name="colorPrimaryDark">@color/Semble_700</item>
         <item name="android:textColorPrimary">@color/preference</item>
-    </style>
+    </style-->
 </resources>

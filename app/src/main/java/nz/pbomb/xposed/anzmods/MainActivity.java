@@ -74,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
             preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
         }
+
+        // Checks if TVNZ is installed and if its not disable the preference option in the
+        // fragment and disable any related modifications
+        if(!isTVNZOnDemandInstalled()) {
+            preferenceFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);
+        }
     }
 
     @Override
@@ -103,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_xda:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623"));
                 break;
+            case R.id.action_about:
+                //intent = new Intent(Intent.ACTION_VIEW, );
+                break;
         }
         startActivity(intent);
         return true;
@@ -125,6 +134,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private boolean isSembleInstalled() {
         return isApplicationInstalled(PACKAGES.SEMBLE_2DEGREES) || isApplicationInstalled(PACKAGES.SEMBLE_SPARK) || isApplicationInstalled(PACKAGES.SEMBLE_VODAFONE);
+    }
+
+    private boolean isTVNZOnDemandInstalled() {
+        return isApplicationInstalled(PACKAGES.TVNZ_ONDEMAND);
     }
 
     /**

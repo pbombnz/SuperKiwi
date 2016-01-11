@@ -29,14 +29,17 @@
 
         <activity
             android:name="nz.pbomb.xposed.anzmods.ANZPrefActivity"
-            android:label="@string/label_anz"
-            android:theme="@style/AnzTheme">
+            android:label="@string/label_anz">
         </activity>
 
         <activity
             android:name="nz.pbomb.xposed.anzmods.SemblePrefActivity"
-            android:label="@string/label_semble"
-            android:theme="@style/SembleTheme">
+            android:label="@string/label_semble">
+        </activity>
+
+        <activity
+            android:name=".TVNZPrefActivity"
+            android:label="@string/label_tvnz">
         </activity>
 
         <activity

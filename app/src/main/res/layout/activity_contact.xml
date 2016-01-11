@@ -11,24 +11,32 @@
         android:layout_marginTop="20sp"
         android:layout_gravity="center">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/ContactActivity_message"
+            android:paddingBottom="20dp"
+            android:layout_gravity="center_horizontal|top" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contact Via Twitter"
+            android:text="@string/ContactActivity_contactViaTwitterButton"
             android:id="@+id/contact_twitter_button"
             android:layout_gravity="center_horizontal" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contact Via Email"
+            android:text="@string/ContactActivity_contactViaEmailButton"
             android:id="@+id/contact_email_button"
             android:layout_gravity="center_horizontal" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contact Via XDA Thread "
+            android:text="@string/ContactActivity_contactViaXDAButton"
             android:id="@+id/contact_xda_button"
             android:layout_gravity="center_horizontal" />
 

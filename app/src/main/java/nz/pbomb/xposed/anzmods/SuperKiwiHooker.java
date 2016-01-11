@@ -20,6 +20,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.XposedBridge;
 
@@ -69,9 +70,12 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
 
     @Override
     public void handleLoadPackage(final LoadPackageParam loadPackageParam) throws Throwable {
-        if(!(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY) || loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
+        if(!(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY) ||
+                loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
                 loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
-                loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE))) {
+                loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE) ||
+                loadPackageParam.packageName.equals(PACKAGES.TVNZ_ONDEMAND)
+        )) {
             return;
         }
 
@@ -86,6 +90,20 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
             logging("Hooking Methods for Semble Application.");
             hookSembleApplication(loadPackageParam);
         }
+
+        if(loadPackageParam.packageName.equals(PACKAGES.TVNZ_ONDEMAND)) {
+            logging("Hooking Methods for TVNZ onDemand Application.");
+            hookTVNZOnDemandApplication(loadPackageParam);
+        }
+    }
+
+    private void hookTVNZOnDemandApplication(final LoadPackageParam loadPackageParam) {
+        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", loadPackageParam.classLoader, "A", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                param.setResult(false);
+            }
+        });
     }
 
     public void hookAnzGoMoneyApplication(final LoadPackageParam loadPackageParam) {
