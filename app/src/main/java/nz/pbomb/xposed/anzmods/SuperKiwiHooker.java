@@ -1,13 +1,9 @@
 package nz.pbomb.xposed.anzmods;
 
 import android.content.Context;
-import android.os.Build;
-import android.os.Debug;
-import android.os.StrictMode;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import java.io.File;
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -20,12 +16,10 @@ import common.GLOBAL;
 import common.PREFERENCES;
 
 import common.SupportedDevicesSemble;
-import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
-import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.XposedBridge;
 

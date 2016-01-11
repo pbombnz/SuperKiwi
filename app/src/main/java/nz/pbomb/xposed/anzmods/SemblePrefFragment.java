@@ -12,7 +12,7 @@ import java.util.Map;
 
 import common.PREFERENCES;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("unchecked" )
 public class SemblePrefFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
     private SharedPreferences sharedPreferences;
     private Map<String, Boolean> oldPreferences;
@@ -44,7 +44,7 @@ public class SemblePrefFragment extends PreferenceFragment implements Preference
     }
 
 
-
+    @SuppressWarnings("unused")
     private boolean onRootDetectionPreferenceChange(Preference preference, Object newValue) {
         SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
 
