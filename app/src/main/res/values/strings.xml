@@ -52,6 +52,9 @@
     <!-- Semble's Preference Fragment -->
     <string name="SemblePrefFragment_rootDetection_title">Root Detection</string>
     <string name="SemblePrefFragment_rootDetection_summary">Enable to bypass the various root checks found in the Semble applications.</string>
+    <string name="SemblePrefFragment_unofficialMMSupport_title">Marshmallow Support (Beta Feature)</string>
+    <string name="SemblePrefFragment_unofficialMMSupport_summary">Bypass the "OS not supported"
+        message so Marshmallow users can continue using the application. I cannot confirm (yet) whether Semble NFC payments will actually work. Only way to check if its working is if you can access the application AND if you can actually purchase things.</string>
 
     <!-- Dialog Alert Boxes -->
     <string name="ANZPrefActivity_quit_title">Restart Required</string>

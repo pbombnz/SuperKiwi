@@ -22,6 +22,7 @@ public final class PREFERENCES {
 
         public static final class SEMBLE {
             public static final String ROOT_DETECTION = "sembleRootDetection";
+            public static final String MM_SUPPORT = "sembleUnofficalMMSupport";
         }
 
         public static final class MAIN {
