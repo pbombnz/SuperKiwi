@@ -101,7 +101,10 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", loadPackageParam.classLoader, "A", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                param.setResult(false);
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
             }
         });
     }
@@ -368,10 +371,10 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("com.csam.wallet.integrity.IntegrityCheckerImpl", loadPackageParam.classLoader, "checkDeviceIntegrity", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
-                    param.setResult(true);
-                }
+            refreshSharedPreferences();
+            if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
+                param.setResult(true);
+            }
             }
         });
 
@@ -388,16 +391,19 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         findAndHookMethod("com.csam.mclient.core.WalletContext", loadPackageParam.classLoader, "getSystemOSVersion", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                //Log.i("SuperKiwi", "SupportedDevicesSemble.isSupportedDevice(): " + SupportedDevicesSemble.isSupportedDevice(loadPackageParam.packageName));
-                //Log.i("SuperKiwi", "SupportedDevicesSemble.isOSVersionSupported(): " + SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName));
-                if(SupportedDevicesSemble.isSupportedDevice(loadPackageParam.packageName)
-                    && !SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName)) {
-                    SupportedDevicesSemble.SupportedDevice dInfo = SupportedDevicesSemble.getSupportedDevice(loadPackageParam.packageName);
-                    if (dInfo != null) {
-                        param.setResult(dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size()-1));
+                refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT)) {
+                    logging("SupportedDevicesSemble.isSupportedDevice(): " + SupportedDevicesSemble.isSupportedDevice(loadPackageParam.packageName));
+                    logging("SupportedDevicesSemble.isOSVersionSupported(): " + SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName));
+                    if (SupportedDevicesSemble.isSupportedDevice(loadPackageParam.packageName)
+                            && !SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName)) {
+                        SupportedDevicesSemble.SupportedDevice dInfo = SupportedDevicesSemble.getSupportedDevice(loadPackageParam.packageName);
+                        if (dInfo != null) {
+                            param.setResult(dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1));
+                        }
                     }
+                    //param.setResult("6.0.1");
                 }
-                //param.setResult("6.0.1");
             }
         });
     }
