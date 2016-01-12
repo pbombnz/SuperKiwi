@@ -3,13 +3,9 @@ package nz.pbomb.xposed.anzmods;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.content.pm.PackageInfo;
-import android.widget.TextView;
+import android.view.MenuItem;
 
 import java.io.File;
 
@@ -30,65 +26,18 @@ public class ANZPrefActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anz);
 
-        NfcValidation();
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-
     @Override
-    protected void onStart() {
-        super.onStart();
-        if(!hasHostBasedCardEmulation()) {
-            return;
-        }
-        // Check if the ANZ GoMoney application is compatible with this xposed module
-
-        // Get information from the GoMoney application
-        PackageInfo pInfo;
-        try {
-            pInfo = getPackageManager().getPackageInfo(PACKAGES.ANZ_GOMONEY, 0);
-        } catch (PackageManager.NameNotFoundException | NullPointerException e) {
-            e.printStackTrace();
-            return;
-        }
-        // Get current version of ANZ GoMoney application
-        String anzCurrentVerName = pInfo.versionName;
-        // Retrieve the version numbers that this module can support
-        String[] anzSupportedVersions = getResources().getStringArray(R.array.ANZ_supported_app_versions);
-        // Assume that the module is not supported at first
-        boolean isSupportedVersion = false;
-
-        // Determine whether this module is supported
-        for(String supportedVersion : anzSupportedVersions) {
-            if(anzCurrentVerName.equals(supportedVersion)) {
-                isSupportedVersion = true;
-                break;
-            }
-        }
-
-        // Change the textview's text and color to display the compatibility of the xposed module
-        // and the ANZ GoMoney application in the UI
-
-        // Get the textview's
-        TextView tvMessage = (TextView) this.findViewById(R.id.compatibility_message);
-        TextView tvSubMessage = (TextView) this.findViewById(R.id.compatibility_submessage);
-
-        if(isSupportedVersion) {
-            tvMessage.setTextColor(getResources().getColor(android.R.color.holo_green_light));
-            tvSubMessage.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-
-            tvMessage.setText(R.string.ANZPrefActivity_compatibility_message_supported);
-            tvSubMessage.setText(R.string.ANZPrefActivity_compatibility_submessage_supported);
-        } else {
-            tvMessage.setTextColor(getResources().getColor(android.R.color.holo_red_light));
-            tvSubMessage.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-
-            tvMessage.setText(R.string.ANZPrefActivity_compatibility_message_notsupported);
-            tvSubMessage.setText(R.string.ANZPrefActivity_compatibility_submessage_notsupported);
-
-            PreferenceFragment prefFragment = ((PreferenceFragment) getFragmentManager().findFragmentById(R.id.anz_prefFragment));
-            CheckBoxPreference rootDetectionPreference = (CheckBoxPreference) prefFragment.getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.ROOT_DETECTION);
-            rootDetectionPreference.setChecked(false);
-            rootDetectionPreference.setEnabled(false);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

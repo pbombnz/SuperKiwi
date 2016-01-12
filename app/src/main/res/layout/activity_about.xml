@@ -96,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Disclaimer"
+            android:text="@string/Disclaimer_title"
             android:textStyle="bold"
             android:padding="10dp"
             android:id="@+id/textView8"
@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text=""
+            android:text="@string/Disclaimer_message"
             android:gravity="center"
             android:id="@+id/textView9"
             android:layout_gravity="center_horizontal" />

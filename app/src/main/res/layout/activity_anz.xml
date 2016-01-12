@@ -3,37 +3,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="26sp"
-        android:textColor="@android:color/black"
-        android:text="@string/ANZPrefActivity_compatibility_message_default"
-        android:id="@+id/compatibility_message"
-        android:layout_marginBottom="5sp"
-        android:layout_marginLeft="5sp"
-        android:layout_marginRight="5sp"
-        android:layout_marginTop="2sp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="15sp"
-        android:textStyle="italic"
-        android:textColor="@android:color/darker_gray"
-        android:text="@string/ANZPrefActivity_compatibility_submessage_default"
-        android:id="@+id/compatibility_submessage"
-        android:layout_marginBottom="5sp"
-        android:layout_marginLeft="5sp"
-        android:layout_marginRight="5sp"
-        android:layout_marginTop="2sp"
-        />
-
-
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

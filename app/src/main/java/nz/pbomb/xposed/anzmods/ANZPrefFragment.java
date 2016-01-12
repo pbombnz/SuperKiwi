@@ -46,29 +46,12 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
     private boolean onRootDetectionPreferenceChange(Preference preference, Object newValue) {
         SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
 
-        TextView subMessageTextView = (TextView) (getActivity().findViewById(R.id.compatibility_submessage));
-
         if (!((CheckBoxPreference) preference).isChecked()) {
             sharedPreferencesEditor.putBoolean(preference.getKey(), true).apply();
-
-            if(subMessageTextView.getCurrentTextColor() != getResources().getColor(android.R.color.holo_red_dark)) {
-                subMessageTextView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-                subMessageTextView.setText(getResources().getString(R.string.ANZPrefActivity_compatibility_submessage_supported));
-            }
         } else {
             sharedPreferencesEditor.putBoolean(preference.getKey(), false).apply();
-
-            if(subMessageTextView.getCurrentTextColor() != getResources().getColor(android.R.color.holo_red_dark)) {
-                subMessageTextView.setTextColor(getResources().getColor(android.R.color.holo_orange_dark));
-                subMessageTextView.setText(getResources().getString(R.string.ANZPrefActivity_compatibility_submessage_rootdetectiondisabled));
-            }
         }
-
         sharedPreferencesEditor.apply();
-
-        //ActivityManager activityManager = (ActivityManager) this.getActivity().getSystemService(Context.ACTIVITY_SERVICE);
-        //activityManager.killBackgroundProcesses(PACKAGES.ANZ_GOMONEY);
-
         return true;
     }
 
