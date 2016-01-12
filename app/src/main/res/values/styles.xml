@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/SuperKiwi_500</item>
         <item name="colorPrimaryDark">@color/SuperKiwi_700</item>
         <item name="android:textColorPrimary">@color/preference</item>
+        <item name="colorAccent">@color/SuperKiwi_Accent_500</item>
     </style>
 
     <!--style name="AnzTheme" parent="MainTheme">

@@ -18,7 +18,6 @@ import java.io.File;
 import common.GLOBAL;
 import common.PACKAGES;
 import common.PREFERENCES;
-import common.XPOSED_STRINGS;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -169,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
     private void createDisclaimerDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setCancelable(false);
-        alertDialog.setTitle(XPOSED_STRINGS.DISCLAIMER_TITLE);
-        alertDialog.setMessage(XPOSED_STRINGS.DISCLAIMER_SUMMARY);
+        alertDialog.setTitle(getResources().getString(R.string.Disclaimer_title));
+        alertDialog.setMessage(getResources().getString(R.string.Disclaimer_message));
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

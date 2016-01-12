@@ -72,4 +72,8 @@
 
     <string name="SemblePrefActivity_quit_title">Restart Required</string>
     <string name="SemblePrefActivity_quit_message">A restart is required for your changes to be in effect.\n\n You might have clear all cache and data of the Semble application and re-login. So keep your login information on hand. Although its very unlikely you\'ll need to do clear data with Semble (unlike ANZ GoMoney NZ)</string>
+
+    <string name="Disclaimer_title">Disclaimer</string>
+    <string name="Disclaimer_message">The author and contributors of SuperKiwi as well as ANZ, Semble, TVNZ and their partners take no responsibility for any loss of data, monetary loss, damage to your device or any other consequences that arise as a result of using this program.\n\nUSE AT YOUR OWN RISK.</string>
+
 </resources>
