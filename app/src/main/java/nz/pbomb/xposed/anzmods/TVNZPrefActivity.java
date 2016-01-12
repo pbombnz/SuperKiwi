@@ -37,7 +37,7 @@ public class TVNZPrefActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                this.onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -60,9 +60,7 @@ public class TVNZPrefActivity extends AppCompatActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-
             addPreferencesFromResource(R.xml.preferences_tvnz);
-
             findPreference(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION).setOnPreferenceChangeListener(this);
         }
 

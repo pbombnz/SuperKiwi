@@ -32,7 +32,7 @@ public class SemblePrefActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                this.onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -68,6 +68,7 @@ public class SemblePrefActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
                 startActivity(intent);
             }
         });
