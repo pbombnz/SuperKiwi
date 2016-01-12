@@ -27,7 +27,9 @@ public class ANZPrefActivity extends AppCompatActivity {
         setContentView(R.layout.activity_anz);
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
