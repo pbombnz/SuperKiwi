@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         onCreateValidation();
-        createDisclaimerDialog();
+        //createDisclaimerDialog();
 
         if(GLOBAL.DEBUG) {
             setTitle(getTitle() + " (Debug Mode)");
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         return appInstalled;
     }
 
-    private void createDisclaimerDialog() {
+    /*private void createDisclaimerDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setCancelable(false);
         alertDialog.setTitle(getResources().getString(R.string.Disclaimer_title));
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
-    }
+    }*/
 
     @Override
     protected void onDestroy() {
