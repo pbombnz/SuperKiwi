@@ -8,7 +8,7 @@
     <string name="label_tvnz">TVNZ onDemand Tweaks</string>
     <string name="label_help">Help &amp; FAQ\'s</string>
     <string name="label_main_contact">Contact Me</string>
-    <string name="label_about">Contact Me</string>
+    <string name="label_about">About</string>
 
     <!-- Main Activity's Settings -->
     <string name="MainPrefActivity_settings_help">Help &amp; FAQ\'s</string>
