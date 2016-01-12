@@ -4,41 +4,46 @@
     android:layout_height="match_parent"
     tools:context="nz.pbomb.xposed.anzmods.HelpFragment">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="350dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20sp"
-        android:layout_gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/ContactActivity_message"
-            android:paddingBottom="20dp"
-            android:layout_gravity="center_horizontal|top" />
+            android:layout_marginTop="20sp"
+            android:layout_gravity="center">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ContactActivity_contactViaTwitterButton"
-            android:id="@+id/contact_twitter_button"
-            android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/ContactActivity_message"
+                android:paddingBottom="20dp"
+                android:layout_gravity="center_horizontal|top" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ContactActivity_contactViaEmailButton"
-            android:id="@+id/contact_email_button"
-            android:layout_gravity="center_horizontal" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ContactActivity_contactViaTwitterButton"
+                android:id="@+id/contact_twitter_button"
+                android:layout_gravity="center_horizontal" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ContactActivity_contactViaXDAButton"
-            android:id="@+id/contact_xda_button"
-            android:layout_gravity="center_horizontal" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ContactActivity_contactViaEmailButton"
+                android:id="@+id/contact_email_button"
+                android:layout_gravity="center_horizontal" />
 
-    </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ContactActivity_contactViaXDAButton"
+                android:id="@+id/contact_xda_button"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
