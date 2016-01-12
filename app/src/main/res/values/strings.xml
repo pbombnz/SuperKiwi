@@ -67,7 +67,7 @@
 
     <!-- Dialog Alert Boxes -->
     <string name="ANZPrefActivity_quit_title">Settings Changed</string>
-    <string name="ANZPrefActivity_quit_message">You MUST clear all cache and data of the ANZ GoMoney application and re-login. So keep your Account Number and password on hand.</string>
+    <string name="ANZPrefActivity_quit_message">You MUST clear all cache and data of the ANZ GoMoney application and re-login in order fro your changes to be in effect. So keep your Account Number and password on hand.</string>
     <string name="ANZPrefActivity_spoofDeviceChecked_message">In order to spoof your device you must clear all cache and data of the ANZ GoMoney application and re-login otherwise the spoofing feature will not activate. So keep your Account Number and password on hand.</string>
 
     <!--string name="SemblePrefActivity_quit_title">Restart Required</string-->
