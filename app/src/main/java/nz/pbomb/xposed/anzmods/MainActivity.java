@@ -136,6 +136,11 @@ public class MainActivity extends AppCompatActivity {
         return isApplicationInstalled(PACKAGES.SEMBLE_2DEGREES) || isApplicationInstalled(PACKAGES.SEMBLE_SPARK) || isApplicationInstalled(PACKAGES.SEMBLE_VODAFONE);
     }
 
+    /**
+     *  Checks if any of the TVNZ onDemand Application is installed.
+     *
+     * @return True if it is installed, otherwise return false.
+     */
     private boolean isTVNZOnDemandInstalled() {
         return isApplicationInstalled(PACKAGES.TVNZ_ONDEMAND);
     }
