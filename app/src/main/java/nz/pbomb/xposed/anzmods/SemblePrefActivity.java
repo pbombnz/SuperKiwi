@@ -41,7 +41,7 @@ public class SemblePrefActivity extends AppCompatActivity {
 
 
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         // Get the child preference fragment
         SemblePrefFragment preferenceFragment = (SemblePrefFragment) getFragmentManager().findFragmentById(R.id.semble_prefFragment);
@@ -54,9 +54,9 @@ public class SemblePrefActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /*
      * Displays the Alert Dialog when leaving the application
-     */
+     *
     public void onFinishAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.SemblePrefActivity_quit_title));
@@ -74,7 +74,7 @@ public class SemblePrefActivity extends AppCompatActivity {
         });
         AlertDialog alert = builder.create();
         alert.show();
-    }
+    }*/
 
     @Override
     protected void onDestroy() {
