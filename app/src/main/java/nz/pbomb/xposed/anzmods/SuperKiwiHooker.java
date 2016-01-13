@@ -1,19 +1,26 @@
 package nz.pbomb.xposed.anzmods;
 
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
-import static de.robv.android.xposed.XposedHelpers.findMethodBestMatch;
-import static de.robv.android.xposed.XposedHelpers.findMethodExact;
+import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
+import static de.robv.android.xposed.XposedHelpers.setStaticIntField;
 
 import common.GLOBAL;
 import common.PREFERENCES;
@@ -254,10 +261,10 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
             }
         });
 
-        Class<?> x = findClass("xxxxxx.ajaaaj", loadPackageParam.classLoader);
+        //Class<?> x = findClass("xxxxxx.ajaaaj", loadPackageParam.classLoader);
+        // Method y = findMethodBestMatch(x,"b041604160416Ж0416ЖЖ0416", String.class);
+        //XposedBridge.log(y.getName());
 
-        Method y = findMethodBestMatch(x,"b041604160416Ж0416ЖЖ0416", String.class);
-        XposedBridge.log(y.getName());
         //xxxxxx.ajaaaj
         //Build.Device
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b041604160416Ж0416ЖЖ0416", String.class, new XC_MethodHook() {
@@ -347,14 +354,14 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     StringBuilder sb = new StringBuilder(500);
-                    sb.append("hlte");
-                    sb.append("SM-N9005");
-                    sb.append("hltexx");
-                    sb.append("MSM8974");
-                    sb.append("samsung");
-                    sb.append("samsung");
-                    sb.append("Unknown"); //Hardware
-                    sb.append("Unknown"); //serial
+                    sb.append("hlte");      // r1 = android.os.Build.DEVICE;	 Catch:{ Exception -> 0x007d } (Line 261)
+                    sb.append("SM-N9005");  // r1 = android.os.Build.MODEL;	 Catch:{ Exception -> 0x007d } (Line 263)
+                    sb.append("hltexx");    // r1 = android.os.Build.PRODUCT;	 Catch:{ Exception -> 0x007d } (Line 265)
+                    sb.append("MSM8974");   // r1 = android.os.Build.BOARD;	 Catch:{ Exception -> 0x007d } (Line 265)
+                    sb.append("samsung");   // r1 = android.os.Build.MANUFACTURER;	 Catch:{ Exception -> 0x007d } (Line 267)
+                    sb.append("samsung");   // r1 = android.os.Build.BRAND;	 Catch:{ Exception -> 0x007d } (Line 269)
+                    sb.append("qcom");   // r1 = android.os.Build.HARDWARE;	 Catch:{ Exception -> 0x007d } (Line 289)
+                    sb.append("unknown");   // r1 = android.os.Build.SERIAL;	 Catch:{ Exception -> 0x007d } (Line 306)
 
                     final TelephonyManager mTelephony = (TelephonyManager) ((Context) param.args[0]).getSystemService(Context.TELEPHONY_SERVICE);
                     String myAndroidDeviceId = mTelephony.getDeviceId();
@@ -390,9 +397,45 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
                 Class settingEnumClass = findClass("nz.co.anz.android.mobilebanking.ui.c.a", loadPackageParam.classLoader);
                 Object[] consts2 = settingEnumClass.getEnumConstants();
 
-                callMethod(param.thisObject, "insertItem", new Class<?>[] { LayoutInflater.class, java.lang.String.class, int.class, settingEnumClass, settingGroupEnumClass, boolean.class }, param.args[0], "Device Info (Injected by SuperKiwi)",2130838121, consts2[45],consts[2] , false);
+                if(GLOBAL.DEBUG) {
+                    callMethod(param.thisObject, "insertItem", new Class<?>[]{LayoutInflater.class, java.lang.String.class, int.class, settingEnumClass, settingGroupEnumClass, boolean.class}, param.args[0], "Device Info", 2130838121, consts2[45], consts[2], false);
+                }
+
+                Activity act = (Activity) callMethod(param.thisObject, "getActivity");
+                final Context ctx = act.getApplicationContext();
+
+                //R.layout.settings_list_item_view
+                int settings_list_item_view = ctx.getResources().getIdentifier("settings_list_item_view", "layout", ctx.getPackageName());
+                int settingsListItemView_text = ctx.getResources().getIdentifier("settingsListItemView_text", "id", ctx.getPackageName());
+                int settings_list_item_view__icon = ctx.getResources().getIdentifier("settings_list_item_view__icon", "id", ctx.getPackageName());
+                int settings_list_item_view__chevron = ctx.getResources().getIdentifier("settings_list_item_view__chevron", "id", ctx.getPackageName());
+                int nfc_ic = ctx.getResources().getIdentifier("nfc_ic", "drawable", ctx.getPackageName());
+                int settings_list_item_view__newBadge = ctx.getResources().getIdentifier("settings_list_item_view__newBadge", "id", ctx.getPackageName());
+
+                ViewGroup viewGroup = (ViewGroup) ((LayoutInflater) param.args[0]).inflate(settings_list_item_view, null);
+                ((TextView) viewGroup.findViewById(settingsListItemView_text)).setText("SuperKiwi Settings");
+                ((ImageView) viewGroup.findViewById(settings_list_item_view__icon)).setImageResource(nfc_ic);
+                viewGroup.findViewById(settings_list_item_view__chevron).setVisibility(View.VISIBLE);
+                View findViewById = viewGroup.findViewById(settings_list_item_view__newBadge);
+                findViewById.setVisibility(View.INVISIBLE);
+                viewGroup.setTag(consts2[46]);
+
+                viewGroup.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent launchIntent = ctx.getPackageManager().getLaunchIntentForPackage(PACKAGES.MODULE);
+                        ctx.startActivity(launchIntent);
+                    }
+                });
+
+                ViewGroup anzGroup = (ViewGroup) getObjectField(param.thisObject, "registrationGroup");
+
+                int i3 = anzGroup.getChildCount();
+                anzGroup.addView(viewGroup, i3);
+
             }
         });
+
     }
 
     private void hookSembleApplication(final LoadPackageParam loadPackageParam) {
