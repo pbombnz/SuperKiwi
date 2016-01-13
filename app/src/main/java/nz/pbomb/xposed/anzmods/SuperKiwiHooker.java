@@ -3,13 +3,16 @@ package nz.pbomb.xposed.anzmods;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 
 import java.lang.reflect.Method;
 import java.util.Map;
 
+import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.findMethodBestMatch;
+import static de.robv.android.xposed.XposedHelpers.findMethodExact;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
 
 import common.GLOBAL;
@@ -214,6 +217,16 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
             }
         });
 
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader, "e", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    param.setResult("4.4.2");
+                }
+            }
+        });
+
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.u", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -362,6 +375,22 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
                 }
+            }
+        });
+
+
+        // Debug settings fragment view
+        findAndHookMethod("nz.co.anz.android.mobilebanking.ui.fragment.SettingsFragment", loadPackageParam.classLoader, "addTermsAndConditions", LayoutInflater.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+
+                Class<?> settingGroupEnumClass = findClass("nz.co.anz.android.mobilebanking.ui.fragment.SettingsFragment.SettingsGroup", loadPackageParam.classLoader);
+                Object[] consts = settingGroupEnumClass.getEnumConstants();
+
+                Class settingEnumClass = findClass("nz.co.anz.android.mobilebanking.ui.c.a", loadPackageParam.classLoader);
+                Object[] consts2 = settingEnumClass.getEnumConstants();
+
+                callMethod(param.thisObject, "insertItem", new Class<?>[] { LayoutInflater.class, java.lang.String.class, int.class, settingEnumClass, settingGroupEnumClass, boolean.class }, param.args[0], "Device Info (Injected by SuperKiwi)",2130838121, consts2[45],consts[2] , false);
             }
         });
     }
