@@ -18,7 +18,9 @@ import java.util.regex.Pattern;
 
 /**
  * Retrieves and parses the compatibility list on the Semble website to detect which devices and
- * operating systems are supported. Used to bypass OS version checking.
+ * operating systems are supported. Used to bypass OS version checking. Each device information
+ * is hard coded now as it seemed there was errors in the Semble compatibility list (like typos or
+ * incorrect information altogether).
  *
  * @author Prashant B. (PBombNZ)
  *
@@ -32,9 +34,140 @@ public class SupportedDevicesSemble {
     public static List<SupportedDevice> supportedDevicesSpark;
 
     static {
-        supportedDevicesVodafone = retrieveSupportedDevicesListByCarrier("vodafone");
-        supportedDevices2Degrees = retrieveSupportedDevicesListByCarrier("2degrees");
-        supportedDevicesSpark = retrieveSupportedDevicesListByCarrier("spark");
+        // Obsolete calls as the list generation is harded coded now
+        //supportedDevicesVodafone = retrieveSupportedDevicesListByCarrier("vodafone");
+        //supportedDevices2Degrees = retrieveSupportedDevicesListByCarrier("2dgrees");
+        //supportedDevicesSpark = retrieveSupportedDevicesListByCarrier("spark");
+
+
+        supportedDevicesVodafone = new ArrayList<>();
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy Xcover 3", "SM-G388F", "4.4.4"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S6", "SM-G920I", "5.0.2, 5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S6 Edge+", "SM-G928I", "5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S6 Edge", "SM-G925I", "5.0.2, 5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S5", "SM-G900F", "4.4.2, 5.0.0"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S5 Mini", "SM-G800Y", "4.4.2"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S5 LTE", "SM-G900I", "4.4.2, 5.0.0"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S4", "GT-I9505", "4.4.2, 5.0.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S4 Mini", "GT-I9195", "4.4.2"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S4 Active", "GT-I9295", "4.4.2"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S4 4G", "GT-I9506", "4.4.2, 5.0.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S3", "GT-I9300", "4.3"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S3 4G", "GT-I9305", "4.3, 4.4.4"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy Note 5", "SM-N920I", "5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy Note 4", "SM-N910U", "4.4.4, 5.0.1, 5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy Note 3", "SM-N9005", "4.3, 4.4.2, 5.0"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy J5", "SM-J500Y", "5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy J2", "SM-J200Y", "5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy Grand Prime", "SM-G530MU", "4.4.4"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy Core LTE Prime", "SM-G360G", "4.4.4"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy Ace3", "GT-S7275T", "4.2.2"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy Ace3", "GT-S7275R", "4.2.2"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy A5", "SM-A500Y", "4.4.4, 5.0.2"));
+        supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy A3", "SM-A300Y", "4.4.4, 5.0.2"));
+        supportedDevicesVodafone.add(new SupportedDevice("Huawei", "P8", "GRA-L09", "5.0.0, 5.0.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Huawei", "P8", "HUAWEI GRA-L09", "5.0.0, 5.0.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Sony", "Xperia Z5", "E6653", "5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Sony", "Xperia Z5 Compact", "E5823", "5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Sony", "Xperia Z3", "D6653", "5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Sony", "Xperia Z3 Compact", "D5833", "5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Sony", "Xperia Z2", "D6503", "5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Sony", "Xperia Z1", "C6903", "4.4.4, 5.0.2, 5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("Sony", "Xperia Z", "C6603", "5.0.2, 5.1.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("HTC", "One M9", "0PJA10", "5.0.2, 5.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("HTC", "One M8", "HTC_0P6B", "4.4.4, 5.0.1, 6.0"));
+        supportedDevicesVodafone.add(new SupportedDevice("HTC", "One M7", "HTC_PN071", "4.4.2, 4.4.3, 5.0.2"));
+        supportedDevicesVodafone.add(new SupportedDevice("LGE", "G4", "LG-H815", "5.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("LGE", "G4", "LG-H815T", "5.1"));
+        supportedDevicesVodafone.add(new SupportedDevice("LGE", "G3", "LG-D855", "5.0.0"));
+        supportedDevicesVodafone.add(new SupportedDevice("Vodafone", "Smart 4 Turbo", "890N", "4.4.4"));
+        supportedDevicesVodafone.add(new SupportedDevice("Vodafone", "Smart 4 Turbo", "Vodafone Smart 4 turbo", "4.4.4"));
+        supportedDevicesVodafone.add(new SupportedDevice("Vodafone", "Prime 6", "VF-895N", "5.0.2"));
+
+
+        supportedDevices2Degrees = new ArrayList<>();
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy Xcover 3", "SM-G388F", "4.4.4"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S6", "SM-G920I", "5.0.2, 5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S6 Edge+", "SM-G928I", "5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S6 Edge", "SM-G925I", "5.0.2, 5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S5", "SM-G900F", "4.4.2, 5.0.0"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S5 Mini", "SM-G800Y", "4.4.2"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S5 LTE", "SM-G900I", "4.4.2, 5.0.0"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S4", "GT-I9505", "4.4.2, 5.0.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S4 Mini", "GT-I9195", "4.4.2"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S4 Active", "GT-I9295", "4.4.2"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S4 4G", "GT-I9506", "4.4.2, 5.0.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S3", "GT-I9300", "4.3"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S3", "GT-I9300T", "4.3"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy Note 5", "SM-N920I", "5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy Note 4", "SM-N910U", "4.4.4, 5.0.1, 5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy Note 3", "SM-N9005", "4.3, 4.4.2, 5.0"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy J5", "SM-J500Y", "5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy J2", "SM-J200Y", "5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy Grand Prime", "SM-G530MU", "4.4.4"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy Core LTE Prime", "SM-G360G", "4.4.4"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy Ace3", "GT-S7275T", "4.2.2"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy Ace3", "GT-S7275R", "4.2.2"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy A5", "SM-A500Y", "4.4.4, 5.0.2"));
+        supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy A3", "SM-A300Y", "4.4.4, 5.0.2"));
+        supportedDevices2Degrees.add(new SupportedDevice("Huawei", "P8", "GRA-L09", "5.0.0, 5.0.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Huawei", "P8", "HUAWEI GRA-L09", "5.0.0, 5.0.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Sony", "Xperia Z5", "E6653", "5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Sony", "Xperia Z5 Compact", "E5823", "5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Sony", "Xperia Z3", "D6653", "5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Sony", "Xperia Z3 Compact", "D5833", "5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Sony", "Xperia Z2", "D6503", "5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Sony", "Xperia Z1", "C6903", "4.4.4, 5.0.2, 5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("Sony", "Xperia Z", "C6603", "5.0.2, 5.1.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("HTC", "One M9", "0PJA10", "5.0.2, 5.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("HTC", "One M8", "HTC_0P6B", "4.4.4, 5.0.1, 6.0"));
+        supportedDevices2Degrees.add(new SupportedDevice("HTC", "One M7", "HTC_PN071", "4.4.2, 4.4.3, 5.0.2"));
+        supportedDevices2Degrees.add(new SupportedDevice("LGE", "G4", "LG-H815", "5.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("LGE", "G4", "LG-H815T", "5.1"));
+        supportedDevices2Degrees.add(new SupportedDevice("LGE", "G3", "LG-D855", "5.0.0"));
+
+
+        supportedDevicesSpark = new ArrayList<>();
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy Xcover 3", "SM-G388F", "4.4.4"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S6", "SM-G920I", "5.0.2, 5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S6 Edge+", "SM-G928I", "5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S6 Edge", "SM-G925I", "5.0.2, 5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S5", "SM-G900F", "4.4.2, 5.0.0"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S5 Mini", "SM-G800Y", "4.4.2"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S5 LTE", "SM-G900I", "4.4.2, 5.0.0"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S4", "GT-I9505", "4.4.2, 5.0.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S4 Mini", "GT-I9195", "4.4.2"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S4 Active", "GT-I9295", "4.4.2"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S4 4G", "GT-I9506", "4.4.2, 5.0.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S3", "GT-I9300", "4.3"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S3", "GT-I9300T", "4.3"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy Note 5", "SM-N920I", "5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy Note 4", "SM-N910U", "4.4.4, 5.0.1, 5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy Note 3", "SM-N9005", "4.3, 4.4.2, 5.0"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy J5", "SM-J500Y", "5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy J2", "SM-J200Y", "5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy J1", "SM-J100Y", "4.4.4"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy Grand Prime", "SM-G530MU", "4.4.4"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy Core LTE Prime", "SM-G360G", "4.4.4"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy Ace3", "GT-S7275T", "4.2.2"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy Ace3", "GT-S7275R", "4.2.2"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy A5", "SM-A500Y", "4.4.4, 5.0.2"));
+        supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy A3", "SM-A300Y", "4.4.4, 5.0.2"));
+        supportedDevicesSpark.add(new SupportedDevice("Huawei", "P8", "GRA-L09", "5.0.0, 5.0.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Huawei", "P8", "HUAWEI GRA-L09", "5.0.0, 5.0.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Sony", "Xperia Z5", "E6653", "5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Sony", "Xperia Z5 Compact", "E5823", "5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Sony", "Xperia Z3", "D6653", "5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Sony", "Xperia Z3 Compact", "D5833", "5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Sony", "Xperia Z2", "D6503", "5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Sony", "Xperia Z1", "C6903", "4.4.4, 5.0.2, 5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("Sony", "Xperia Z", "C6603", "5.0.2, 5.1.1"));
+        supportedDevicesSpark.add(new SupportedDevice("HTC", "One M9", "0PJA10", "5.0.2, 5.1"));
+        supportedDevicesSpark.add(new SupportedDevice("HTC", "One M8", "HTC_0P6B", "4.4.4, 5.0.1, 6.0"));
+        supportedDevicesSpark.add(new SupportedDevice("HTC", "One M7", "HTC_PN071", "4.4.2, 4.4.3, 5.0.2"));
+        supportedDevicesSpark.add(new SupportedDevice("LGE", "G4", "LG-H815", "5.1"));
+        supportedDevicesSpark.add(new SupportedDevice("LGE", "G4", "LG-H815T", "5.1"));
+        supportedDevicesSpark.add(new SupportedDevice("LGE", "G3", "LG-D855", "5.0.0"));
     }
 
     /* Helper Methods */
@@ -115,6 +248,7 @@ public class SupportedDevicesSemble {
         return false;
     }
 
+    @SuppressWarnings("unused")
     private static List<SupportedDevice> retrieveSupportedDevicesListByCarrier(String carrier) {
         List<SupportedDevice> supportedDevices = new ArrayList<>();
         try {
@@ -149,7 +283,7 @@ public class SupportedDevicesSemble {
     }
 
     /**
-     * The device information of each supported device is stored in a SupportedDevice object where
+     * The device information of each supported device is stored in a this object where
      * the device information can be easily accessible and retrievable.
      */
     public static class SupportedDevice {
@@ -167,18 +301,35 @@ public class SupportedDevicesSemble {
             this.supportedOSVersionsStr = supportedOSVersions;
         }
 
+        /**
+         * @return A string which contains the manufacturer name of the device (ie. For the
+         * International Samsung Galaxy S3, it would return "Samsung").
+         */
         public String getManufacturer() {
             return manufacturer;
         }
 
+        /**
+         * @return A string which contains the Consumer model name of the device (ie. For the
+         * International Samsung Galaxy S3, it would return "Galaxy S3").
+         */
+        @SuppressWarnings("unused")
         public String getModelStr() {
             return modelStr;
         }
 
+        /**
+         * @return A string which contains the model number name of the device (ie. For the
+         * International Samsung Galaxy S3, it would return "GT-I9300").
+         */
         public String getModel() {
             return model;
         }
 
+        /**
+         * @return A list of Strings, each String containing an Android OS version number that is
+         * officially supported by Semble
+         */
         public List<String> getSupportedOSVersions() {
             return supportedOSVersions;
         }
@@ -189,5 +340,31 @@ public class SupportedDevicesSemble {
                     + ", supportedOSVersions.size()=" + supportedOSVersions.size() + ", supportedOSVersionsStr="
                     + supportedOSVersionsStr + "]";
         }
+
+        /**
+         * Executed on PC to generate Semble Compatibility list (more info in {@link #main(String[])} main method.
+         * This method makes a code-like string allowing to copy-paste into the Application code and make
+         * adjustments if need to be.
+         */
+        public String toNewConstructorString() {
+            return "new SupportedDevice(\"" + manufacturer + "\", \"" + modelStr + "\", \"" + model
+                    + "\", \""+ supportedOSVersionsStr + "\")";
+        }
+
     }
+
+
+
+    /**
+     * Executed on PC to generate Semble Compatibility list. It is not executed on runtime
+     * execution within the application as some device information collected is wrong hence
+     * why generate a hard coded version and modify any incorrect device information after.
+     *
+     */
+    public static void main(String[] args) {
+        for(SupportedDevice sDevice : supportedDevicesSpark) {
+            System.out.println("supportedDevicesSpark.add(" + sDevice.toNewConstructorString() + ");");
+        }
+    }
+
 }
