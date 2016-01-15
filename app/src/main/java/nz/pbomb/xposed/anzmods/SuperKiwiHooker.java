@@ -1,10 +1,10 @@
 package nz.pbomb.xposed.anzmods;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
+import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +20,6 @@ import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
-import static de.robv.android.xposed.XposedHelpers.setStaticIntField;
 
 import common.GLOBAL;
 import common.PREFERENCES;
@@ -37,7 +36,7 @@ import common.PACKAGES;
 
 
 public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPackage {
-    private static final String TAG = "SuperKiwi::SuperKiwiHooker";
+    private static final String TAG = "SuperKiwi::Hook";
 
     private static XSharedPreferences prefs;
 
@@ -96,12 +95,22 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
         if(loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
            loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
            loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE)) {
-            logging("Hooking Methods for Semble Application.");
+            switch (loadPackageParam.packageName) {
+                case PACKAGES.SEMBLE_2DEGREES:
+                    logging("Hooking Methods for Semble for 2Degrees Application.");
+                    break;
+                case PACKAGES.SEMBLE_SPARK:
+                    logging("Hooking Methods for Semble for Spark Application.");
+                    break;
+                case PACKAGES.SEMBLE_VODAFONE:
+                    logging("Hooking Methods for Semble for Vodafone Application.");
+                    break;
+            }
             hookSembleApplication(loadPackageParam);
         }
 
         if(loadPackageParam.packageName.equals(PACKAGES.TVNZ_ONDEMAND)) {
-            logging("Hooking Methods for TVNZ onDemand Application.");
+            logging("Hooking Methods for TVNZ OnDemand Application.");
             hookTVNZOnDemandApplication(loadPackageParam);
         }
     }
@@ -388,6 +397,7 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
 
         // Debug settings fragment view
         findAndHookMethod("nz.co.anz.android.mobilebanking.ui.fragment.SettingsFragment", loadPackageParam.classLoader, "addTermsAndConditions", LayoutInflater.class, new XC_MethodHook() {
+            @SuppressLint("SetTextI18n")
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 
@@ -463,17 +473,33 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
+
+                logging("[Semble] Calling Method: com.csam.mclient.core.WalletContext.getSystemOSVersion()");
                 if (prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT)) {
-                    logging("SupportedDevicesSemble.isSupportedDevice(): " + SupportedDevicesSemble.isSupportedDevice(loadPackageParam.packageName));
-                    logging("SupportedDevicesSemble.isOSVersionSupported(): " + SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName));
+                    logging("[Semble] Calling Method: Successfully hooked.");
+
+                    logging("[Semble] Device: Brand: " + Build.BRAND + " Manufacturer: " + Build.MANUFACTURER + " Model: " + Build.MODEL);
+                    logging("[Semble] Device: Fingerprint: " + Build.FINGERPRINT);
+                    logging("[Semble]");
+                    logging("[Semble] SupportedDevicesSemble.isSupportedDevice(): " + SupportedDevicesSemble.isSupportedDevice(loadPackageParam.packageName));
+                    logging("[Semble] SupportedDevicesSemble.isOSVersionSupported(): " + SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName));
+
                     if (SupportedDevicesSemble.isSupportedDevice(loadPackageParam.packageName)
                             && !SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName)) {
                         SupportedDevicesSemble.SupportedDevice dInfo = SupportedDevicesSemble.getSupportedDevice(loadPackageParam.packageName);
                         if (dInfo != null) {
+                            logging("[Semble] Device's system OS is now seen as..." + dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1) + "...instead of..." + Build.VERSION.RELEASE);
                             param.setResult(dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1));
+                        } else {
+                            logging("[Semble] Device could not be found in Semble compatibility list. (2)");
                         }
                     }
+                    else {
+                        logging("[Semble] Device could not be found in Semble compatibility list.. (1)");
+                    }
                     //param.setResult("6.0.1");
+                } else {
+                    logging("[Semble] Failed to Enter Hooked Method as feature is not enabled.");
                 }
             }
         });
