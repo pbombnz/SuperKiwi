@@ -35,17 +35,20 @@ public class SupportedDevicesSemble {
 
     static {
         // Obsolete calls as the list generation is harded coded now
-        //supportedDevicesVodafone = retrieveSupportedDevicesListByCarrier("vodafone");
-        //supportedDevices2Degrees = retrieveSupportedDevicesListByCarrier("2dgrees");
-        //supportedDevicesSpark = retrieveSupportedDevicesListByCarrier("spark");
+        /*
+        supportedDevicesVodafone = retrieveSupportedDevicesListByCarrier("vodafone");
+        supportedDevices2Degrees = retrieveSupportedDevicesListByCarrier("2dgrees");
+        supportedDevicesSpark = retrieveSupportedDevicesListByCarrier("spark");
+        */
 
 
         // Create Semble Compatibility List for each carrier
-
-        // NOTE: It is hard-coded for a reason, that is, it allows for easy tweaking and updating
-        // of the list which is needed as the run-time version generated the lists sourced from
-        // the Semble website. The problem was that the list displayed on their website actually
-        // has quite a typos and incorrect data hence this was an easier long-term solution.
+        /*
+         * NOTE: It is hard-coded to allow for easy tweaking and updating of the lists which is
+         * needed. Tje original  run-time version generated the lists sourced from the Semble
+         * website which has quite a typos and incorrect data making the data collected
+         * inconsistent and therefore unusable.
+         */
 
         supportedDevicesVodafone = new ArrayList<>();
         supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy Xcover 3", "SM-G388F", "4.4.4"));
