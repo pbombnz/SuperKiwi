@@ -29,9 +29,9 @@ public class SupportedDevicesSemble {
     /** The URL for the compatibility list on the Semble website */
     private static final String COMPATIBILITY_LIST_URI = "http://www.semble.co.nz/services/snapper";
 
-    public static List<SupportedDevice> supportedDevicesVodafone;
-    public static List<SupportedDevice> supportedDevices2Degrees;
-    public static List<SupportedDevice> supportedDevicesSpark;
+    private static List<SupportedDevice> supportedDevicesVodafone;
+    private static List<SupportedDevice> supportedDevices2Degrees;
+    private static List<SupportedDevice> supportedDevicesSpark;
 
     static {
         // Obsolete calls as the list generation is harded coded now
