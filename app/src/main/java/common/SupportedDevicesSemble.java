@@ -40,6 +40,13 @@ public class SupportedDevicesSemble {
         //supportedDevicesSpark = retrieveSupportedDevicesListByCarrier("spark");
 
 
+        // Create Semble Compatibility List for each carrier
+
+        // NOTE: It is hard-coded for a reason, that is, it allows for easy tweaking and updating
+        // of the list which is needed as the run-time version generated the lists sourced from
+        // the Semble website. The problem was that the list displayed on their website actually
+        // has quite a typos and incorrect data hence this was an easier long-term solution.
+
         supportedDevicesVodafone = new ArrayList<>();
         supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy Xcover 3", "SM-G388F", "4.4.4"));
         supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S6", "SM-G920I", "5.0.2, 5.1.1"));
