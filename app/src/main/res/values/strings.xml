@@ -51,15 +51,17 @@
     <string name="preferences_rootDetection_title">Root Detection</string>
     <string name="preferences_rootDetection_summary">Enable this to avoid root detection for the ANZ GoMoney app.</string>
     <string name="preferences_spoofDevice_title">Spoof Device</string>
-    <string name="preferences_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy Note 3) which may allow GoMoney Wallet to work.</string>
+    <string name="preferences_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy Note 3) which may allow GoMoney Wallet to work. This function is limited to your phone\'s hardware and software capabilities.</string>
 
 
     <!-- Semble's Preference Fragment -->
     <string name="SemblePrefFragment_rootDetection_title">Root Detection</string>
     <string name="SemblePrefFragment_rootDetection_summary">Enable to bypass the various root checks found in the Semble applications.</string>
-    <string name="SemblePrefFragment_unofficialMMSupport_title">Marshmallow Support (Beta Feature)</string>
-    <string name="SemblePrefFragment_unofficialMMSupport_summary">Bypass the \"OS not supported\"
-        message so Marshmallow users can continue using the application. I cannot confirm (yet) whether this will actually work because I don\'t have a Marshmallow Device. Contact me if it works or not.</string>
+    <string name="SemblePrefFragment_unofficialMMSupport_title">Unofficial Android OS Support</string>
+    <string name="SemblePrefFragment_unofficialMMSupport_summary">Bypass the \"OS not supported\" message on Semble-supported devices that have newer Android OS version installed which Semble was not designed to be used on. Handy for Marshmallow or Lollipop users and users of Custom ROMs.</string>
+    <string name="SemblePrefFragment_spoofDevice_title">Spoof Device</string>
+    <string name="SemblePrefFragment_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy Note 3) which will bypass "Device Not Supported" messages and may allow Semble services to work. This function is limited to your phone\'s hardware and software capabilities.</string>
+
 
     <!-- TVNZ Preference Fragment -->
     <string name="tvnzPrefFragment_rootDetection_title">Root Detection</string>

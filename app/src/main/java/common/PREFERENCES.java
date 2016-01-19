@@ -11,6 +11,7 @@ public final class PREFERENCES {
 
         public static final class SEMBLE {
             public static final boolean ROOT_DETECTION = true;
+            public static final boolean SPOOF_DEVICE = false;
             public static final boolean MM_SUPPORT = true;
         }
 
@@ -27,6 +28,7 @@ public final class PREFERENCES {
 
         public static final class SEMBLE {
             public static final String ROOT_DETECTION = "sembleRootDetection";
+            public static final String SPOOF_DEVICE = "sembleSpoofDevice";
             public static final String MM_SUPPORT = "sembleOSSupport";
         }
 

@@ -28,6 +28,7 @@ public class SemblePrefFragment extends PreferenceFragment implements Preference
 
         //Find all preferences
         getPreferenceManager().findPreference(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION).setOnPreferenceChangeListener(this);
+        getPreferenceManager().findPreference(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE).setOnPreferenceChangeListener(this);
         getPreferenceManager().findPreference(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT).setOnPreferenceChangeListener(this);
     }
 
@@ -35,12 +36,27 @@ public class SemblePrefFragment extends PreferenceFragment implements Preference
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if(preference.getKey().equals(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION)) {
             return onRootDetectionPreferenceChange(preference, newValue);
+        } else if(preference.getKey().equals(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE)) {
+            return onSpoofDevicePreferenceChange(preference, newValue);
         } else if(preference.getKey().equals(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT)) {
             Toast.makeText(getActivity().getApplicationContext(), "Always active. Cannot be disabled.", Toast.LENGTH_SHORT).show();
            return false;
         } else {
             return false;
         }
+    }
+
+    @SuppressWarnings("unused")
+    private boolean onSpoofDevicePreferenceChange(Preference preference, Object newValue) {
+        SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
+
+        if (!((CheckBoxPreference) preference).isChecked()) {
+            sharedPreferencesEditor.putBoolean(preference.getKey(), true).apply();
+        } else {
+            sharedPreferencesEditor.putBoolean(preference.getKey(), false).apply();
+        }
+        sharedPreferencesEditor.apply();
+        return true;
     }
 
 

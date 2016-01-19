@@ -2,7 +2,10 @@ package nz.pbomb.xposed.anzmods;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.telephony.TelephonyManager;
@@ -469,18 +472,45 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
             }
         });
 
+        findAndHookMethod("com.csam.mclient.core.WalletContext", loadPackageParam.classLoader, "getDeviceModel", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
+                    param.setResult("SM-N9005");
+                }
+            }
+        });
+        findAndHookMethod("com.csam.mclient.core.WalletContext", loadPackageParam.classLoader, "getManufacturer", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
+                    param.setResult("samsung");
+                }
+            }
+        });
+
+
         findAndHookMethod("com.csam.mclient.core.WalletContext", loadPackageParam.classLoader, "getSystemOSVersion", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
 
                 logging("[Semble] Calling Method: com.csam.mclient.core.WalletContext.getSystemOSVersion()");
+
+                if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
+                    logging("[Semble] Overriding Unoffical Android OS Support Method Hook due to having Spoof Device feature enabled.");
+                    param.setResult("5.0");
+                    return;
+                }
+
+
                 if (prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT)) {
                     logging("[Semble] Calling Method: Successfully hooked.");
 
                     logging("[Semble] Device: Brand: " + Build.BRAND + " Manufacturer: " + Build.MANUFACTURER + " Model: " + Build.MODEL);
                     logging("[Semble] Device: Fingerprint: " + Build.FINGERPRINT);
-                    logging("[Semble]");
                     logging("[Semble] SupportedDevicesSemble.isSupportedDevice(): " + SupportedDevicesSemble.isSupportedDevice(loadPackageParam.packageName));
                     logging("[Semble] SupportedDevicesSemble.isOSVersionSupported(): " + SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName));
 
@@ -488,18 +518,16 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
                             && !SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName)) {
                         SupportedDevicesSemble.SupportedDevice dInfo = SupportedDevicesSemble.getSupportedDevice(loadPackageParam.packageName);
                         if (dInfo != null) {
-                            logging("[Semble] Device's system OS is now seen as..." + dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1) + "...instead of..." + Build.VERSION.RELEASE);
+                            logging("[Semble] Device's system OS is now seen as \"" + dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1) + "\" instead of \"" + Build.VERSION.RELEASE + "\"");
                             param.setResult(dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1));
                         } else {
-                            logging("[Semble] Device could not be found in Semble compatibility list. (2)");
+                            logging("[Semble] Device is not supported by Semble at all. Check Semble Compatibility List. (Errno 2)");
                         }
+                    } else {
+                        logging("[Semble] Device is either not supported by Semble at all OR is completely supported hence no hook method execution is needed. Check Semble Compatibility List. (Errno 1)");
                     }
-                    else {
-                        logging("[Semble] Device could not be found in Semble compatibility list.. (1)");
-                    }
-                    //param.setResult("6.0.1");
                 } else {
-                    logging("[Semble] Failed to Enter Hooked Method as feature is not enabled.");
+                    logging("[Semble] Failed to Enter Hooked Method as feature is not enabled. Check SharedPrefs file to see if its readable. (Errno 1)");
                 }
             }
         });

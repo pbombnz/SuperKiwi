@@ -8,6 +8,12 @@
             android:defaultValue="true"
         />
         <CheckBoxPreference
+            android:key="sembleSpoofDevice"
+            android:title="@string/SemblePrefFragment_spoofDevice_title"
+            android:summary="@string/SemblePrefFragment_spoofDevice_summary"
+            android:defaultValue="false"
+        />
+        <CheckBoxPreference
             android:key="sembleOSSupport"
             android:title="@string/SemblePrefFragment_unofficialMMSupport_title"
             android:summary="@string/SemblePrefFragment_unofficialMMSupport_summary"
