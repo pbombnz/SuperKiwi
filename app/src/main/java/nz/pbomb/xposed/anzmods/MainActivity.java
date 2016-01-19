@@ -49,13 +49,23 @@ public class MainActivity extends AppCompatActivity {
         // Create the SharedPreferences and set the defaults if they aren't already created
         if(!sharedPref.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT);
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION);
-
-            sharedPrefEditor.apply();
         }
+        if(!sharedPref.contains(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
+        }
+        if(!sharedPref.contains(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION)) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
+        }
+        if(!sharedPref.contains(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE)) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE);
+        }
+        if(!sharedPref.contains(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT)) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT);
+        }
+        if(!sharedPref.contains(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION)) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION);
+        }
+        sharedPrefEditor.apply();
 
         // Checks if ANZ GoMoney is installed and if its not disable the preference option in the
         // fragment and disable any related modifications
