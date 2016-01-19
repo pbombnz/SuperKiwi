@@ -60,7 +60,7 @@
     <string name="SemblePrefFragment_unofficialMMSupport_title">Unofficial Android OS Support</string>
     <string name="SemblePrefFragment_unofficialMMSupport_summary">Bypass the \"OS not supported\" message on Semble-supported devices that have newer Android OS version installed which Semble was not designed to be used on. Handy for Marshmallow or Lollipop users and users of Custom ROMs.</string>
     <string name="SemblePrefFragment_spoofDevice_title">Spoof Device</string>
-    <string name="SemblePrefFragment_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy Note 3) which will bypass "Device Not Supported" messages and may allow Semble services to work. This function is limited to your phone\'s hardware and software capabilities.</string>
+    <string name="SemblePrefFragment_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy Note 3) which will bypass "Device Not Supported" messages and may allow Semble services to work. This function is limited to your phone\'s hardware and software capabilities is essential for users devices that are not on the Semble Compatibility list.</string>
 
 
     <!-- TVNZ Preference Fragment -->
