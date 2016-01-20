@@ -36,25 +36,39 @@ import common.PACKAGES;
 
 
 public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage {
-    private static final String TAG = "SuperKiwi::Hook";
+    private static final String TAG = "SuperKiwi::Mod"; // Tag used for logging
 
     private static XSharedPreferences prefs;
 
+    /**
+     * Displays debugging messages if debug mode is enabled and will display them in logcat
+     * as well as the Xposed log file.
+     *
+     * @param message The message to display in the log files
+     */
     private static void logging(String message) {
         if (GLOBAL.DEBUG) {
             XposedBridge.log("[" + TAG + "] " + message);
         }
     }
 
+    /**
+     * Reloads and refreshes the package's shared preferences file to reload new confirgurations
+     * that may have changed on runtime.
+     */
     private static void refreshSharedPreferences() {
         prefs = new XSharedPreferences(PACKAGES.MODULE);
         prefs.makeWorldReadable();
         prefs.reload();
+
+        // Logging the properties to see if the file is actually readable
         logging("Shared Preferences Properties:");
         logging("\tWorld Readable: " + prefs.makeWorldReadable());
         logging("\tPath: " + prefs.getFile().getAbsolutePath());
         logging("\tFile Readable: " + prefs.getFile().canRead());
         logging("\tExists: " + prefs.getFile().exists());
+
+        // Display the preferences loaded, only if the file was readable otherwise display an error
         if (prefs.getAll().size() == 0) {
             logging("Shared Preferences seems not to be initialized or does not have read permissions. Common on Android 5.0+ with SELinux Enabled and Enforcing.");
             logging("Loaded Shared Preferences Defaults Instead.");
@@ -115,7 +129,13 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         }
     }
 
+    /**
+     * A method that hooks the TVNZ OnDemand packages if TVNZ OnDemand is present on the device
+     *
+     * @param loadPackageParam
+     */
     private void hookTVNZOnDemandApplication(final LoadPackageParam loadPackageParam) {
+        // Returns "false" to indicate that no root tools were detected.
         findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", loadPackageParam.classLoader, "A", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -127,6 +147,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
     }
 
+    /**
+     * A method that hooks the ANZ GoMoney New Zealand packages if ANZ GoMoney is present on the device
+     *
+     * @param loadPackageParam
+     */
     public void hookAnzGoMoneyApplication(final LoadPackageParam loadPackageParam) {
         /**
          * Seitc API Root Check Hooks
@@ -140,7 +165,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 }
             }
         });
-
 
         findAndHookMethod("xxxxxx.jejeee", loadPackageParam.classLoader, "isRootedQuickCheck", new XC_MethodHook() {
             @Override
@@ -395,7 +419,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
 
-        // Debug settings fragment view
+        // Inserts a "SuperKiwi" Setting into the ANZ GoMoney Settings Fragement
+        // If Debug mode is enabled, also inserts a "Device Info" fragment orginally hidden
         findAndHookMethod("nz.co.anz.android.mobilebanking.ui.fragment.SettingsFragment", loadPackageParam.classLoader, "addTermsAndConditions", LayoutInflater.class, new XC_MethodHook() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -448,17 +473,28 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
     }
 
+    /**
+     * A method that hooks all Semble packages if Semble is present on the device
+     *
+     * @param loadPackageParam
+     */
     private void hookSembleApplication(final LoadPackageParam loadPackageParam) {
+        /**
+         * Root Detection Methods
+         */
+
+        // Returns "true" to confirm that the integrity of the device is fine and is untouched to any modifications
         findAndHookMethod("com.csam.wallet.integrity.IntegrityCheckerImpl", loadPackageParam.classLoader, "checkDeviceIntegrity", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-            refreshSharedPreferences();
-            if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
-                param.setResult(true);
-            }
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
+                    param.setResult(true);
+                }
             }
         });
 
+        // Returns "false" to confirm that their is no root tools are installed.
         findAndHookMethod("com.mastercard.mtp.mobileclientutilities.DeviceUtility", loadPackageParam.classLoader, "isOSPossiblyCompromised", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -469,6 +505,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
+        /**
+         * Spoof Device / Unofficial Android OS Support Methods
+         */
+
+        // Spoof Device Model to Samsung Galaxy Note 3
         findAndHookMethod("com.csam.mclient.core.WalletContext", loadPackageParam.classLoader, "getDeviceModel", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -478,6 +519,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 }
             }
         });
+
+        // Spoof Device Manufacturer to Samsung Galaxy Note 3
         findAndHookMethod("com.csam.mclient.core.WalletContext", loadPackageParam.classLoader, "getManufacturer", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -488,7 +531,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-
+        // Spoofs Device System OS Version based on their current device unless the "Spoof Device"
+        // feature is enabled, then we Device System OS Version to Samsung Galaxy Note 3 instead.
         findAndHookMethod("com.csam.mclient.core.WalletContext", loadPackageParam.classLoader, "getSystemOSVersion", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
