@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="ANZ_supported_app_versions">
-        <item>5.0.7</item>
-    </string-array>
-
     <string-array name="helpQuestions_General">
         <item>What is this?</item>
         <item>What happens if my device malfunctions or gets bricked?</item>
         <item>But can\'t I just use RootCloak?</item>
         <item>How do we know your not storing our sensitive account information?</item>
-        <item>How come the ANZ GoMoney NZ or Semble preferences is disabled on my device?</item>
+        <item>How come the some of the application preferences are disabled on my device?</item>
+        <item>What does the "Spoof Device" feature do when enabled for Semble and ANZ GoMoney?</item>
+        <item>Why spoof my current device to an old phone such as the Samsung Galaxy Note 3?</item>
+        <item>Its not working, who do I contact?</item>
+        <item>I have more questions and/or need your help getting it working?</item>
     </string-array>
 
     <string-array name="helpAnswers_General">
         <item>
-            This is a Xposed application which hooks on the ANZ GoMoney and/or Semble to bypass
-            certain root checks the application does so we can use rooted and non-supported devices
-            with GoMoney Wallet or Semble Services respectively.
+            This is a Xposed module application which hooks on the ANZ GoMoney, Semble
+            and TVNZ OnDemand to bypass certain root detection so users that have rooted and/or
+            non-supported devices can use GoMoney Wallet, Semble services and watch OnDemand videos
+            respectively.
         </item>
         <item>
-            As a rooted user I suspect you knew the risks. I placed a disclaimer within this
-            application that states I, ANZ or Semble and their partners will not be responsible
-            for any worst case scenarios. To avoid bricking, do a full (nandroid) backup just in
-            case anything happens. The likelihood of something happening is very slim, but don\'t
+            As a rooted user I suspect you knew the risks. A disclaimer is placed on the XDA thread
+            and Xposed Repository module page confirming that by using this application that
+            I, ANZ, Semble, TVNZ and their partners will not be responsible for any worst case
+            scenarios. To avoid bricking, do a full (nandroid) backup just in case anything
+            happens. The likelihood of something happening is very slim, but don\'t
             take unnecessary chances.
 
             USE AT YOUR OWN RISK, YOU HAVE BEEN WARNED.
@@ -38,53 +40,71 @@
             yourself that there is no code storing bank information.
         </item>
         <item>
-            If an option is disabled it means that either ANZ GoMoney NZ or any variant of Semble
-            is not installed depending on which option is disabled. For instance, if I dont have
-            any of the variants of Semble (either from Vodafone, 2Degrees of Spark), the option
-            is disabled because it would provide no additional benefits of having it enabled.
+            If an option is disabled it means that the application that is needed to use these
+            settings is not installed depending on which option is disabled. For instance,
+            if I dont have any of the variants of Semble (either from Vodafone, 2Degrees of Spark),
+            the option is disabled because it would provide no additional benefits of having it
+            enabled.
+        </item>
+        <item>
+            This changes the way your device appears to ANZ GoMoney or Semble application. You only need
+            this enabled if your mobile phone is not on the ANZ GoMoney Wallet or Semble compatibility list but
+            know your device has NFC with HCE support. This feature does not guarantee that NFC payment will
+            work because there are some devices out there that simply will never work due
+            to software or hardware restrictions.
+            \n\n
+            The difference between this and other spoofing applications is this module does NOT modify
+            \'build.prop\' so it will only affect the ANZ GoMoney or Semble application, not
+            the entire system which would be impractical.
+            \n\n
+            If spoofing is enabled for ANZ GoMoney, you MUST clear all cache and data of the ANZ GoMoney
+            application and re-login. So keep your Account Number and password on hand. This is not
+            necessary for Semble though.
+        </item>
+        <item>
+            There are several reasons why the Samsung Galaxy Note 3 was chosen as the display device for the
+            spoofing feature. Firstly, its on the ANZ GoMoney Wallet and Semble compatibility list.
+            Secondly, I own a Note 3 so I can confirm that GoMoney Wallet and Semble work completely on
+            this device and it easy to get information out of a device you already own. Thirdly, as
+            previously stated, it works completely. Other devices, such as the newer S6 and S5
+            range have issues even for people without rooted devices making them not an
+            ideal candidate to use as the display device.
+        </item>
+        <item>
+            Depending on the issue, I might not always be the best person to contact. Semble and
+            ANZ GoMoney Wallet are new features and still have bugs which is something out of my hands.
+            If you have a payment issue, most likely contact the application provider or your bank
+            for support. If you are having root detection problem or "the module is not working at all"
+            problem then its best to contact me via XDA or email.
+        </item>
+        <item>
+            Cool! Im happy to help to answer more questions and help individuals. if you are
+            experiencing a problem, please tell me a full description of problem otherwise
+            I can\'t determine how to solve the problem. You can contact me via XDA or email.
         </item>
     </string-array>
 
     <string-array name="helpQuestions_ANZ">
-        <item>What does the "Spoof Device" feature do?</item>
-        <item>What happens if ANZ GoMoney NZ Mods says that it is not compatible?</item>
-        <item>Does this work for ANZ GoMoney Australia?</item>
-        <item/>
+        <item>When toggling features for ANZ GoMoney, why do you always state I need to clear the cache and data of the ANZ GoMoney?</item>
+        <item>Will this work for ANZ GoMoney Australia?</item>
     </string-array>
 
     <string-array name="helpAnswers_ANZ">
         <item>
-            This changes the way your device appears to ANZ GoMoney application. You only need
-            this enabled if your mobile phone is not on the ANZ GoMoney Compatibility List but
-            know it has NFC with HCE support. Also this does not guarantee that NFC payment will
-            work as this is a Beta feature but also because there are some devices out there that
-            simply will never work due to software or hardware restrictions. Furthermore, this app
-            does NOT modify \'build.prop\' so it will only affect the ANZ GoMoney application, not
-            the entire system which would be impractical.
-            \n\n
-            If spoofing is enabled, you MUST clear all cache and data of the ANZ GoMoney
-            application and re-login. So keep your Account Number and password on hand.
-        </item>
-        <item>
-            Any ANZ Tweaks will be is disabled (to avoid application glitches) and will result in
-            GoMoney Wallet (NFC Payment) to be deactivated. You\'ll have to wait till I update the
-            Xposed module to support any newer versions of ANZ GoMoney applications. When an update
-            is present#8230;
-            \n\n
-            1. Download the lastest version of the module, and enable it within Xposed Installer and restart your device.
-            2. Open the SuperKiwi Application (Has to be opened at least once to save settings)\n
-            3. Enable the tweaks you like and exit application.\n
-            4. Restart Device.\n
-            5. Clear all data and cache of the ANZ GoMoney application.\n
-            6. Login to the ANZ GoMoney application (Account Number and password required).\n
-            7. Done! If everything is working, no "Root detected" messages should appear and you
-            should be able to enable GoMoney Wallet as the option is visible.
+            There is two reasons I tell you to do this. Firstly, the ANZ GoMoney Application has
+            checks for root on boot as well as when you launch the application. When it detects
+            root access, it disables all GoMoney Wallet features even if it was previously enabled.
+            To re-activate these settings, the only way to do this is to reset application
+            completely by clearing the cache and data. Another reason, which mainly
+            applies mainly to the "Spoof Device" feature is that the application needs to be reset as
+            device registration only happens on first-time run of the application hence why
+            clearing cache and data is needed.
+
         </item>
         <item>
             No. I think the ANZ GoMoney Australia application is different from the New Zealand
             version therefore don\'t expect compatibility even after Australia gets NFC Mobile
-            Payment features. AND STOP CLAIMING THE PAVLOVA IS YOURS!!!
+            Payment features.
         </item>
-        <item/>
     </string-array>
 </resources>
