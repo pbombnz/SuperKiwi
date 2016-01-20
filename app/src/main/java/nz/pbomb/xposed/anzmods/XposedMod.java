@@ -21,10 +21,12 @@ import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
 
+import common.DeviceInfo;
 import common.GLOBAL;
 import common.PREFERENCES;
 
 import common.SembleCompatibilityList;
+import common.SpoofDevices;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;

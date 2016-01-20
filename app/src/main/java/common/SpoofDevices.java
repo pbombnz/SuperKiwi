@@ -8,6 +8,32 @@ import java.util.List;
 public class SpoofDevices {
     private static List<DeviceInfo> devices;
 
+    public enum DEVICE {
+        SAMSUNG_GALAXY_NOTE_3("samsung", "samsung", "SM-N9005");
+
+        private String manufacturer;
+        private String brand;
+        private String model;
+
+        DEVICE(String manufacturer, String brand, String model) {
+            this.manufacturer = manufacturer;
+            this.brand = brand;
+            this.model = model;
+        }
+
+        public String getBrand() {
+            return brand;
+        }
+
+        public String getManufacturer() {
+            return manufacturer;
+        }
+
+        public String getModel() {
+            return model;
+        }
+    }
+
     static {
         devices = new ArrayList<>();
 
@@ -39,6 +65,11 @@ public class SpoofDevices {
                 "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
 
         devices.add(note3);
+
+    }
+
+    public static DeviceInfo getDeviceInfo(DEVICE device) {
+        return getDeviceInfo(device.getManufacturer(), device.getBrand(), device.getModel());
     }
 
     public static DeviceInfo getDeviceInfo(String manufacturer, String brand, String model) {
