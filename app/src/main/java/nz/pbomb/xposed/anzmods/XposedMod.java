@@ -92,6 +92,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
     @Override
     public void handleLoadPackage(final LoadPackageParam loadPackageParam) throws Throwable {
+        // Don't continue execution of the method unless its ANZ, Semble or TVNZ OnDemand being loaded
         if(!(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY) ||
                 loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
                 loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
