@@ -47,19 +47,41 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      * @param message The message to display in the log files
      */
     private static void logging(String message) {
-        if (GLOBAL.DEBUG) {
+        if (isDebugMode()) {
             XposedBridge.log("[" + TAG + "] " + message);
         }
+    }
+
+    private static boolean isDebugMode() {
+        if (GLOBAL.DEBUG) {
+            return true;
+        }
+
+        if(prefs != null) {
+            refreshSharedPreferences(false);
+            if(prefs.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void refreshSharedPreferences() {
+        refreshSharedPreferences(true);
     }
 
     /**
      * Reloads and refreshes the package's shared preferences file to reload new confirgurations
      * that may have changed on runtime.
      */
-    private static void refreshSharedPreferences() {
+    private static void refreshSharedPreferences(boolean displayLogs) {
         prefs = new XSharedPreferences(PACKAGES.MODULE);
         prefs.makeWorldReadable();
         prefs.reload();
+
+        if(!displayLogs) {
+            return;
+        }
 
         // Logging the properties to see if the file is actually readable
         logging("Shared Preferences Properties:");
@@ -86,8 +108,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
     @Override
     public void initZygote(StartupParam startupParam) throws Throwable {
-        logging("Module Loaded (Debug Mode: " + (GLOBAL.DEBUG ? "ON" : "OFF") + ")");
-        refreshSharedPreferences();
+            refreshSharedPreferences(false);
+            logging("Module Loaded (Debug Mode: " + (isDebugMode() ? "ON" : "OFF") + ")");
     }
 
     @Override
@@ -433,7 +455,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 Class settingEnumClass = findClass("nz.co.anz.android.mobilebanking.ui.c.a", loadPackageParam.classLoader);
                 Object[] consts2 = settingEnumClass.getEnumConstants();
 
-                if(GLOBAL.DEBUG) {
+                if(isDebugMode()) {
                     callMethod(param.thisObject, "insertItem", new Class<?>[]{LayoutInflater.class, java.lang.String.class, int.class, settingEnumClass, settingGroupEnumClass, boolean.class}, param.args[0], "Device Info", 2130838121, consts2[45], consts[2], false);
                 }
 

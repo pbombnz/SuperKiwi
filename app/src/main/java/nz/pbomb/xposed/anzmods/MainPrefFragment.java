@@ -1,7 +1,10 @@
 package nz.pbomb.xposed.anzmods;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
@@ -20,6 +23,7 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
         findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setOnPreferenceClickListener(this);
 
+        findPreference(PREFERENCES.KEYS.MAIN.DEBUG).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.HELP).setOnPreferenceClickListener(this);
     }
 
@@ -34,7 +38,21 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
             intent = new Intent(getActivity().getApplicationContext(), SemblePrefActivity.class);
         } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.TVNZ)) {
             intent = new Intent(getActivity().getApplicationContext(), TVNZPrefActivity.class);
-        } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.HELP)) {
+        } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.DEBUG)) {
+            CheckBoxPreference checkBoxPreference = (CheckBoxPreference) preference;
+            if(checkBoxPreference.isChecked()) {
+                getActivity().setTitle(getResources().getString(R.string.app_name) + " (Debug Mode)");
+            } else {
+                getActivity().setTitle(getResources().getString(R.string.app_name));
+            }
+
+            SharedPreferences sharedPref = getActivity().getApplicationContext().getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
+            SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.MAIN.DEBUG, checkBoxPreference.isChecked());
+            sharedPrefEditor.apply();
+
+            return true;
+        }else if(prefKey.equals(PREFERENCES.KEYS.MAIN.HELP)) {
             intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
         }
         startActivity(intent);

@@ -18,6 +18,10 @@ public final class PREFERENCES {
         public static final class TVNZ {
             public static final boolean ROOT_DETECTION = true;
         }
+
+        public static final class MAIN {
+            public static final boolean DEBUG = false;
+        }
     }
 
     public static final class KEYS {
@@ -41,6 +45,7 @@ public final class PREFERENCES {
             public static final String SEMBLE = "semblePrefs";
             public static final String TVNZ = "tvnzPrefs";
 
+            public static final String DEBUG = "debug";
             public static final String HELP = "help";
         }
     }

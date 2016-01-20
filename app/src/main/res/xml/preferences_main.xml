@@ -19,10 +19,16 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Other">
+        <CheckBoxPreference
+            android:key="debug"
+            android:title="@string/MainPrefFragement_debug_title"
+            android:summary="@string/MainPrefFragement_debug_summary"
+            android:defaultValue="false"
+            />
         <Preference
             android:key="help"
-            android:title="@string/preferences_help_title"
-            android:summary="@string/preferences_help_summary"
+            android:title="@string/MainPrefFragement_help_title"
+            android:summary="@string/MainPrefFragement_help_summary"
         />
     </PreferenceCategory>
 </PreferenceScreen>

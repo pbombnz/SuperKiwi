@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         if(GLOBAL.DEBUG) {
             setTitle(getTitle() + " (Debug Mode)");
         }
+
     }
 
     /**
@@ -65,6 +66,14 @@ public class MainActivity extends AppCompatActivity {
         if(!sharedPref.contains(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION);
         }
+        if(!sharedPref.contains(PREFERENCES.KEYS.MAIN.DEBUG)) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG);
+        } else {
+            if(sharedPref.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG)) {
+                setTitle(getTitle() + " (Debug Mode)");
+            }
+        }
+
         sharedPrefEditor.apply();
 
         // Checks if ANZ GoMoney is installed and if its not disable the preference option in the
