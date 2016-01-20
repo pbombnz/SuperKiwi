@@ -23,9 +23,9 @@ import java.util.regex.Pattern;
  * incorrect information altogether).
  *
  * @author Prashant B. (PBombNZ)
- *
+ *compatibility list
  */
-public class SupportedDevicesSemble {
+public class SembleCompatibilityList {
     /** The URL for the compatibility list on the Semble website */
     private static final String COMPATIBILITY_LIST_URI = "http://www.semble.co.nz/services/snapper";
 
@@ -50,6 +50,7 @@ public class SupportedDevicesSemble {
          * inconsistent and therefore unusable.
          */
 
+        // Vodafone
         supportedDevicesVodafone = new ArrayList<>();
         supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy Xcover 3",  "SM-G388F", "4.4.4"));
         supportedDevicesVodafone.add(new SupportedDevice("Samsung", "Galaxy S6", "SM-G920I", "5.0.2, 5.1.1"));
@@ -94,7 +95,7 @@ public class SupportedDevicesSemble {
         supportedDevicesVodafone.add(new SupportedDevice("Vodafone", "Smart 4 Turbo", "Vodafone Smart 4 turbo", "4.4.4"));
         supportedDevicesVodafone.add(new SupportedDevice("Vodafone", "Prime 6", "VF-895N", "5.0.2"));
 
-
+        // 2Degrees
         supportedDevices2Degrees = new ArrayList<>();
         supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy Xcover 3", "SM-G388F", "4.4.4"));
         supportedDevices2Degrees.add(new SupportedDevice("Samsung", "Galaxy S6", "SM-G920I", "5.0.2, 5.1.1"));
@@ -136,7 +137,7 @@ public class SupportedDevicesSemble {
         supportedDevices2Degrees.add(new SupportedDevice("LGE", "G4", "LG-H815T", "5.1"));
         supportedDevices2Degrees.add(new SupportedDevice("LGE", "G3", "LG-D855", "5.0"));
 
-
+        // Spark
         supportedDevicesSpark = new ArrayList<>();
         supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy Xcover 3", "SM-G388F", "4.4.4"));
         supportedDevicesSpark.add(new SupportedDevice("Samsung", "Galaxy S6", "SM-G920I", "5.0.2, 5.1.1"));
@@ -183,11 +184,11 @@ public class SupportedDevicesSemble {
     /* Helper Methods */
 
     /**
-     * Gets a List of {@link common.SupportedDevicesSemble.SupportedDevice} based on which carrier-
+     * Gets a List of {@link SembleCompatibilityList.SupportedDevice} based on which carrier-
      * variant of Semble the current device has.
      *
      * @param packageName The package name of the specified carrier-variant of Semble
-     * @return A List of {@link common.SupportedDevicesSemble.SupportedDevice}, which are
+     * @return A List of {@link SembleCompatibilityList.SupportedDevice}, which are
      * the supported devices and OS versions for the carrier-variant of Semble otherwise return null.
      */
     private static List<SupportedDevice> getSupportedDevicesByCarrier(String packageName) {
@@ -211,7 +212,7 @@ public class SupportedDevicesSemble {
      * Gets the Supported Device matching the current device's properties, if present.
      *
      * @param packageName The package name of the specified carrier-variant of Semble
-     * @return The {@link common.SupportedDevicesSemble.SupportedDevice} related to the current
+     * @return The {@link SembleCompatibilityList.SupportedDevice} related to the current
      * device, otherwise if the device is not supported, return null.
      */
     public static SupportedDevice getSupportedDevice(String packageName) {
@@ -238,7 +239,7 @@ public class SupportedDevicesSemble {
     }
 
     /**
-     * Similar to {@link SupportedDevicesSemble#isSupportedDevice(String)} but additionally checks
+     * Similar to {@link SembleCompatibilityList#isSupportedDevice(String)} but additionally checks
      * if the Android operating system version (via {@link android.os.Build.VERSION#RELEASE } is
      * compatible.
      *

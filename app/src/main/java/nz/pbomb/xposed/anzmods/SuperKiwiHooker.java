@@ -2,10 +2,7 @@ package nz.pbomb.xposed.anzmods;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.telephony.TelephonyManager;
@@ -27,7 +24,7 @@ import static de.robv.android.xposed.XposedHelpers.setObjectField;
 import common.GLOBAL;
 import common.PREFERENCES;
 
-import common.SupportedDevicesSemble;
+import common.SembleCompatibilityList;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
@@ -511,12 +508,12 @@ public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPa
 
                     logging("[Semble] Device: Brand: " + Build.BRAND + " Manufacturer: " + Build.MANUFACTURER + " Model: " + Build.MODEL);
                     logging("[Semble] Device: Fingerprint: " + Build.FINGERPRINT);
-                    logging("[Semble] SupportedDevicesSemble.isSupportedDevice(): " + SupportedDevicesSemble.isSupportedDevice(loadPackageParam.packageName));
-                    logging("[Semble] SupportedDevicesSemble.isOSVersionSupported(): " + SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName));
+                    logging("[Semble] SembleCompatibilityList.isSupportedDevice(): " + SembleCompatibilityList.isSupportedDevice(loadPackageParam.packageName));
+                    logging("[Semble] SembleCompatibilityList.isOSVersionSupported(): " + SembleCompatibilityList.isOSVersionSupported(loadPackageParam.packageName));
 
-                    if (SupportedDevicesSemble.isSupportedDevice(loadPackageParam.packageName)
-                            && !SupportedDevicesSemble.isOSVersionSupported(loadPackageParam.packageName)) {
-                        SupportedDevicesSemble.SupportedDevice dInfo = SupportedDevicesSemble.getSupportedDevice(loadPackageParam.packageName);
+                    if (SembleCompatibilityList.isSupportedDevice(loadPackageParam.packageName)
+                            && !SembleCompatibilityList.isOSVersionSupported(loadPackageParam.packageName)) {
+                        SembleCompatibilityList.SupportedDevice dInfo = SembleCompatibilityList.getSupportedDevice(loadPackageParam.packageName);
                         if (dInfo != null) {
                             logging("[Semble] Device's system OS is now seen as \"" + dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1) + "\" instead of \"" + Build.VERSION.RELEASE + "\"");
                             param.setResult(dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1));
