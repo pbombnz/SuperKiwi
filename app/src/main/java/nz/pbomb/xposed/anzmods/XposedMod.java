@@ -35,7 +35,7 @@ import de.robv.android.xposed.XposedBridge;
 import common.PACKAGES;
 
 
-public class SuperKiwiHooker implements IXposedHookZygoteInit, IXposedHookLoadPackage {
+public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage {
     private static final String TAG = "SuperKiwi::Hook";
 
     private static XSharedPreferences prefs;
