@@ -580,7 +580,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
                     if (SembleCompatibilityList.isSupportedDevice(loadPackageParam.packageName)
                             && !SembleCompatibilityList.isOSVersionSupported(loadPackageParam.packageName)) {
-                        SembleCompatibilityList.SupportedDevice dInfo = SembleCompatibilityList.getSupportedDevice(loadPackageParam.packageName);
+                        SembleCompatibilityList.SembleDevice dInfo = SembleCompatibilityList.getSupportedDevice(loadPackageParam.packageName);
                         if (dInfo != null) {
                             logging("[Semble] Device's system OS is now seen as \"" + dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1) + "\" instead of \"" + Build.VERSION.RELEASE + "\"");
                             param.setResult(dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1));
