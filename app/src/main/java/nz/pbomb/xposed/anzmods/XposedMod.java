@@ -132,7 +132,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
     /**
      * A method that hooks the TVNZ OnDemand packages if TVNZ OnDemand is present on the device
      *
-     * @param loadPackageParam
+     * @param loadPackageParam The package and process information of the current package
      */
     private void hookTVNZOnDemandApplication(final LoadPackageParam loadPackageParam) {
         // Returns "false" to indicate that no root tools were detected.
@@ -150,7 +150,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
     /**
      * A method that hooks the ANZ GoMoney New Zealand packages if ANZ GoMoney is present on the device
      *
-     * @param loadPackageParam
+     * @param loadPackageParam The package and process information of the current package
      */
     public void hookAnzGoMoneyApplication(final LoadPackageParam loadPackageParam) {
         /**
@@ -476,7 +476,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
     /**
      * A method that hooks all Semble packages if Semble is present on the device
      *
-     * @param loadPackageParam
+     * @param loadPackageParam The package and process information of the current package
      */
     private void hookSembleApplication(final LoadPackageParam loadPackageParam) {
         /**
