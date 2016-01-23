@@ -26,7 +26,7 @@
     <string name="MainPrefFragement_tvnzPrefs_title">TVNZ onDemand</string>
     <string name="MainPrefFragement_tvnzPrefs_summary">Displays the preferences that can be used to bypass TVNZ onDemand\'s Root Detection checks when watching a onDemand video.</string>
     <string name="MainPrefFragement_debug_title">Debug Mode</string>
-    <string name="MainPrefFragement_debug_summary">Toggles debug logging which can be helpful when troubleshooting. Can reduce performance drastically due to constant reloading of data files therefore only enable if you actually need this feature.</string>
+    <string name="MainPrefFragement_debug_summary">Toggles logging which can be helpful when troubleshooting. Can reduce performance drastically due to constant reloading of data files therefore only enable if you actually need this feature.</string>
     <string name="MainPrefFragement_help_title">Help and FAQ\'s</string>
     <string name="MainPrefFragement_help_summary">Displays helpful information about the module, troubleshooting etc.</string>
 
@@ -62,8 +62,8 @@
     <string name="SemblePrefFragment_rootDetection_summary">Enable to bypass the various root checks found in the Semble applications.</string>
     <string name="SemblePrefFragment_unofficialMMSupport_title">Unofficial Android OS Support</string>
     <string name="SemblePrefFragment_unofficialMMSupport_summary">Bypass the \"OS not supported\" message on Semble-supported devices that have newer Android OS version installed which Semble was not designed to be used on. Handy for Marshmallow or Lollipop users and users of Custom ROMs.</string>
-    <string name="SemblePrefFragment_spoofDevice_title">Spoof Device</string>
-    <string name="SemblePrefFragment_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy Note 3) which will bypass "Device Not Supported" messages and may allow Semble services to work. This function is limited to your phone\'s hardware and software capabilities is essential for users devices that are not on the Semble Compatibility list.</string>
+    <string name="SemblePrefFragment_spoofDevice_title">Spoof Device (Beta Feature)</string>
+    <string name="SemblePrefFragment_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy Note 3) which will bypass \"Device Not Supported\" messages and may allow Semble services to work. This function is limited to your phone\'s hardware and software capabilities. Made for devices that are not on the Semble Compatibility list.</string>
 
 
     <!-- TVNZ Preference Fragment -->
