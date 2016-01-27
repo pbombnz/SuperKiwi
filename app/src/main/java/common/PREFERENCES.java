@@ -7,6 +7,7 @@ public final class PREFERENCES {
         public static final class ANZ {
             public static final boolean ROOT_DETECTION = true;
             public static final boolean SPOOF_DEVICE = false;
+            public static final boolean SCREENSHOT_ENABLED = false;
         }
 
         public static final class SEMBLE {
@@ -28,6 +29,7 @@ public final class PREFERENCES {
         public static final class ANZ {
             public static final String ROOT_DETECTION = "anzRootDetection";
             public static final String SPOOF_DEVICE = "anzSpoofDevice";
+            public static final String SCREENSHOT_ENABLED = "anzEnableScreenshots";
         }
 
         public static final class SEMBLE {

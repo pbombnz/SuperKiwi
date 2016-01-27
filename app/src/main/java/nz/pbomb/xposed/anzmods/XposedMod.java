@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -496,6 +498,16 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
+        findAndHookMethod("android.view.Window", loadPackageParam.classLoader, "setFlags", int.class, int.class, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED, PREFERENCES.DEFAULT_VALUES.ANZ.SCREENSHOT_ENABLED)) {
+                    Integer flags = (Integer) param.args[0];
+                    flags &= ~WindowManager.LayoutParams.FLAG_SECURE;
+                    param.args[0] = flags;
+                }
+            }
+        });
     }
 
     /**

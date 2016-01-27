@@ -54,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         if(!sharedPref.contains(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
         }
+        if(!sharedPref.contains(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED, PREFERENCES.DEFAULT_VALUES.ANZ.SCREENSHOT_ENABLED);
+        }
         if(!sharedPref.contains(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
         }

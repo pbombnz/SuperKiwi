@@ -55,6 +55,8 @@
     <string name="preferences_rootDetection_summary">Enable this to avoid root detection for the ANZ GoMoney app.</string>
     <string name="preferences_spoofDevice_title">Spoof Device</string>
     <string name="preferences_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy Note 3) which may allow GoMoney Wallet to work. This function is limited to your phone\'s hardware and software capabilities.</string>
+    <string name="ANZPrefFragment_anzEnableScreenshots_title">Allow Screenshots</string>
+    <string name="ANZPrefFragment_anzEnableScreenshots_summary">Allow screenshots to be taken within the ANZ GoMoney application.</string>
 
 
     <!-- Semble's Preference Fragment -->

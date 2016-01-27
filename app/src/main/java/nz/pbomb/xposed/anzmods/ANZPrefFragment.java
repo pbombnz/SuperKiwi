@@ -30,17 +30,33 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
         //Find all preferences
         getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.ROOT_DETECTION).setOnPreferenceChangeListener(this);
         getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE).setOnPreferenceChangeListener(this);
+        getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED).setOnPreferenceChangeListener(this);
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if(preference.getKey().equals(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
             return onRootDetectionPreferenceChange(preference, newValue);
-        } else /*if(preference.getKey().equals(PREFERENCES.KEYS.SPOOF_DEVICE))*/ {
+        } else if(preference.getKey().equals(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
             return onSpoofDevicePreferenceChange(preference, newValue);
-        } /*else {
+        } else if(preference.getKey().equals(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
+            return onScreenshotEnabledTogglePreferenceChange(preference, newValue);
+        } else {
             return false;
-        }*/
+        }
+    }
+
+    private boolean onScreenshotEnabledTogglePreferenceChange(Preference preference, Object newValue) {
+        SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
+
+        if (!((CheckBoxPreference) preference).isChecked()) {
+            sharedPreferencesEditor.putBoolean(preference.getKey(), true).apply();
+            displayScreenshotsEnabledCheckedDialog();
+
+        } else {
+            sharedPreferencesEditor.putBoolean(preference.getKey(), false).apply();
+        }
+        return true;
     }
 
     private boolean onRootDetectionPreferenceChange(Preference preference, Object newValue) {
@@ -60,11 +76,10 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
 
         if (!((CheckBoxPreference) preference).isChecked()) {
             sharedPreferencesEditor.putBoolean(preference.getKey(), true).apply();
-            displaypoofDeviceCheckedAlertDialog();
+            displaySpoofDeviceCheckedAlertDialog();
         } else {
             sharedPreferencesEditor.putBoolean(preference.getKey(), false).apply();
         }
-        sharedPreferencesEditor.apply();
         return true;
     }
 
@@ -82,9 +97,27 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
     /**
      * Displays the Alert Dialog when leaving the application
      */
-    public void displaypoofDeviceCheckedAlertDialog() {
+    public void displaySpoofDeviceCheckedAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getResources().getString(R.string.ANZPrefActivity_spoofDeviceChecked_message));
+        builder.setCancelable(false);
+        builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    /**
+     * Displays the Alert Dialog when leaving the application
+     */
+    public void displayScreenshotsEnabledCheckedDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Warning");
+        builder.setMessage("Enabling this feature can be a very dangerous operation. It's recommended if you need to copy your account deposit number use the copy-paste features within the application instead. Use this feature at your own risk!");
         builder.setCancelable(false);
         builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
             @Override

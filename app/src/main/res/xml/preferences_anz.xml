@@ -13,5 +13,11 @@
             android:summary="@string/preferences_spoofDevice_summary"
             android:defaultValue="false"
         />
+        <CheckBoxPreference
+            android:key="anzEnableScreenshots"
+            android:title="@string/ANZPrefFragment_anzEnableScreenshots_title"
+            android:summary="@string/ANZPrefFragment_anzEnableScreenshots_summary"
+            android:defaultValue="false"
+            />
     </PreferenceCategory>
 </PreferenceScreen>
