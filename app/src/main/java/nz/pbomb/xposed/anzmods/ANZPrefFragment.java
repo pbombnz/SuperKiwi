@@ -1,5 +1,6 @@
 package nz.pbomb.xposed.anzmods;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.Map;
 
+import common.PACKAGES;
 import common.PREFERENCES;
 
 @SuppressWarnings("unchecked")
@@ -56,6 +58,10 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
         } else {
             sharedPreferencesEditor.putBoolean(preference.getKey(), false).apply();
         }
+
+        ActivityManager mActivityManager = (ActivityManager) getActivity().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        mActivityManager.killBackgroundProcesses(PACKAGES.ANZ_GOMONEY);
+
         return true;
     }
 
