@@ -92,6 +92,10 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
     public boolean hasValuesChanged() {
         Map<String, Boolean> currentPreferences = (Map<String, Boolean>) sharedPreferences.getAll();
         for(String key: oldPreferences.keySet()) {
+            if(key.equals(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
+                continue;
+            }
+
             if(!oldPreferences.get(key).equals(currentPreferences.get(key))) {
                 return true;
             }
@@ -122,8 +126,9 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
      */
     public void displayScreenshotsEnabledCheckedDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Warning");
-        builder.setMessage("Enabling this feature can be a very dangerous operation. It's recommended if you need to copy your account deposit number use the copy-paste features within the application instead. Use this feature at your own risk!");
+        builder.setTitle("ANZ GoMoney Application needs to be relaunched");
+        //builder.setMessage("Enabling this feature can be a very dangerous operation. It's recommended if you need to copy your account deposit number use the copy-paste features within the application instead. Use this feature at your own risk!");
+        builder.setMessage("If you have opened ANZ GoMoney NZ previously and it is still in the recent apps list, then simply clear it from the list. Next time you open the application, the screenshot feature will be activated or deactivated (depending on your actions). No system restart is required.");
         builder.setCancelable(false);
         builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
             @Override
