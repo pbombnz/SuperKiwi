@@ -49,7 +49,7 @@ public class ContactActivity extends AppCompatActivity implements OnClickListene
                 break;
             case R.id.contact_email_button:
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:pbomb.nz@gmail.com"));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "[XPOSED][ANZMODS] Feedback");
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "[XPOSED][SUPERKIWI] General Feedback");
                 emailIntent.putExtra(Intent.EXTRA_TEXT,
                         "Build Fingerprint: "+ Build.FINGERPRINT + "\n" +
                         "Build Manufacturer: "+ Build.MANUFACTURER + "\n" +
@@ -59,7 +59,7 @@ public class ContactActivity extends AppCompatActivity implements OnClickListene
                         "\n" +
                         "Android OS Information: " + Build.VERSION.RELEASE + "\n" +
                         "\n" +
-                        "Addtional Text (Insert Feedback Here):\n");
+                        "Additional Text (Insert Feedback/Bug Report/Feature Request Here):\n");
                 startActivity(Intent.createChooser(emailIntent, "Chooser Email Client"));
                 break;
             case R.id.contact_xda_button:
