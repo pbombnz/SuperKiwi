@@ -35,7 +35,7 @@
     <string name="ContactActivity_contactViaTwitterButton">Contact via Twitter</string>
     <string name="ContactActivity_contactViaEmailButton">Contact via Email</string>
     <string name="ContactActivity_contactViaXDAButton">Contact via XDA Thread</string>
-    <string name="ContactActivity_message">You can contact me using any of the methods below where you can send me feedback (about whether its the module is working for you or not), bug reports, feature requests or to simply follow me on social media for updates.\n\nRemember to actually write an actual message when contacting me! You\'d be surprised how many people emailed me with no message.</string>
+    <string name="ContactActivity_message">You can contact me using any of the methods below where you can send me feedback, bug reports, feature requests or to simply follow me on social media for updates.\n\nRemember to actually write an actual message when contacting me! You\'d be surprised how many people emailed me with no message.</string>
 
     <!-- ANZ Activity -->
     <string name="ANZPrefActivity_compatibility_message_default">Module is not compatible with your device.</string>

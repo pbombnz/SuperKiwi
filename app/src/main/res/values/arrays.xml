@@ -106,7 +106,9 @@
             applies mainly to the "Spoof Device" feature is that the application needs to be reset as
             device registration only happens on first-time run of the application hence why
             clearing cache and data is needed.
-
+            \n\n
+            When toggling the option to enable screenshots, you do not need to clear the data or cache.
+            Next time you open the application, the setting you choose will be in place.
         </item>
         <item>
             No. I think the ANZ GoMoney Australia application is different from the New Zealand
