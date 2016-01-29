@@ -11,6 +11,9 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Map;
 
 import common.PACKAGES;
@@ -29,7 +32,7 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
         this.sharedPreferences = getActivity().getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
         oldPreferences = (Map<String, Boolean>) sharedPreferences.getAll();
 
-        //Find all preferences
+
         getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.ROOT_DETECTION).setOnPreferenceChangeListener(this);
         getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE).setOnPreferenceChangeListener(this);
         getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED).setOnPreferenceChangeListener(this);
@@ -37,61 +40,52 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if(preference.getKey().equals(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
-            return onRootDetectionPreferenceChange(preference, newValue);
-        } else if(preference.getKey().equals(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
-            return onSpoofDevicePreferenceChange(preference, newValue);
-        } else if(preference.getKey().equals(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
-            return onScreenshotEnabledTogglePreferenceChange(preference, newValue);
-        } else {
-            return false;
-        }
-    }
-
-    private boolean onScreenshotEnabledTogglePreferenceChange(Preference preference, Object newValue) {
+        String key = preference.getKey();
         SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
 
         if (!((CheckBoxPreference) preference).isChecked()) {
-            sharedPreferencesEditor.putBoolean(preference.getKey(), true).apply();
-            displayScreenshotsEnabledCheckedDialog();
+            sharedPreferencesEditor.putBoolean(key, true).apply();
+
+            if(key.equals(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
+                displayScreenshotsEnabledCheckedDialog();
+            } else if(key.equals(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
+                displaySpoofDeviceCheckedAlertDialog();
+            }
 
         } else {
-            sharedPreferencesEditor.putBoolean(preference.getKey(), false).apply();
+            sharedPreferencesEditor.putBoolean(key, false).apply();
         }
 
-        ActivityManager mActivityManager = (ActivityManager) getActivity().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-        mActivityManager.killBackgroundProcesses(PACKAGES.ANZ_GOMONEY);
+        // If the Screenshot feature was toggled, we need to end any ANZ process in order for the setting to be changed in real-time
+        if(key.equals(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
+            // The primary way of killing the ANZ GoMoney application
+            ActivityManager mActivityManager = (ActivityManager) getActivity().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+            mActivityManager.killBackgroundProcesses(PACKAGES.ANZ_GOMONEY);
+
+            // The secondary way of killing the ANZ GoMoney application used as a backup.
+            // This is mainly for lollipop and TouchWiz ROMs
+            try {
+                Process process = Runtime.getRuntime().exec(new String[] { "am force-stop " + PACKAGES.ANZ_GOMONEY });
+                BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            } catch (IOException e) {
+                //e.printStackTrace();
+            }
+        }
 
         return true;
     }
 
-    private boolean onRootDetectionPreferenceChange(Preference preference, Object newValue) {
-        SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
-
-        if (!((CheckBoxPreference) preference).isChecked()) {
-            sharedPreferencesEditor.putBoolean(preference.getKey(), true).apply();
-        } else {
-            sharedPreferencesEditor.putBoolean(preference.getKey(), false).apply();
-        }
-        sharedPreferencesEditor.apply();
-        return true;
-    }
-
-    private boolean onSpoofDevicePreferenceChange(Preference preference, Object newValue) {
-        SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
-
-        if (!((CheckBoxPreference) preference).isChecked()) {
-            sharedPreferencesEditor.putBoolean(preference.getKey(), true).apply();
-            displaySpoofDeviceCheckedAlertDialog();
-        } else {
-            sharedPreferencesEditor.putBoolean(preference.getKey(), false).apply();
-        }
-        return true;
-    }
-
+    /**
+     * Checks if the SharedPreferences preferences have changed
+     * @return true, if the values are now different, otherwise return false
+     */
     public boolean hasValuesChanged() {
+        // Retrieve the latest SharedPreferences
         Map<String, Boolean> currentPreferences = (Map<String, Boolean>) sharedPreferences.getAll();
+        // Loop through all keys and compare the old preferences with the new preferences to detect
+        // a change
         for(String key: oldPreferences.keySet()) {
+            // Ignore the screenshot enabled preferences as this preference doesn't require any clearing for data or cache
             if(key.equals(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
                 continue;
             }
@@ -100,6 +94,7 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
                 return true;
             }
         }
+        // No change was detected
         return false;
     }
 
