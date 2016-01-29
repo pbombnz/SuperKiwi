@@ -10,6 +10,7 @@
         <item>Why spoof my current device to an old phone such as the Samsung Galaxy Note 3?</item>
         <item>Its not working, who do I contact?</item>
         <item>I have more questions and/or need your help getting it working?</item>
+        <item>Why do you keep updating the application so often?</item>
     </string-array>
 
     <string-array name="helpAnswers_General">
@@ -40,25 +41,24 @@
             yourself that there is no code storing bank information.
         </item>
         <item>
-            If an option is disabled it means that the application that is needed to use these
-            settings is not installed depending on which option is disabled. For instance,
-            if I dont have any of the variants of Semble (either from Vodafone, 2Degrees of Spark),
-            the option is disabled because it would provide no additional benefits of having it
-            enabled.
+            If an option is disabled it means the application used for those tweaks is not
+            installed. For instance, if I dont have any of the variants of Semble (either from
+            Vodafone, 2Degrees of Spark), the option is disabled because it would provide no
+            additional benefits of having it enabled.
         </item>
         <item>
-            This changes the way your device appears to ANZ GoMoney or Semble application. You only need
+            This changes the way your device appears to ANZ GoMoney or the Semble application. You only need
             this enabled if your mobile phone is not on the ANZ GoMoney Wallet or Semble compatibility list but
             know your device has NFC with HCE support. This feature does not guarantee that NFC payment will
             work because there are some devices out there that simply will never work due
             to software or hardware restrictions.
             \n\n
             The difference between this and other spoofing applications is this module does NOT modify
-            \'build.prop\' so it will only affect the ANZ GoMoney or Semble application, not
+            \'build.prop\' so it will only affect the ANZ GoMoney and Semble application, not
             the entire system which would be impractical.
             \n\n
             If spoofing is enabled for ANZ GoMoney, you MUST clear all cache and data of the ANZ GoMoney
-            application and re-login. So keep your Account Number and password on hand. This is not
+            application and re-login. So keep your Account Number and password handy. This is not
             necessary for Semble though.
         </item>
         <item>
@@ -72,15 +72,22 @@
         </item>
         <item>
             Depending on the issue, I might not always be the best person to contact. Semble and
-            ANZ GoMoney Wallet are new features and still have bugs which is something out of my hands.
-            If you have a payment issue, most likely contact the application provider or your bank
-            for support. If you are having root detection problem or "the module is not working at all"
-            problem then its best to contact me via XDA or email.
+            ANZ GoMoney Wallet are realtively new applications and still have bugs which is
+            something out of my hands. If you have a payment issue, most likely contact the
+            application provider or your bank for support. If you are having root detection problem
+            or the module is not working then its best to contact me via XDA or email.
         </item>
         <item>
             Cool! Im happy to help to answer more questions and help individuals. if you are
             experiencing a problem, please tell me a full description of problem otherwise
             I can\'t determine how to solve the problem. You can contact me via XDA or email.
+            You can also contact me for feature requests as well.
+        </item>
+        <item>
+            For the most part, many of the upcoming updates will be for UI improvements, bug fixes,
+            or adding new features. Other times, its because ANZ, Semble and TVNZ improve their
+            root detection techniques so I have to find new workarounds in order for this module to
+            work with newer application versions.
         </item>
     </string-array>
 
