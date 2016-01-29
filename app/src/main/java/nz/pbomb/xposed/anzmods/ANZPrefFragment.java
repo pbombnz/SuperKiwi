@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,9 +45,9 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
         if (!((CheckBoxPreference) preference).isChecked()) {
             sharedPreferencesEditor.putBoolean(key, true).apply();
 
-            if(key.equals(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
+            /*if(key.equals(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
                 displayScreenshotsEnabledCheckedDialog();
-            } else if(key.equals(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
+            } else*/ if(key.equals(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
                 displaySpoofDeviceCheckedAlertDialog();
             }
 
@@ -56,14 +55,14 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
             sharedPreferencesEditor.putBoolean(key, false).apply();
         }
 
-        // If the Screenshot feature was toggled, we need to end any ANZ process in order for the setting to be changed in real-time
+        // If the Screenshot feature was toggled, we need to kill any ANZ processes in order for the setting to be in effect
         if(key.equals(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
             // The primary way of killing the ANZ GoMoney application
             ActivityManager mActivityManager = (ActivityManager) getActivity().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
             mActivityManager.killBackgroundProcesses(PACKAGES.ANZ_GOMONEY);
 
             // The secondary way of killing the ANZ GoMoney application used as a backup.
-            // This is mainly for lollipop and TouchWiz ROMs
+            // This is mainly for lollipop and TouchWiz ROMs where the primary way may not always work.
             try {
                 Process process = Runtime.getRuntime().exec(new String[] { "am force-stop " + PACKAGES.ANZ_GOMONEY });
                 BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -119,7 +118,7 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
     /**
      * Displays the Alert Dialog when leaving the application
      */
-    public void displayScreenshotsEnabledCheckedDialog() {
+    /*public void displayScreenshotsEnabledCheckedDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("ANZ GoMoney Application needs to be relaunched");
         //builder.setMessage("Enabling this feature can be a very dangerous operation. It's recommended if you need to copy your account deposit number use the copy-paste features within the application instead. Use this feature at your own risk!");
@@ -133,5 +132,5 @@ public class ANZPrefFragment extends PreferenceFragment implements Preference.On
         });
         AlertDialog alert = builder.create();
         alert.show();
-    }
+    }*/
 }
