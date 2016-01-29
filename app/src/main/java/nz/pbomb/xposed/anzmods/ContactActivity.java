@@ -1,5 +1,6 @@
 package nz.pbomb.xposed.anzmods;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -42,15 +43,19 @@ public class ContactActivity extends AppCompatActivity implements OnClickListene
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
         switch(v.getId()) {
             case R.id.contact_twitter_button:
-                Intent twitterIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/PBombNZ"));
-                startActivity(twitterIntent);
+                try {
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=528317895"));
+                }catch (ActivityNotFoundException e) {
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/PBombNZ"));
+                }
                 break;
             case R.id.contact_email_button:
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:pbomb.nz@gmail.com"));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "[XPOSED][SUPERKIWI] General Feedback");
-                emailIntent.putExtra(Intent.EXTRA_TEXT,
+                intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:pbomb.nz@gmail.com"));
+                intent.putExtra(Intent.EXTRA_SUBJECT, "[XPOSED][SUPERKIWI] General Feedback");
+                intent.putExtra(Intent.EXTRA_TEXT,
                         "Build Fingerprint: "+ Build.FINGERPRINT + "\n" +
                         "Build Manufacturer: "+ Build.MANUFACTURER + "\n" +
                         "Build Brand: "+ Build.BRAND + "\n" +
@@ -60,15 +65,16 @@ public class ContactActivity extends AppCompatActivity implements OnClickListene
                         "Android OS Information: " + Build.VERSION.RELEASE + "\n" +
                         "\n" +
                         "Additional Text (Insert Feedback/Bug Report/Feature Request Here):\n");
-                startActivity(Intent.createChooser(emailIntent, "Chooser Email Client"));
+
+                intent = Intent.createChooser(intent, "Chooser Email Client");
                 break;
             case R.id.contact_xda_button:
-                Intent xdaIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623"));
-                startActivity(xdaIntent);
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623"));
                 break;
             default:
-                break;
+                return;
         }
+        startActivity(intent);
     }
 
     @Override
