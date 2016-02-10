@@ -459,17 +459,66 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
+        //Build.Bootloader
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b0416ЖЖ0416Ж0416Ж0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
+                    XposedHelpers.callMethod(param.thisObject, "b0416ЖЖ0416Ж0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.BOOTLOADER);
+                }
+            }
+        });
+
+        //Build.Hardware
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416Ж0416Ж0416Ж0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
+                    XposedHelpers.callMethod(param.thisObject, "b04160416Ж0416Ж0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.HARDWARE);
+                }
+            }
+        });
+
+        //Build.Serial
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b0416Ж04160416Ж0416Ж0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
+                    XposedHelpers.callMethod(param.thisObject, "b0416Ж04160416Ж0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.SERIAL);
+                }
+            }
+        });
+
+        //Build.ID
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b041604160416ЖЖ0416Ж0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
+                    XposedHelpers.callMethod(param.thisObject, "b041604160416ЖЖ0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.ID);
+                }
+            }
+        });
+
         //Build.FINGERPRINT
-        /*findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "bЖ04160416ЖЖЖ04160416", String.class, new XC_MethodHook() {
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "bЖ04160416ЖЖЖ04160416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
                 Log.e("SuperKiwi", "afterHookedMethod: " + String.valueOf(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)));
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
+                    //setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
+                    XposedHelpers.callMethod(param.thisObject, "bЖ04160416ЖЖЖ04160416", new Class<?>[]{String.class}, deviceInfo.Build.FINGERPRINT);
                 }
             }
-        });*/
+        });
 
 
         //Build.ID
@@ -513,11 +562,12 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
                 Activity act = (Activity) callMethod(param.thisObject, "getActivity");
                 final Context ctx = act.getApplicationContext();
-                int settings_list_item_view__icon3 = ctx.getResources().getIdentifier("tc_ic", "drawable", ctx.getPackageName());
+
+                int deviceInfoDrawableIconID = ctx.getResources().getIdentifier("tc_ic", "drawable", ctx.getPackageName());
 
 
                 if(isDebugMode()) {
-                    callMethod(param.thisObject, "insertItem", new Class<?>[]{LayoutInflater.class, java.lang.String.class, int.class, settingEnumClass, settingGroupEnumClass, boolean.class}, param.args[0], "Device Info", settings_list_item_view__icon3, consts2[48], consts[2], false);
+                    callMethod(param.thisObject, "insertItem", new Class<?>[]{LayoutInflater.class, java.lang.String.class, int.class, settingEnumClass, settingGroupEnumClass, boolean.class}, param.args[0], "Device Info", deviceInfoDrawableIconID, consts2[48], consts[2], false);
                 }
 
                 //Activity act = (Activity) callMethod(param.thisObject, "getActivity");
