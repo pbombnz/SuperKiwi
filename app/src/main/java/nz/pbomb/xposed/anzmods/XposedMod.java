@@ -33,6 +33,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.XposedBridge;
 
@@ -219,7 +220,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
          * ANZ GoMoney Root Check
          */
         // SharedPrefs - "wallet_invalid_rooted_device" Always returns false
-        findAndHookMethod("nz.co.anz.android.mobilebanking.h.a.n", loadPackageParam.classLoader, "l", new XC_MethodHook() {
+        findAndHookMethod("nz.co.anz.android.mobilebanking.g.a.n", loadPackageParam.classLoader, "l", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -230,7 +231,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
         // SharedPrefs - "wallet_card_removed" Always returns false
-        findAndHookMethod("nz.co.anz.android.mobilebanking.h.a.n", loadPackageParam.classLoader, "m", new XC_MethodHook() {
+        findAndHookMethod("nz.co.anz.android.mobilebanking.g.a.n", loadPackageParam.classLoader, "m", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -241,7 +242,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
         // Superuser.apk and shell check
-        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.ah", loadPackageParam.classLoader, "a", new XC_MethodHook() {
+        findAndHookMethod("nz.co.anz.android.mobilebanking.h.e.ah", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -252,7 +253,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
         // eligibleForWallet returns true
-        findAndHookMethod("nz.co.anz.android.mobilebanking.model.k", loadPackageParam.classLoader, "g", new XC_MethodHook() {
+        findAndHookMethod("nz.co.anz.android.mobilebanking.model.k", loadPackageParam.classLoader, "f", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -265,7 +266,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         /**
          * Device Spoofing Hooks
          */
-        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader, "a", new XC_MethodHook() {
+        // return "[" + Build.BRAND + " " + Build.MODEL + "]";
+        findAndHookMethod("nz.co.anz.android.mobilebanking.h.e.k", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -274,7 +276,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 }
             }
         });
-        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader, "b", new XC_MethodHook() {
+        findAndHookMethod("nz.co.anz.android.mobilebanking.h.e.k", loadPackageParam.classLoader, "b", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -284,7 +286,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader, "e", new XC_MethodHook() {
+        findAndHookMethod("nz.co.anz.android.mobilebanking.h.e.k", loadPackageParam.classLoader, "e", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -294,7 +296,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.u", loadPackageParam.classLoader, "a", new XC_MethodHook() {
+        findAndHookMethod("nz.co.anz.android.mobilebanking.h.e.u", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -304,7 +306,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-        findAndHookMethod("com.google.android.gms.b.ao", loadPackageParam.classLoader, "a", String.class, String.class, String.class, String.class, String.class, String.class, new XC_MethodHook() {
+        findAndHookMethod("com.google.android.gms.analytics.internal.l", loadPackageParam.classLoader, "a", String.class, String.class, String.class, String.class, String.class, String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -313,7 +315,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                     String str2 = (String) param.args[1];
                     String str3 = (String) param.args[2];
                     String str4 = (String) param.args[3];
-                    String str5 = "SM-9005";
+                    String str5 = "SM-N9005";
                     String str6 = (String) param.args[5];
 
                     param.setResult(String.format("%s/%s (Linux; U; Android %s; %s; %s Build/%s)", str, str2, str3, str4, str5, str6));
@@ -321,9 +323,36 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
+
+        final DeviceInfo deviceInfo = SpoofDevices.getDeviceInfo(SpoofDevices.DEVICE.SAMSUNG_GALAXY_NOTE_3);
         //Class<?> x = findClass("xxxxxx.ajaaaj", loadPackageParam.classLoader);
         // Method y = findMethodBestMatch(x,"b041604160416Ж0416ЖЖ0416", String.class);
         //XposedBridge.log(y.getName());
+
+        //xxxxxx.ajaaaj
+        //version.sdk_int
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416ЖЖ0416ЖЖ0416", Integer.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    XposedHelpers.callMethod(param.thisObject, "b04160416ЖЖ0416ЖЖ0416", new Class<?>[]{Integer.class}, Integer.valueOf(deviceInfo.VERSION.SDK_INT));
+                }
+            }
+        });
+
+        //xxxxxx.ajaaaj
+        //version.codename
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b0416Ж0416Ж0416ЖЖ0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    //setObjectField(param.thisObject, "f6987b044504450445", "hlte");
+                    XposedHelpers.callMethod(param.thisObject, "b0416Ж0416Ж0416ЖЖ0416", new Class<?>[]{String.class}, deviceInfo.VERSION.CODENAME);
+                }
+            }
+        });
 
         //xxxxxx.ajaaaj
         //Build.Device
@@ -332,7 +361,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
                 if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    setObjectField(param.thisObject, "f6987b044504450445", "hlte");
+                    //setObjectField(param.thisObject, "f6987b044504450445", "hlte");
+                    XposedHelpers.callMethod(param.thisObject, "b041604160416Ж0416ЖЖ0416", new Class<?>[]{String.class}, deviceInfo.Build.DEVICE);
                 }
             }
         });
@@ -342,7 +372,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    setObjectField(param.thisObject, "bх0445ххх04450445х", "SM-N9005");
+                    //setObjectField(param.thisObject, "bх0445ххх04450445х", "SM-N9005");
+                    XposedHelpers.callMethod(param.thisObject, "b0416ЖЖ04160416ЖЖ0416", new Class<?>[]{String.class}, deviceInfo.Build.MODEL);
                 }
             }
         });
@@ -352,46 +383,66 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    setObjectField(param.thisObject, "b04450445ххх04450445х", "hltexx");
+                    //setObjectField(param.thisObject, "b04450445ххх04450445х", "hltexx");
+                    XposedHelpers.callMethod(param.thisObject, "b04160416Ж04160416ЖЖ0416", new Class<?>[]{String.class}, deviceInfo.Build.PRODUCT);
                 }
             }
         });
 
-        /*//Build.BOARD
-        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416041604160416ЖЖ0416", String.class, new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(prefs.getBoolean(PREFERENCES.KEYS.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SPOOF_DEVICE)) {
-                    setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
-                }
-            }
-        });
-        //Build.CPU_ABI ~ WRONG
-        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b0416ЖЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(prefs.getBoolean(PREFERENCES.KEYS.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SPOOF_DEVICE)) {
-                    setObjectField(param.thisObject, "bх04450445хх04450445х", "armeabi-v7a");
-                }
-            }
-        });
-        //Build.CPU_ABI2 ~ WRONG
-        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "m12118b041604160416", String.class, new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(prefs.getBoolean(PREFERENCES.KEYS.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SPOOF_DEVICE)) {
-                    setObjectField(param.thisObject, "bх04450445хх04450445х", "armeabi");
-                }
-            }
-        });*/
-
-        //Build.MANUFACTURER
-        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416ЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
+        //Build.Display
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b0416Ж041604160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    setObjectField(param.thisObject, "b044504450445хх04450445х", "samsung");
+                    //setObjectField(param.thisObject, "b04450445ххх04450445х", "hltexx");
+                    XposedHelpers.callMethod(param.thisObject, "b0416Ж041604160416ЖЖ0416", new Class<?>[]{String.class}, deviceInfo.Build.DISPLAY);
+                }
+            }
+        });
+
+        //Build.BOARD
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416041604160416ЖЖ0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    //setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
+                    XposedHelpers.callMethod(param.thisObject, "b04160416041604160416ЖЖ0416", new Class<?>[]{String.class}, deviceInfo.Build.BOARD);
+                }
+            }
+        });
+
+        //Build.CPU_ABI
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b0416ЖЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    //setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
+                    XposedHelpers.callMethod(param.thisObject, "b0416ЖЖЖЖ0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.CPU_ABI);
+                }
+            }
+        });
+
+        //Build.CPU_ABI2
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416ЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    //setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
+                    XposedHelpers.callMethod(param.thisObject, "b04160416ЖЖЖ0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.CPU_ABI2);
+                }
+            }
+        });
+
+        //Build.MANUFACTURER
+        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b0416Ж0416ЖЖ0416Ж0416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    //setObjectField(param.thisObject, "b044504450445хх04450445х", "samsung");
+                    XposedHelpers.callMethod(param.thisObject, "b0416Ж0416ЖЖ0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.MANUFACTURER);
+
                 }
             }
         });
@@ -402,10 +453,24 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
+                    //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
+                    XposedHelpers.callMethod(param.thisObject, "b041604160416ЖЖ0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.BRAND);
                 }
             }
         });
+
+        //Build.FINGERPRINT
+        /*findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "bЖ04160416ЖЖЖ04160416", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                Log.e("SuperKiwi", "afterHookedMethod: " + String.valueOf(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)));
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
+                }
+            }
+        });*/
+
 
         //Build.ID
         findAndHookMethod("xxxxxx.hchchh", loadPackageParam.classLoader, "b04220422ТТ0422042204220422", android.content.Context.class, new XC_MethodHook() {
@@ -433,19 +498,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-        //Build.FINGERPRINT
-        findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "bЖ04160416ЖЖЖ04160416", String.class, new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                Log.e("SuperKiwi", "afterHookedMethod: " + String.valueOf(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)));
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
-                }
-            }
-        });
-
-
         // Inserts a "SuperKiwi" Setting into the ANZ GoMoney Settings Fragement
         // If Debug mode is enabled, also inserts a "Device Info" fragment orginally hidden
         findAndHookMethod("nz.co.anz.android.mobilebanking.ui.fragment.SettingsFragment", loadPackageParam.classLoader, "addTermsAndConditions", LayoutInflater.class, new XC_MethodHook() {
@@ -459,12 +511,17 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 Class settingEnumClass = findClass("nz.co.anz.android.mobilebanking.ui.c.a", loadPackageParam.classLoader);
                 Object[] consts2 = settingEnumClass.getEnumConstants();
 
-                if(isDebugMode()) {
-                    callMethod(param.thisObject, "insertItem", new Class<?>[]{LayoutInflater.class, java.lang.String.class, int.class, settingEnumClass, settingGroupEnumClass, boolean.class}, param.args[0], "Device Info", 2130838121, consts2[45], consts[2], false);
-                }
-
                 Activity act = (Activity) callMethod(param.thisObject, "getActivity");
                 final Context ctx = act.getApplicationContext();
+                int settings_list_item_view__icon3 = ctx.getResources().getIdentifier("tc_ic", "drawable", ctx.getPackageName());
+
+
+                if(isDebugMode()) {
+                    callMethod(param.thisObject, "insertItem", new Class<?>[]{LayoutInflater.class, java.lang.String.class, int.class, settingEnumClass, settingGroupEnumClass, boolean.class}, param.args[0], "Device Info", settings_list_item_view__icon3, consts2[48], consts[2], false);
+                }
+
+                //Activity act = (Activity) callMethod(param.thisObject, "getActivity");
+                //final Context ctx = act.getApplicationContext();
 
                 //R.layout.settings_list_item_view
                 int settings_list_item_view = ctx.getResources().getIdentifier("settings_list_item_view", "layout", ctx.getPackageName());
