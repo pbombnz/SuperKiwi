@@ -329,6 +329,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // Method y = findMethodBestMatch(x,"b041604160416Ж0416ЖЖ0416", String.class);
         //XposedBridge.log(y.getName());
 
+        // most of the method hooks below simply call the method they are hooking to changed to override what is stored in variables.
+
         //xxxxxx.ajaaaj
         //version.sdk_int
         findAndHookMethod("xxxxxx.ajaaaj", loadPackageParam.classLoader, "b04160416ЖЖ0416ЖЖ0416", Integer.class, new XC_MethodHook() {
