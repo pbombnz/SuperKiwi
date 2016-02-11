@@ -338,7 +338,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
                 if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    XposedHelpers.callMethod(param.thisObject, "b04160416ЖЖ0416ЖЖ0416", new Class<?>[]{Integer.class}, Integer.valueOf(deviceInfo.VERSION.SDK_INT));
+                    param.args[0] = Integer.valueOf(deviceInfo.VERSION.SDK_INT);
+                    super.afterHookedMethod(param);
+
                 }
             }
         });
@@ -351,7 +353,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 refreshSharedPreferences();
                 if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "f6987b044504450445", "hlte");
-                    XposedHelpers.callMethod(param.thisObject, "b0416Ж0416Ж0416ЖЖ0416", new Class<?>[]{String.class}, deviceInfo.VERSION.CODENAME);
+                    param.args[0] = deviceInfo.VERSION.CODENAME;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -364,7 +367,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 refreshSharedPreferences();
                 if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "f6987b044504450445", "hlte");
-                    XposedHelpers.callMethod(param.thisObject, "b041604160416Ж0416ЖЖ0416", new Class<?>[]{String.class}, deviceInfo.Build.DEVICE);
+                    param.args[0] = deviceInfo.Build.DEVICE;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -375,7 +379,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "bх0445ххх04450445х", "SM-N9005");
-                    XposedHelpers.callMethod(param.thisObject, "b0416ЖЖ04160416ЖЖ0416", new Class<?>[]{String.class}, deviceInfo.Build.MODEL);
+                    param.args[0] = deviceInfo.Build.MODEL;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -386,7 +391,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b04450445ххх04450445х", "hltexx");
-                    XposedHelpers.callMethod(param.thisObject, "b04160416Ж04160416ЖЖ0416", new Class<?>[]{String.class}, deviceInfo.Build.PRODUCT);
+                    param.args[0] = deviceInfo.Build.PRODUCT;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -398,7 +404,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b04450445ххх04450445х", "hltexx");
-                    XposedHelpers.callMethod(param.thisObject, "b0416Ж041604160416ЖЖ0416", new Class<?>[]{String.class}, deviceInfo.Build.DISPLAY);
+                    param.args[0] = deviceInfo.Build.DISPLAY;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -409,7 +416,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
-                    XposedHelpers.callMethod(param.thisObject, "b04160416041604160416ЖЖ0416", new Class<?>[]{String.class}, deviceInfo.Build.BOARD);
+                    param.args[0] = deviceInfo.Build.BOARD;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -420,7 +428,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
-                    XposedHelpers.callMethod(param.thisObject, "b0416ЖЖЖЖ0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.CPU_ABI);
+                    param.args[0] = deviceInfo.Build.CPU_ABI;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -431,7 +440,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
-                    XposedHelpers.callMethod(param.thisObject, "b04160416ЖЖЖ0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.CPU_ABI2);
+                    param.args[0] = deviceInfo.Build.CPU_ABI2;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -443,8 +453,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b044504450445хх04450445х", "samsung");
-                    XposedHelpers.callMethod(param.thisObject, "b0416Ж0416ЖЖ0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.MANUFACTURER);
-
+                    param.args[0] = deviceInfo.Build.MANUFACTURER;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -456,7 +466,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
-                    XposedHelpers.callMethod(param.thisObject, "b041604160416ЖЖ0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.BRAND);
+                    param.args[0] = deviceInfo.Build.BRAND;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -468,7 +479,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
-                    XposedHelpers.callMethod(param.thisObject, "b0416ЖЖ0416Ж0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.BOOTLOADER);
+                    param.args[0] = deviceInfo.Build.BOOTLOADER;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -480,7 +492,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
-                    XposedHelpers.callMethod(param.thisObject, "b04160416Ж0416Ж0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.HARDWARE);
+                    param.args[0] = deviceInfo.Build.HARDWARE;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -492,7 +505,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
-                    XposedHelpers.callMethod(param.thisObject, "b0416Ж04160416Ж0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.SERIAL);
+                    param.args[0] = deviceInfo.Build.SERIAL;
+                    super.afterHookedMethod(param);;
                 }
             }
         });
@@ -504,7 +518,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
-                    XposedHelpers.callMethod(param.thisObject, "b041604160416ЖЖ0416Ж0416", new Class<?>[]{String.class}, deviceInfo.Build.ID);
+                    param.args[0] = deviceInfo.Build.ID;
+                    super.afterHookedMethod(param);
                 }
             }
         });
@@ -517,13 +532,15 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 Log.e("SuperKiwi", "afterHookedMethod: " + String.valueOf(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)));
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
-                    XposedHelpers.callMethod(param.thisObject, "bЖ04160416ЖЖЖ04160416", new Class<?>[]{String.class}, deviceInfo.Build.FINGERPRINT);
+                    param.args[0] = deviceInfo.Build.FINGERPRINT;
+                    super.afterHookedMethod(param);
                 }
             }
         });
 
 
         //Build.ID
+        // TODO: not sure if all this information is needed
         findAndHookMethod("xxxxxx.hchchh", loadPackageParam.classLoader, "b04220422ТТ0422042204220422", android.content.Context.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
