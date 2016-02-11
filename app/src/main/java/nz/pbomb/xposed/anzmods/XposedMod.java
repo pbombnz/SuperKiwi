@@ -547,14 +547,14 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     StringBuilder sb = new StringBuilder(500);
-                    sb.append("hlte");      // r1 = android.os.Build.DEVICE;	 Catch:{ Exception -> 0x007d } (Line 261)
-                    sb.append("SM-N9005");  // r1 = android.os.Build.MODEL;	 Catch:{ Exception -> 0x007d } (Line 263)
-                    sb.append("hltexx");    // r1 = android.os.Build.PRODUCT;	 Catch:{ Exception -> 0x007d } (Line 265)
-                    sb.append("MSM8974");   // r1 = android.os.Build.BOARD;	 Catch:{ Exception -> 0x007d } (Line 265)
-                    sb.append("samsung");   // r1 = android.os.Build.MANUFACTURER;	 Catch:{ Exception -> 0x007d } (Line 267)
-                    sb.append("samsung");   // r1 = android.os.Build.BRAND;	 Catch:{ Exception -> 0x007d } (Line 269)
-                    sb.append("qcom");   // r1 = android.os.Build.HARDWARE;	 Catch:{ Exception -> 0x007d } (Line 289)
-                    sb.append("unknown");   // r1 = android.os.Build.SERIAL;	 Catch:{ Exception -> 0x007d } (Line 306)
+                    sb.append(deviceInfo.Build.DEVICE);      // r1 = android.os.Build.DEVICE;	 Catch:{ Exception -> 0x007d } (Line 261)
+                    sb.append(deviceInfo.Build.MODEL);  // r1 = android.os.Build.MODEL;	 Catch:{ Exception -> 0x007d } (Line 263)
+                    sb.append(deviceInfo.Build.PRODUCT);    // r1 = android.os.Build.PRODUCT;	 Catch:{ Exception -> 0x007d } (Line 265)
+                    sb.append(deviceInfo.Build.BOARD);   // r1 = android.os.Build.BOARD;	 Catch:{ Exception -> 0x007d } (Line 265)
+                    sb.append(deviceInfo.Build.MANUFACTURER);   // r1 = android.os.Build.MANUFACTURER;	 Catch:{ Exception -> 0x007d } (Line 267)
+                    sb.append(deviceInfo.Build.BRAND);   // r1 = android.os.Build.BRAND;	 Catch:{ Exception -> 0x007d } (Line 269)
+                    sb.append(deviceInfo.Build.HARDWARE);   // r1 = android.os.Build.HARDWARE;	 Catch:{ Exception -> 0x007d } (Line 289)
+                    sb.append(Build.UNKNOWN);   // r1 = android.os.Build.SERIAL;	 Catch:{ Exception -> 0x007d } (Line 306)
 
                     final TelephonyManager mTelephony = (TelephonyManager) ((Context) param.args[0]).getSystemService(Context.TELEPHONY_SERVICE);
                     String myAndroidDeviceId = mTelephony.getDeviceId();
