@@ -2,6 +2,7 @@ package nz.pbomb.xposed.anzmods;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import java.util.Map;
 
 import static de.robv.android.xposed.XposedHelpers.callMethod;
+import static de.robv.android.xposed.XposedHelpers.findAndHookConstructor;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -157,6 +159,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         }
     }
 
+
     /**
      * A method that hooks the TVNZ OnDemand packages if TVNZ OnDemand is present on the device
      *
@@ -164,11 +167,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      */
     private void hookTVNZOnDemandApplication(final LoadPackageParam loadPackageParam) {
         // Returns "false" to indicate that no root tools were detected.
-        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", loadPackageParam.classLoader, "A", new XC_MethodHook() {
+        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", loadPackageParam.classLoader, "B", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                if (prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
