@@ -1,6 +1,6 @@
 # SuperKiwi (formerly ANZ GoMoney New Zealand Mods)
 
-This is a Xposed application allows users to bypass root detection on ANZ GoMoney New Zealand and any carrier variant of Semble to take advantage of Wallet features from either application from rooted or non-supported devices. It also bypasses root detection on TVNZ OnDemand. For more information please visit the XDA thread. http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623
+This is a Xposed application allows users to bypass root detection on ANZ GoMoney New Zealand and any carrier variant of Semble to take advantage of Wallet features from either application from rooted or non-supported devices. It also bypasses root detection on TVNZ OnDemand. For more information please visit the [XDA thread link](http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623).
 
 
 ## License 
