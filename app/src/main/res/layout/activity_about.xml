@@ -56,19 +56,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Liam Cottle - TVNZ OnDemand \nRoot Detection Bypass Code"
-            android:gravity="center"
-            android:id="@+id/textView4"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="rovo89 - Providing Xposed Framework"
+            android:id="@+id/textView5"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_gravity="center_horizontal" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="rovo89 - Xposed Framework"
-            android:id="@+id/textView5"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Liam Cottle - Providing base code for TVNZ OnDemand \nRoot Detection Bypass"
+            android:gravity="center"
+            android:id="@+id/textView4"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_gravity="center_horizontal" />
