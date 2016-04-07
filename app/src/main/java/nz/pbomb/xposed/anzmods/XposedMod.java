@@ -167,7 +167,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      */
     private void hookTVNZOnDemandApplication(final LoadPackageParam loadPackageParam) {
         // Returns "false" to indicate that no root tools were detected.
-        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", loadPackageParam.classLoader, "B", new XC_MethodHook() {
+        // v2.2 - B
+        // v2.3 - F
+        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", loadPackageParam.classLoader, "F", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
