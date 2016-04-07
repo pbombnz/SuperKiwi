@@ -223,7 +223,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
          * ANZ GoMoney Root Check
          */
         // SharedPrefs - "wallet_invalid_rooted_device" Always returns false
-        findAndHookMethod("nz.co.anz.android.mobilebanking.g.a.n", loadPackageParam.classLoader, "l", new XC_MethodHook() {
+        //  - v5.1.1 - nz.co.anz.android.mobilebanking.g.a.n
+        //  - v5.2.2 - nz.co.anz.android.mobilebanking.h.a.n
+        findAndHookMethod("nz.co.anz.android.mobilebanking.h.a.n", loadPackageParam.classLoader, "l", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -234,7 +236,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
         // SharedPrefs - "wallet_card_removed" Always returns false
-        findAndHookMethod("nz.co.anz.android.mobilebanking.g.a.n", loadPackageParam.classLoader, "m", new XC_MethodHook() {
+        //  - v5.1.1 - nz.co.anz.android.mobilebanking.g.a.n
+        //  - v5.2.2 - nz.co.anz.android.mobilebanking.h.a.n
+        findAndHookMethod("nz.co.anz.android.mobilebanking.h.a.n", loadPackageParam.classLoader, "m", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -245,7 +249,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
         // Superuser.apk and shell check
-        findAndHookMethod("nz.co.anz.android.mobilebanking.h.e.ah", loadPackageParam.classLoader, "a", new XC_MethodHook() {
+        //  - v5.1.1 - nz.co.anz.android.mobilebanking.h.e.ah
+        //  - v5.2.2 - nz.co.anz.android.mobilebanking.i.e.ai
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.ai", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -256,6 +262,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
         // eligibleForWallet returns true
+        //  - v5.1.1-5.2.2 - nz.co.anz.android.mobilebanking.model.k
         findAndHookMethod("nz.co.anz.android.mobilebanking.model.k", loadPackageParam.classLoader, "f", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -270,7 +277,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
          * Device Spoofing Hooks
          */
         // return "[" + Build.BRAND + " " + Build.MODEL + "]";
-        findAndHookMethod("nz.co.anz.android.mobilebanking.h.e.k", loadPackageParam.classLoader, "a", new XC_MethodHook() {
+        //  - v5.1.1 - nz.co.anz.android.mobilebanking.h.e.k
+        //  - v5.2.2 - nz.co.anz.android.mobilebanking.i.e.k
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -279,7 +288,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 }
             }
         });
-        findAndHookMethod("nz.co.anz.android.mobilebanking.h.e.k", loadPackageParam.classLoader, "b", new XC_MethodHook() {
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader, "b", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -289,7 +298,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-        findAndHookMethod("nz.co.anz.android.mobilebanking.h.e.k", loadPackageParam.classLoader, "e", new XC_MethodHook() {
+
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader, "e", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -299,7 +309,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-        findAndHookMethod("nz.co.anz.android.mobilebanking.h.e.u", loadPackageParam.classLoader, "a", new XC_MethodHook() {
+        // v5.1.1 - nz.co.anz.android.mobilebanking.h.e.u
+        // v5.2.2 - nz.co.anz.android.mobilebanking.i.e.v
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.v", loadPackageParam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -309,6 +321,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
+        // v5.1.1-5.2.2 - com.google.android.gms.analytics.internal.l
         findAndHookMethod("com.google.android.gms.analytics.internal.l", loadPackageParam.classLoader, "a", String.class, String.class, String.class, String.class, String.class, String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
