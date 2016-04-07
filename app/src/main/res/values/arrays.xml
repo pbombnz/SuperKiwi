@@ -38,7 +38,7 @@
         </item>
         <item>
             RootCloak rarely works for banking applications as the source code used is too generic
-            to target all applications. In this specific case, RootCloak doesn't work properly
+            to target all applications. In this specific case, RootCloak doesn\'t work properly
             with Semble or ANZ GoMoney NZ hence why this application was created.
         </item>
         <item>
