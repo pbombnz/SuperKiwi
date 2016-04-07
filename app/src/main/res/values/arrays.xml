@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="helpQuestions_General">
+        <item>Note about Help and FAQ\'s</item>
         <item>What is this?</item>
         <item>What happens if my device malfunctions or gets bricked?</item>
         <item>But can\'t I just use RootCloak?</item>
@@ -14,6 +15,11 @@
     </string-array>
 
     <string-array name="helpAnswers_General">
+        <item>
+            Although the information here is still relevant, it is also very limited simply because
+            it cannot list all FAQ\'s, known issues and bugs. For more helpful and in-depth support,
+            its recommended to read the XDA thread.
+        </item>
         <item>
             This is a Xposed module application which hooks on the ANZ GoMoney, Semble
             and TVNZ OnDemand to bypass certain root detection so users that have rooted and/or
@@ -32,15 +38,14 @@
         </item>
         <item>
             RootCloak rarely works for banking applications as the source code used is too generic
-            to target all applications hence why it doesn\'t work for Semble or ANZ GoMoney hence
-            why this application was created.
+            to target all applications. In this specific case, RootCloak doesn't work properly
+            with Semble or ANZ GoMoney NZ hence why this application was created.
         </item>
         <item>
             I have no intention of doing that. If you are truly paranoid, the source code is
-            avaiable on GitHub which can be viewed on the main menu of this module. There you can see
+            available on GitHub which can be viewed on the main menu of this module. There you can see
             for yourself that there is no code storing bank information or sending it off to a remote
-            server or silly stuff like that. This module doesn't even have internet permissions to
-            do such things.
+            server or anything like that.
         </item>
         <item>
             If an option is disabled it means the application used for those tweaks is not
