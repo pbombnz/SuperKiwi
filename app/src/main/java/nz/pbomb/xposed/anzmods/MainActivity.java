@@ -1,10 +1,13 @@
 package nz.pbomb.xposed.anzmods;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +19,7 @@ import java.io.File;
 import common.GLOBAL;
 import common.PACKAGES;
 import common.PREFERENCES;
+import de.robv.android.xposed.SELinuxHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +34,23 @@ public class MainActivity extends AppCompatActivity {
             setTitle(getTitle() + " (Debug Mode)");
         }
 
+        /*if(SELinuxHelper.isSELinuxEnabled()
+        && SELinuxHelper.isSELinuxEnforced()
+        && GLOBAL.isSamsungRom()
+        && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("SELinux Enforcing");
+            builder.setMessage("");
+            builder.setCancelable(false);
+            builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }*/
     }
 
     /**
