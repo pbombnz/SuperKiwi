@@ -20,6 +20,11 @@ public final class PREFERENCES {
             public static final boolean ROOT_DETECTION = true;
         }
 
+        public static final class TV3NOW {
+            public static final boolean ROOT_DETECTION = true;
+        }
+
+
         public static final class MAIN {
             public static final boolean DEBUG = false;
         }
@@ -42,10 +47,15 @@ public final class PREFERENCES {
             public static final String ROOT_DETECTION = "tvnzRootDetection";
         }
 
+        public static final class TV3NOW {
+            public static final String ROOT_DETECTION = "tv3nowRootDetection";
+        }
+
         public static final class MAIN {
             public static final String ANZ = "anzPrefs";
             public static final String SEMBLE = "semblePrefs";
             public static final String TVNZ = "tvnzPrefs";
+            public static final String TV3NOW = "tv3nowPrefs";
 
             public static final String DEBUG = "debug";
             public static final String HELP = "help";

@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         if(!sharedPref.contains(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION);
         }
+        if(!sharedPref.contains(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION)) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION);
+        }
         if(!sharedPref.contains(PREFERENCES.KEYS.MAIN.DEBUG)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG);
         } else {
@@ -78,27 +81,26 @@ public class MainActivity extends AppCompatActivity {
         sharedPrefEditor.apply();
 
         // Checks if ANZ GoMoney is installed and if its not disable the preference option in the
-        // fragment and disable any related modifications
+        // fragment
         if(!isANZGoMoneyInstalled()) {
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, false);
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, false);
-            sharedPrefEditor.apply();
-
             preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
         }
 
         // Checks if Semble is installed and if its not disable the preference option in the
-        // fragment and disable any related modifications
+        // fragment
         if(!isSembleInstalled()) {
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, false);
-            sharedPrefEditor.apply();
-
             preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
         }
 
         // Checks if TVNZ is installed and if its not disable the preference option in the
-        // fragment and disable any related modifications
+        // fragment
         if(!isTVNZOnDemandInstalled()) {
+            preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);
+        }
+
+        // Checks if TVNZ is installed and if its not disable the preference option in the
+        // fragment
+        if(!isTV3NOWInstalled()) {
             preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);
         }
     }
@@ -164,6 +166,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private boolean isTVNZOnDemandInstalled() {
         return isApplicationInstalled(PACKAGES.TVNZ_ONDEMAND);
+    }
+
+    private boolean isTV3NOWInstalled() {
+        return isApplicationInstalled(PACKAGES.TV3NOW);
     }
 
     /**

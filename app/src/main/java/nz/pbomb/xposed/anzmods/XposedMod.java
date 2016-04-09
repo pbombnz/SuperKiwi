@@ -172,7 +172,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                if (prefs.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -181,7 +181,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                if (prefs.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -190,7 +190,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                if (prefs.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -199,7 +199,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                if (prefs.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -208,7 +208,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                if (prefs.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }

@@ -22,6 +22,7 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
         findPreference(PREFERENCES.KEYS.MAIN.ANZ).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setOnPreferenceClickListener(this);
+        findPreference(PREFERENCES.KEYS.MAIN.TV3NOW).setOnPreferenceClickListener(this);
 
         findPreference(PREFERENCES.KEYS.MAIN.DEBUG).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.HELP).setOnPreferenceClickListener(this);
@@ -46,6 +47,11 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
             intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
             intent.putExtra("id", R.xml.preferences_tvnz);
             intent.putExtra("title", "TVNZ OnDemand Tweaks");
+            intent.putExtra("preference", preference.getKey());
+        } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.TV3NOW)) {
+            intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+            intent.putExtra("id", R.xml.preferences_tv3now);
+            intent.putExtra("title", "3NOW Tweaks");
             intent.putExtra("preference", preference.getKey());
         } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.DEBUG)) {
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference) preference;

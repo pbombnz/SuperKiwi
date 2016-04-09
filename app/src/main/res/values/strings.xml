@@ -25,6 +25,9 @@
     <string name="MainPrefFragement_semblePrefs_summary">Displays the preferences that can be used to bypass Semble\'s Root Detection and also bypass "OS not Supported" messages for Marshmallow users.</string>
     <string name="MainPrefFragement_tvnzPrefs_title">TVNZ onDemand</string>
     <string name="MainPrefFragement_tvnzPrefs_summary">Displays the preferences that can be used to bypass TVNZ onDemand\'s Root Detection checks when watching a onDemand video.</string>
+    <string name="MainPrefFragement_tv3nowPrefs_title">3NOW</string>
+    <string name="MainPrefFragement_tv3nowPrefs_summary">Displays the preferences that can be used to bypass 3NOW\'s Root Detection checks when entering the application.</string>
+
     <string name="MainPrefFragement_debug_title">Debug Mode</string>
     <string name="MainPrefFragement_debug_summary">Toggles logging which can be helpful when troubleshooting. Can reduce performance drastically due to constant reloading of data files therefore only enable if you actually need this feature.</string>
     <string name="MainPrefFragement_help_title">Help and FAQ\'s</string>
@@ -71,6 +74,11 @@
     <!-- TVNZ Preference Fragment -->
     <string name="tvnzPrefFragment_rootDetection_title">Root Detection</string>
     <string name="tvnzPrefFragment_rootDetection_summary">Enable to bypass the various root checks found in the TVNZ onDemand application.</string>
+
+    <!-- TV3 NOW Preference Fragment -->
+    <string name="tv3now_rootDetection_title">Root Detection</string>
+    <string name="tv3now_rootDetection_summary">Enable to bypass the various root checks found in the 3NOW application.</string>
+
 
     <!-- Dialog Alert Boxes -->
     <string name="ANZPrefActivity_quit_title">Settings Changed</string>

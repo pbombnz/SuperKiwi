@@ -16,6 +16,12 @@
             android:title="@string/MainPrefFragement_tvnzPrefs_title"
             android:summary="@string/MainPrefFragement_tvnzPrefs_summary"
             />
+
+        <Preference
+            android:key="tv3nowPrefs"
+            android:title="@string/MainPrefFragement_tv3nowPrefs_title"
+            android:summary="@string/MainPrefFragement_tv3nowPrefs_summary"
+            />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Other">
