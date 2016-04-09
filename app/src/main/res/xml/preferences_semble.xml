@@ -15,8 +15,8 @@
         />
         <CheckBoxPreference
             android:key="sembleOSSupport"
-            android:title="@string/SemblePrefFragment_unofficialMMSupport_title"
-            android:summary="@string/SemblePrefFragment_unofficialMMSupport_summary"
+            android:title="@string/SemblePrefFragment_unofficialOSSupport_title"
+            android:summary="@string/SemblePrefFragment_unofficialOSSupport_summary"
             android:defaultValue="true"
             />
     </PreferenceCategory>
