@@ -70,6 +70,7 @@ public class PrefFragment extends PreferenceFragment implements SharedPreference
                 try {
                     Process process = Runtime.getRuntime().exec(new String[] { "am force-stop " + PACKAGES.ANZ_GOMONEY });
                     BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    in.close();
                 } catch (IOException e) {
                     //e.printStackTrace();
                 }

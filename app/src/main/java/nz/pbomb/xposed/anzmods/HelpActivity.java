@@ -2,6 +2,7 @@ package nz.pbomb.xposed.anzmods;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -32,7 +33,7 @@ public class HelpActivity extends AppCompatActivity {
         textView.setText("General");
         textView.setLayoutParams(lparams);
         textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
-        textView.setTextColor(getResources().getColor(android.R.color.black));
+        textView.setTextColor(ContextCompat.getColor(this, android.R.color.black));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
         textView.setGravity(Gravity.START);
         layout.addView(textView);
@@ -52,7 +53,7 @@ public class HelpActivity extends AppCompatActivity {
             tvAnswer.setText(answers[i]);
 
             tvQuestion.setTypeface(tvQuestion.getTypeface(), Typeface.BOLD_ITALIC);
-            tvQuestion.setTextColor(getResources().getColor(android.R.color.darker_gray));
+            tvQuestion.setTextColor(ContextCompat.getColor(this, android.R.color.darker_gray));
 
             tvQuestion.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
             tvAnswer.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);

@@ -31,7 +31,6 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
-import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.XposedBridge;
 
@@ -412,7 +411,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
                 if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    param.args[0] = Integer.valueOf(deviceInfo.VERSION.SDK_INT);
+                    param.args[0] = deviceInfo.VERSION.SDK_INT;
                     super.afterHookedMethod(param);
 
                 }
@@ -580,7 +579,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
                     param.args[0] = deviceInfo.Build.SERIAL;
-                    super.afterHookedMethod(param);;
+                    super.afterHookedMethod(param);
                 }
             }
         });

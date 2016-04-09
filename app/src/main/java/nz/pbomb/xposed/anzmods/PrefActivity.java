@@ -7,7 +7,6 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -32,7 +31,7 @@ public class PrefActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pref);
 
         // We only proceed if we came from the Preference intents created in the MainActivity
-        Intent i = null;
+        Intent i;
         if(getIntent() != null) {
             i = getIntent();
             if (!i.hasExtra("id") && !i.hasExtra("title") && !i.hasExtra("preference")) {

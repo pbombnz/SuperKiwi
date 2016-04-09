@@ -33,42 +33,48 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
         String prefKey = preference.getKey();
         Intent intent = null;
 
-        if(prefKey.equals(PREFERENCES.KEYS.MAIN.ANZ)) {
-            intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
-            intent.putExtra("id", R.xml.preferences_anz);
-            intent.putExtra("title", "ANZ GoMoney NZ Tweaks");
-            intent.putExtra("preference", preference.getKey());
-        } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.SEMBLE)) {
-            intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
-            intent.putExtra("id", R.xml.preferences_semble);
-            intent.putExtra("title", "Semble Tweaks");
-            intent.putExtra("preference", preference.getKey());
-        } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.TVNZ)) {
-            intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
-            intent.putExtra("id", R.xml.preferences_tvnz);
-            intent.putExtra("title", "TVNZ OnDemand Tweaks");
-            intent.putExtra("preference", preference.getKey());
-        } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.TV3NOW)) {
-            intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
-            intent.putExtra("id", R.xml.preferences_tv3now);
-            intent.putExtra("title", "3NOW Tweaks");
-            intent.putExtra("preference", preference.getKey());
-        } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.DEBUG)) {
-            CheckBoxPreference checkBoxPreference = (CheckBoxPreference) preference;
-            if(checkBoxPreference.isChecked()) {
-                getActivity().setTitle(getResources().getString(R.string.app_name) + " (Debug Mode)");
-            } else {
-                getActivity().setTitle(getResources().getString(R.string.app_name));
-            }
+        switch (prefKey) {
+            case PREFERENCES.KEYS.MAIN.ANZ:
+                intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+                intent.putExtra("id", R.xml.preferences_anz);
+                intent.putExtra("title", getString(R.string.label_anz));
+                intent.putExtra("preference", preference.getKey());
+                break;
+            case PREFERENCES.KEYS.MAIN.SEMBLE:
+                intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+                intent.putExtra("id", R.xml.preferences_semble);
+                intent.putExtra("title", getString(R.string.label_semble));
+                intent.putExtra("preference", preference.getKey());
+                break;
+            case PREFERENCES.KEYS.MAIN.TVNZ:
+                intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+                intent.putExtra("id", R.xml.preferences_tvnz);
+                intent.putExtra("title", getString(R.string.label_tvnz));
+                intent.putExtra("preference", preference.getKey());
+                break;
+            case PREFERENCES.KEYS.MAIN.TV3NOW:
+                intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+                intent.putExtra("id", R.xml.preferences_tv3now);
+                intent.putExtra("title", getString(R.string.label_tv3now));
+                intent.putExtra("preference", preference.getKey());
+                break;
+            case PREFERENCES.KEYS.MAIN.DEBUG:
+                CheckBoxPreference checkBoxPreference = (CheckBoxPreference) preference;
+                if (checkBoxPreference.isChecked()) {
+                    getActivity().setTitle(getResources().getString(R.string.app_name) + " (Debug Mode)");
+                } else {
+                    getActivity().setTitle(getResources().getString(R.string.app_name));
+                }
 
-            SharedPreferences sharedPref = getActivity().getApplicationContext().getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
-            SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.MAIN.DEBUG, checkBoxPreference.isChecked());
-            sharedPrefEditor.apply();
+                SharedPreferences sharedPref = getActivity().getApplicationContext().getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
+                SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.MAIN.DEBUG, checkBoxPreference.isChecked());
+                sharedPrefEditor.apply();
 
-            return true;
-        }else if(prefKey.equals(PREFERENCES.KEYS.MAIN.HELP)) {
-            intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                return true;
+            case PREFERENCES.KEYS.MAIN.HELP:
+                intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                break;
         }
         startActivity(intent);
         return true;
