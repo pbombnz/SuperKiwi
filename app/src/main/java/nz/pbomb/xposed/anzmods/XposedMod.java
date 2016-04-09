@@ -112,7 +112,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
     @Override
     public void initZygote(StartupParam startupParam) throws Throwable {
             refreshSharedPreferences(false);
-            logging("Module Loaded (Debug Mode: " + (isDebugMode() ? "ON" : "OFF") + ")");
+            XposedBridge.log("Module Loaded (Debug Mode: " + (isDebugMode() ? "ON" : "OFF") + ")");
     }
 
     @Override
