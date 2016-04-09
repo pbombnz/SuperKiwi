@@ -79,6 +79,8 @@ public class PrefActivity extends AppCompatActivity {
         if(getIntent().getStringExtra("preference").equals(PREFERENCES.KEYS.MAIN.ANZ)) {
             if(preferenceFragment.hasValuesChanged()) {
                 onFinishDialog_anzGoMoneyNZ();
+            } else {
+                finish();
             }
         } else {
             finish();
