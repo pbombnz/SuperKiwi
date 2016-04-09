@@ -411,7 +411,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
                 if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    param.args[0] = deviceInfo.VERSION.SDK_INT;
+                    param.args[0] = Integer.valueOf(deviceInfo.VERSION.SDK_INT);
                     super.afterHookedMethod(param);
 
                 }
