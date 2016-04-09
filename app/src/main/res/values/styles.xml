@@ -1,21 +1,9 @@
 <resources>
-    <!-- Base application theme. -->
+    <!-- Main application theme. -->
     <style name="MainTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/SuperKiwi_500</item>
         <item name="colorPrimaryDark">@color/SuperKiwi_700</item>
         <item name="colorAccent">@color/SuperKiwi_900</item>
         <item name="android:textColorPrimary">@color/preference</item>
     </style>
-
-    <!--style name="AnzTheme" parent="MainTheme">
-        <item name="colorPrimary">@color/ANZ_500</item>
-        <item name="colorPrimaryDark">@color/ANZ_700</item>
-        <item name="android:textColorPrimary">@color/preference</item>
-    </style-->
-
-    <!--style name="SembleTheme" parent="MainTheme">
-        <item name="colorPrimary">@color/Semble_500</item>
-        <item name="colorPrimaryDark">@color/Semble_700</item>
-        <item name="android:textColorPrimary">@color/preference</item>
-    </style-->
 </resources>

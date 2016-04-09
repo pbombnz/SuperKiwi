@@ -31,21 +31,6 @@
         </activity>
 
         <activity
-            android:name="nz.pbomb.xposed.anzmods.ANZPrefActivity"
-            android:label="@string/label_anz">
-        </activity>
-
-        <activity
-            android:name="nz.pbomb.xposed.anzmods.SemblePrefActivity"
-            android:label="@string/label_semble">
-        </activity>
-
-        <activity
-            android:name=".TVNZPrefActivity"
-            android:label="@string/label_tvnz">
-        </activity>
-
-        <activity
             android:name="nz.pbomb.xposed.anzmods.HelpActivity"
             android:label="@string/label_help" />
 
@@ -54,8 +39,13 @@
             android:label="@string/label_main_contact"/>
 
         <activity
-            android:name=".AboutActivity"
+            android:name="nz.pbomb.xposed.anzmods.AboutActivity"
             android:label="@string/label_about">
+        </activity>
+
+        <activity
+            android:name="nz.pbomb.xposed.anzmods.PrefActivity"
+            android:label="Potato">
         </activity>
     </application>
 

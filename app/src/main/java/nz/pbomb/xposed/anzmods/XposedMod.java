@@ -31,6 +31,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.XposedBridge;
 
@@ -121,7 +122,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
                 loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
                 loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE) ||
-                loadPackageParam.packageName.equals(PACKAGES.TVNZ_ONDEMAND)
+                loadPackageParam.packageName.equals(PACKAGES.TVNZ_ONDEMAND) ||
+                loadPackageParam.packageName.equals(PACKAGES.TV3NOW)
         )) {
             return;
         }
@@ -152,6 +154,65 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             logging("Hooking Methods for TVNZ OnDemand Application.");
             hookTVNZOnDemandApplication(loadPackageParam);
         }
+
+        if(loadPackageParam.packageName.equals(PACKAGES.TV3NOW)) {
+            logging("Hooking Methods for 3NOW Application.");
+            hook3NOWApplication(loadPackageParam);
+        }
+
+    }
+
+    /**
+     * A method that hooks the 3NOW packages if 3NOW is present on the device
+     *
+     * @param loadPackageParam The package and process information of the current package
+     */
+    private void hook3NOWApplication(LoadPackageParam loadPackageParam) {
+        findAndHookMethod("com.scottyab.rootbeer.b", loadPackageParam.classLoader, "a", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
+        findAndHookMethod("com.scottyab.rootbeer.b", loadPackageParam.classLoader, "b", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
+        findAndHookMethod("com.scottyab.rootbeer.b", loadPackageParam.classLoader, "c", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
+        findAndHookMethod("com.scottyab.rootbeer.b", loadPackageParam.classLoader, "d", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
+        findAndHookMethod("com.scottyab.rootbeer.b", loadPackageParam.classLoader, "a", String.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
     }
 
 

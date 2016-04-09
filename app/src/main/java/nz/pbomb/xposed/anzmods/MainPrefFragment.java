@@ -33,11 +33,20 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
         Intent intent = null;
 
         if(prefKey.equals(PREFERENCES.KEYS.MAIN.ANZ)) {
-            intent = new Intent(getActivity().getApplicationContext(), ANZPrefActivity.class);
+            intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+            intent.putExtra("id", R.xml.preferences_anz);
+            intent.putExtra("title", "ANZ GoMoney NZ Tweaks");
+            intent.putExtra("preference", preference.getKey());
         } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.SEMBLE)) {
-            intent = new Intent(getActivity().getApplicationContext(), SemblePrefActivity.class);
+            intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+            intent.putExtra("id", R.xml.preferences_semble);
+            intent.putExtra("title", "Semble Tweaks");
+            intent.putExtra("preference", preference.getKey());
         } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.TVNZ)) {
-            intent = new Intent(getActivity().getApplicationContext(), TVNZPrefActivity.class);
+            intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+            intent.putExtra("id", R.xml.preferences_tvnz);
+            intent.putExtra("title", "TVNZ OnDemand Tweaks");
+            intent.putExtra("preference", preference.getKey());
         } else if(prefKey.equals(PREFERENCES.KEYS.MAIN.DEBUG)) {
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference) preference;
             if(checkBoxPreference.isChecked()) {

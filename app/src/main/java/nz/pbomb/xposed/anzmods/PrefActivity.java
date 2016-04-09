@@ -1,9 +1,13 @@
 package nz.pbomb.xposed.anzmods;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -12,18 +16,47 @@ import java.io.File;
 import common.PACKAGES;
 import common.PREFERENCES;
 
+
 /**
  * A UI for the xposed module that allows the users to toggle preferences and features
  *
  * @author Prashant Bhikhu (PBombNZ)
  */
-public class SemblePrefActivity extends AppCompatActivity {
+public class PrefActivity extends AppCompatActivity {
+    PrefFragment preferenceFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Initial Creation
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_semble);
+        setContentView(R.layout.activity_pref);
 
+        // We only proceed if we came from the Preference intents created in the MainActivity
+        Intent i = null;
+        if(getIntent() != null) {
+            i = getIntent();
+            if (!i.hasExtra("id") && !i.hasExtra("title") && !i.hasExtra("preference")) {
+                throw new IllegalArgumentException("Wrong Intent Parameters");
+            }
+        } else {
+            throw new IllegalArgumentException("Needs Intent to use Preference Activity");
+        }
+
+        // Set the Preference Acitvity's Title and Preferences based on intent
+        setTitle(getIntent().getStringExtra("title"));
+        preferenceFragment = new PrefFragment();//(PrefFragment) getFragmentManager().findFragmentById(R.id.prefFragment);
+        preferenceFragment.setArguments(getIntent().getExtras());
+
+        // get an instance of FragmentTransaction from your Activity
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        //add a fragment
+        fragmentTransaction.add(R.id.myfragment, preferenceFragment);
+        fragmentTransaction.commit();
+
+
+        // Display the back button the action bar
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -34,35 +67,29 @@ public class SemblePrefActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                this.onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-
-
-    /*@Override
+    @Override
     public void onBackPressed() {
-        // Get the child preference fragment
-        SemblePrefFragment preferenceFragment = (SemblePrefFragment) getFragmentManager().findFragmentById(R.id.semble_prefFragment);
-
-        // Display a restart and warning dialog if values have been changed otherwise no message
-        if(preferenceFragment.hasValuesChanged()) {
-            onFinishAlertDialog();
+        if(getIntent().getStringExtra("preference").equals(PREFERENCES.KEYS.MAIN.ANZ)) {
+            if(preferenceFragment.hasValuesChanged()) {
+                onFinishDialog_anzGoMoneyNZ();
+            }
         } else {
             finish();
         }
     }
 
-    /*
-     * Displays the Alert Dialog when leaving the application
-     *
-    public void onFinishAlertDialog() {
+
+    public void onFinishDialog_anzGoMoneyNZ() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getResources().getString(R.string.SemblePrefActivity_quit_title));
-        builder.setMessage(getResources().getString(R.string.SemblePrefActivity_quit_message));
+        builder.setTitle(getResources().getString(R.string.ANZPrefActivity_quit_title));
+        builder.setMessage(getResources().getString(R.string.ANZPrefActivity_quit_message));
         builder.setCancelable(false);
         builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
             @Override
@@ -76,14 +103,16 @@ public class SemblePrefActivity extends AppCompatActivity {
         });
         AlertDialog alert = builder.create();
         alert.show();
-    }*/
+    }
 
+    @SuppressLint({"setWorldReadable", "SdCardPath"})
     @Override
     protected void onDestroy() {
         new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true,false);
         super.onDestroy();
     }
 
+    @SuppressLint({"setWorldReadable", "SdCardPath"})
     @Override
     protected void onPause() {
         new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true, false);

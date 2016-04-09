@@ -4,10 +4,10 @@ package common;
 import android.os.Build;
 import android.util.Log;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+//import org.jsoup.Jsoup;
+//import org.jsoup.nodes.Document;
+//import org.jsoup.nodes.Element;
+//import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -269,7 +269,7 @@ public class SembleCompatibilityList {
         return false;
     }
 
-    @SuppressWarnings("unused")
+    /*@SuppressWarnings("unused")
     private static List<SembleDevice> retrieveSupportedDevicesListByCarrier(String carrier) {
         List<SembleDevice> sembleDevices = new ArrayList<>();
         try {
@@ -301,7 +301,7 @@ public class SembleCompatibilityList {
             Log.e("SuperKiwi", e.getMessage());
         }
         return sembleDevices;
-    }
+    }*/
 
     /**
      * The device information of each supported device is stored in a this object where
