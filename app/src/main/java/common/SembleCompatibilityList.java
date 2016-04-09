@@ -45,14 +45,16 @@ public class SembleCompatibilityList {
         // Create Semble Compatibility List for each carrier
         /*
          * NOTE: It is hard-coded to allow for easy tweaking and updating of the lists which is
-         * needed. Tje original  run-time version generated the lists sourced from the Semble
+         * needed. The original run-time version generated the lists sourced from the Semble
          * website which has quite a typos and incorrect data making the data collected
          * inconsistent and therefore unusable.
          */
 
         // Vodafone
         sembleDevicesVodafone = new ArrayList<>();
-        sembleDevicesVodafone.add(new SembleDevice("Samsung", "Galaxy Xcover 3",  "SM-G388F", "4.4.4"));
+        sembleDevicesVodafone.add(new SembleDevice("Samsung", "Galaxy Xcover 3",  "SM-G388F", "4.4.4, 5.1.1"));
+        sembleDevicesVodafone.add(new SembleDevice("Samsung", "Galaxy S7", "SM-G930F", "6.0.1"));
+        sembleDevicesVodafone.add(new SembleDevice("Samsung", "Galaxy S7 Edge", "SM-G935F", "6.0.1"));
         sembleDevicesVodafone.add(new SembleDevice("Samsung", "Galaxy S6", "SM-G920I", "5.0.2, 5.1.1"));
         sembleDevicesVodafone.add(new SembleDevice("Samsung", "Galaxy S6 Edge+", "SM-G928I", "5.1.1"));
         sembleDevicesVodafone.add(new SembleDevice("Samsung", "Galaxy S6 Edge", "SM-G925I", "5.0.2, 5.1.1"));
@@ -88,16 +90,20 @@ public class SembleCompatibilityList {
         sembleDevicesVodafone.add(new SembleDevice("HTC", "One M9", "0PJA10", "5.0.2, 5.1"));
         sembleDevicesVodafone.add(new SembleDevice("HTC", "One M8", "HTC_0P6B", "4.4.4, 5.0.1, 6.0"));
         sembleDevicesVodafone.add(new SembleDevice("HTC", "One M7", "HTC_PN071", "4.4.2, 4.4.3, 5.0.2"));
-        sembleDevicesVodafone.add(new SembleDevice("LGE", "G4", "LG-H815", "5.1"));
-        sembleDevicesVodafone.add(new SembleDevice("LGE", "G4", "LG-H815T", "5.1"));
+        sembleDevicesVodafone.add(new SembleDevice("LGE", "G4", "LG-H815", "5.1, 6.0"));
+        sembleDevicesVodafone.add(new SembleDevice("LGE", "G4", "LG-H815T", "5.1, 6.0"));
         sembleDevicesVodafone.add(new SembleDevice("LGE", "G3", "LG-D855", "5.0"));
+        sembleDevicesVodafone.add(new SembleDevice("Vodafone", "Smart Ultra", "P839V55", "5.1.1"));
         sembleDevicesVodafone.add(new SembleDevice("Vodafone", "Smart 4 Turbo", "890N", "4.4.4"));
         sembleDevicesVodafone.add(new SembleDevice("Vodafone", "Smart 4 Turbo", "Vodafone Smart 4 turbo", "4.4.4"));
         sembleDevicesVodafone.add(new SembleDevice("Vodafone", "Prime 6", "VF-895N", "5.0.2"));
+        sembleDevicesVodafone.add(new SembleDevice("Alcatel", "onetouch idol 3", "6039Y", "5.0.2"));
 
         // 2Degrees
         sembleDevices2Degrees = new ArrayList<>();
-        sembleDevices2Degrees.add(new SembleDevice("Samsung", "Galaxy Xcover 3", "SM-G388F", "4.4.4"));
+        sembleDevices2Degrees.add(new SembleDevice("Samsung", "Galaxy Xcover 3", "SM-G388F", "4.4.4, 5.1.1"));
+        sembleDevices2Degrees.add(new SembleDevice("Samsung", "Galaxy S7", "SM-G930F", "6.0.1"));
+        sembleDevices2Degrees.add(new SembleDevice("Samsung", "Galaxy S7 Edge", "SM-G935F", "6.0.1"));
         sembleDevices2Degrees.add(new SembleDevice("Samsung", "Galaxy S6", "SM-G920I", "5.0.2, 5.1.1"));
         sembleDevices2Degrees.add(new SembleDevice("Samsung", "Galaxy S6 Edge+", "SM-G928I", "5.1.1"));
         sembleDevices2Degrees.add(new SembleDevice("Samsung", "Galaxy S6 Edge", "SM-G925I", "5.0.2, 5.1.1"));
@@ -133,13 +139,17 @@ public class SembleCompatibilityList {
         sembleDevices2Degrees.add(new SembleDevice("HTC", "One M9", "0PJA10", "5.0.2, 5.1"));
         sembleDevices2Degrees.add(new SembleDevice("HTC", "One M8", "HTC_0P6B", "4.4.4, 5.0.1, 6.0"));
         sembleDevices2Degrees.add(new SembleDevice("HTC", "One M7", "HTC_PN071", "4.4.2, 4.4.3, 5.0.2"));
-        sembleDevices2Degrees.add(new SembleDevice("LGE", "G4", "LG-H815", "5.1"));
-        sembleDevices2Degrees.add(new SembleDevice("LGE", "G4", "LG-H815T", "5.1"));
+        sembleDevices2Degrees.add(new SembleDevice("LGE", "G4", "LG-H815", "5.1, 6.0"));
+        sembleDevices2Degrees.add(new SembleDevice("LGE", "G4", "LG-H815T", "5.1, 6.0"));
         sembleDevices2Degrees.add(new SembleDevice("LGE", "G3", "LG-D855", "5.0"));
+        sembleDevices2Degrees.add(new SembleDevice("Vodafone", "Smart Ultra", "P839V55", "5.1.1"));
+        sembleDevices2Degrees.add(new SembleDevice("Vodafone", "Prime 6", "VF-895N", "5.0.2"));
 
         // Spark
         sembleDevicesSpark = new ArrayList<>();
-        sembleDevicesSpark.add(new SembleDevice("Samsung", "Galaxy Xcover 3", "SM-G388F", "4.4.4"));
+        sembleDevicesSpark.add(new SembleDevice("Samsung", "Galaxy Xcover 3", "SM-G388F", "4.4.4, 5.1.1"));
+        sembleDevicesSpark.add(new SembleDevice("Samsung", "Galaxy S7", "SM-G930F", "6.0.1"));
+        sembleDevicesSpark.add(new SembleDevice("Samsung", "Galaxy S7 Edge", "SM-G935F", "6.0.1"));
         sembleDevicesSpark.add(new SembleDevice("Samsung", "Galaxy S6", "SM-G920I", "5.0.2, 5.1.1"));
         sembleDevicesSpark.add(new SembleDevice("Samsung", "Galaxy S6 Edge+", "SM-G928I", "5.1.1"));
         sembleDevicesSpark.add(new SembleDevice("Samsung", "Galaxy S6 Edge", "SM-G925I", "5.0.2, 5.1.1"));
@@ -176,8 +186,8 @@ public class SembleCompatibilityList {
         sembleDevicesSpark.add(new SembleDevice("HTC", "One M9", "0PJA10", "5.0.2, 5.1"));
         sembleDevicesSpark.add(new SembleDevice("HTC", "One M8", "HTC_0P6B", "4.4.4, 5.0.1, 6.0"));
         sembleDevicesSpark.add(new SembleDevice("HTC", "One M7", "HTC_PN071", "4.4.2, 4.4.3, 5.0.2"));
-        sembleDevicesSpark.add(new SembleDevice("LGE", "G4", "LG-H815", "5.1"));
-        sembleDevicesSpark.add(new SembleDevice("LGE", "G4", "LG-H815T", "5.1"));
+        sembleDevicesSpark.add(new SembleDevice("LGE", "G4", "LG-H815", "5.1, 6.0"));
+        sembleDevicesSpark.add(new SembleDevice("LGE", "G4", "LG-H815T", "5.1, 6.0"));
         sembleDevicesSpark.add(new SembleDevice("LGE", "G3", "LG-D855", "5.0"));
     }
 
