@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 import common.PACKAGES;
 import common.PREFERENCES;
+import de.robv.android.xposed.XposedBridge;
 
 @SuppressWarnings("unchecked")
 public class PrefFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener {
@@ -57,6 +59,12 @@ public class PrefFragment extends PreferenceFragment implements SharedPreference
 
         if(getArguments().getString("preference").equals(PREFERENCES.KEYS.MAIN.ANZ)) {
             if(key.equals(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
+               Log.i("PBOMBNZ", String.valueOf(getActivity().getPackageManager().hasSystemFeature("android.hardware.nfc.hce")));
+                if(!getActivity().getPackageManager().hasSystemFeature("android.hardware.nfc.hce") && !cp.isChecked()) {
+                    displaySpoofDeviceCheckedNoNFCDialog();
+                    return false;
+                }
+
                 if (Boolean.valueOf(newValue.toString())) {
                     displaySpoofDeviceCheckedDialog();
                 }
@@ -109,6 +117,21 @@ public class PrefFragment extends PreferenceFragment implements SharedPreference
     public void displaySpoofDeviceCheckedDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getResources().getString(R.string.ANZPrefActivity_spoofDeviceChecked_message));
+        builder.setCancelable(false);
+        builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void displaySpoofDeviceCheckedNoNFCDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Device Incompatibility");
+        builder.setMessage("Enabling this will not allow GoMoney Wallet to work as your device has no NFC and/or Host Card Emulation Support.");
         builder.setCancelable(false);
         builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
             @Override
