@@ -7,5 +7,5 @@ public class GLOBAL {
 
     //public static boolean isSamsungRom() {
     //    return new File("/system/framework/twframework.jar").isFile();
-    //}
+    //} hi
 }
