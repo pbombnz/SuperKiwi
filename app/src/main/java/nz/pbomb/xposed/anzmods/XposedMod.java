@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.Map;
 
 import static de.robv.android.xposed.XposedHelpers.callMethod;
+import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -58,14 +59,10 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         if (GLOBAL.DEBUG) {
             return true;
         }
-
-        if(prefs != null) {
+        if (prefs == null) {
             refreshSharedPreferences(false);
-            if(prefs.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG)) {
-                return true;
-            }
         }
-        return false;
+        return prefs.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG);
     }
 
     private static void refreshSharedPreferences() {
@@ -110,7 +107,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
     @Override
     public void initZygote(StartupParam startupParam) throws Throwable {
-            refreshSharedPreferences(false);
+            refreshSharedPreferences(true);
             XposedBridge.log("Module Loaded (Debug Mode: " + (isDebugMode() ? "ON" : "OFF") + ")");
     }
 
@@ -241,6 +238,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      * @param loadPackageParam The package and process information of the current package
      */
     public void hookAnzGoMoneyApplication(final LoadPackageParam loadPackageParam) {
+        final DeviceInfo deviceInfo = SpoofDevices.getDeviceInfo(SpoofDevices.DEVICE.SAMSUNG_GALAXY_NOTE_3);
         /**
          * Seitc API Root Check Hooks
          */
@@ -329,10 +327,90 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 }
             }
         });
+        // eligibleForWallet returns true
+        //  - v5.2.2 - nz.co.anz.android.mobilebanking.b.bl
+        findAndHookMethod("nz.co.anz.android.mobilebanking.b.bl", loadPackageParam.classLoader, "p", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
+                    param.setResult(true);
+                }
+            }
+        });
+
+        // isEligibleForWallet returns true
+        //  - v5.2.2 - nz.co.anz.android.mobilebanking.b.bl
+        findAndHookMethod("nz.co.anz.android.mobilebanking.j.a.b.ap", loadPackageParam.classLoader, "isEligibleForWallet", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
+                    param.setResult(true);
+                }
+            }
+        });
+
+        findAndHookMethod("nz.co.anz.android.mobilebanking.ui.util.MobileWalletPromoIgnoreCondition", loadPackageParam.classLoader, "shouldIgnore", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
+
 
         /**
          * Device Spoofing Hooks
          */
+        /*Class<?> builder = findClass("com.squareup.okhttp.Headers.Builder", loadPackageParam.classLoader);
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.c.i", loadPackageParam.classLoader, "a", builder, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    callMethod(param.args[0], "add", String.class, String.class, "Android-Device-Description", deviceInfo.Build.MODEL);
+                    callMethod(param.args[0], "add", String.class, String.class, "Android-Api-Version", deviceInfo.VERSION.SDK_INT);
+                    logging("we added spoof");
+                    param.setResult(null);
+                }
+            }
+        });
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.c.i", loadPackageParam.classLoader, "c", builder, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    String appVers = (String) callStaticMethod(findClass("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader), "c");
+                    String connectionType = (String) callStaticMethod(findClass("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader), "d");
+                    String orientation = (String) callStaticMethod(findClass("nz.co.anz.android.mobilebanking.i.e.k", loadPackageParam.classLoader), "f");
+                    //callStaticMethod("nz.co.anz.android.mobilebanking.i.e.k", "c")
+
+
+                    callMethod(param.args[0], "add", String.class, String.class, "User-Agent", "goMoney NZ/" + appVers + "/" + connectionType + "/" + deviceInfo.Build.BRAND+" "+deviceInfo.Build.MODEL + "/" + deviceInfo.VERSION.RELEASE + "/" + orientation + "/");
+
+                    logging("we added spoof_2");
+                    param.setResult(null);
+                }
+            }
+        });*/
+
+
+        // root check - redundant
+        findAndHookMethod("nz.co.anz.android.mobilebanking.f", loadPackageParam.classLoader, "i", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                    logging("we added spoof 3 - "+param.getResult());
+                    logging("we added spoof 3");
+                    param.setResult(param.getResult());
+                }
+            }
+        });
+
         // return "[" + Build.BRAND + " " + Build.MODEL + "]";
         //  - v5.1.1 - nz.co.anz.android.mobilebanking.h.e.k
         //  - v5.2.2 - nz.co.anz.android.mobilebanking.i.e.k
@@ -396,8 +474,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-
-        final DeviceInfo deviceInfo = SpoofDevices.getDeviceInfo(SpoofDevices.DEVICE.SAMSUNG_GALAXY_NOTE_3);
         //Class<?> x = findClass("xxxxxx.ajaaaj", loadPackageParam.classLoader);
         // Method y = findMethodBestMatch(x,"b041604160416Ж0416ЖЖ0416", String.class);
         //XposedBridge.log(y.getName());
@@ -659,7 +735,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
 
                 if(isDebugMode()) {
-                    callMethod(param.thisObject, "insertItem", new Class<?>[]{LayoutInflater.class, java.lang.String.class, int.class, settingEnumClass, settingGroupEnumClass, boolean.class}, param.args[0], "Device Info", deviceInfoDrawableIconID, consts2[48], consts[2], false);
+                    callMethod(param.thisObject, "insertItem", new Class<?>[]{LayoutInflater.class, java.lang.String.class, int.class, settingEnumClass, settingGroupEnumClass, boolean.class}, param.args[0], "Device Info", deviceInfoDrawableIconID, consts2[49], consts[2], false);
                 }
 
                 //Activity act = (Activity) callMethod(param.thisObject, "getActivity");
@@ -679,7 +755,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 viewGroup.findViewById(settings_list_item_view__chevron).setVisibility(View.VISIBLE);
                 View findViewById = viewGroup.findViewById(settings_list_item_view__newBadge);
                 findViewById.setVisibility(View.INVISIBLE);
-                viewGroup.setTag(consts2[46]);
+                viewGroup.setTag(consts2[44]);
 
                 viewGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
