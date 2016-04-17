@@ -8,8 +8,8 @@ android {
         applicationId "nz.pbomb.xposed.anzmods"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 10
-        versionName "1.8"
+        versionCode 11
+        versionName "1.8.1"
     }
     buildTypes {
         release {
@@ -25,6 +25,6 @@ dependencies {
     provided 'de.robv.android.xposed:api:81'
     provided 'de.robv.android.xposed:api:81:sources'
 
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
 }
