@@ -4,7 +4,7 @@ This is a Xposed module allows users to bypass root detection and enable device 
 For more general information about the module please visit the [XDA thread link](http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623).
 
 ## Developer Notice
-The source code is very rushed and poorly designed, especially due to constant updating over the last few weeks. In the future, I plan to apply actual software design standards, make the source code easier to read and understand, clean up commenting and reduce duplicated code. All this will be done when I have time though, possibly in the break university periods.
+The source code is very rushed and poorly designed, especially due to constant updating and fast addition of new features over the last few weeks. In the future, I plan to apply actual software design standards, make the source code easier to read and understand, clean up commenting and reduce duplicated code. All this will be done when I have time though, possibly in the university breaks and holiday periods.
 
 ## License 
 Copyright 2016 Prashant B. (PBombNZ) <[pbomb.nz@gmail.com](mailto:pbomb.nz@gmail.com)>
