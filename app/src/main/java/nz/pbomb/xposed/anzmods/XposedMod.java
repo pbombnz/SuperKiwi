@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -290,7 +291,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-        // SharedPrefs - "wallet_card_removed" Always returns false
+        /*// SharedPrefs - "wallet_card_removed" Always returns false
         //  - v5.1.1 - nz.co.anz.android.mobilebanking.g.a.n
         //  - v5.2.2 - nz.co.anz.android.mobilebanking.h.a.n
         findAndHookMethod("nz.co.anz.android.mobilebanking.h.a.n", loadPackageParam.classLoader, "m", new XC_MethodHook() {
@@ -301,7 +302,28 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                     param.setResult(false);
                 }
             }
+        });*/
+        findAndHookMethod("nz.co.anz.android.mobilebanking.h.a.n", loadPackageParam.classLoader, "e", boolean.class, new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    callMethod(param.thisObject, "e", false);
+
+                    Map<String, ?> sp = ((SharedPreferences) getObjectField(param.thisObject, "a")).getAll();
+
+                    for(String key : sp.keySet()) {
+                        logging("\t"+key+":"+sp.get(key));
+                    }
+                }
         });
+
+        //logging
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.z", loadPackageParam.classLoader, "a", String.class, String.class, Throwable.class, new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        Log.d(String.valueOf(param.args[0]),String.valueOf(param.args[1]), (Throwable) param.args[2]);
+                    }
+                });
+
 
         // Superuser.apk and shell check
         //  - v5.1.1 - nz.co.anz.android.mobilebanking.h.e.ah
@@ -365,20 +387,20 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         /**
          * Device Spoofing Hooks
          */
-        /*Class<?> builder = findClass("com.squareup.okhttp.Headers.Builder", loadPackageParam.classLoader);
-        findAndHookMethod("nz.co.anz.android.mobilebanking.i.c.i", loadPackageParam.classLoader, "a", builder, new XC_MethodHook() {
+        Class<?> builder = findClass("com.squareup.okhttp.Headers.Builder", loadPackageParam.classLoader);
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.c.i", loadPackageParam.classLoader, "d", builder, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    callMethod(param.args[0], "add", String.class, String.class, "Android-Device-Description", deviceInfo.Build.MODEL);
-                    callMethod(param.args[0], "add", String.class, String.class, "Android-Api-Version", deviceInfo.VERSION.SDK_INT);
+                    callMethod(param.args[0], "add", "Android-Device-Description", deviceInfo.Build.MODEL);
+                    callMethod(param.args[0], "add", "Android-Api-Version", Integer.toString(deviceInfo.VERSION.SDK_INT));
                     logging("we added spoof");
                     param.setResult(null);
                 }
             }
         });
-        findAndHookMethod("nz.co.anz.android.mobilebanking.i.c.i", loadPackageParam.classLoader, "c", builder, new XC_MethodHook() {
+        /*findAndHookMethod("nz.co.anz.android.mobilebanking.i.c.i", loadPackageParam.classLoader, "c", builder, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -399,7 +421,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
 
         // root check - redundant
-        findAndHookMethod("nz.co.anz.android.mobilebanking.f", loadPackageParam.classLoader, "i", new XC_MethodHook() {
+        /*findAndHookMethod("nz.co.anz.android.mobilebanking.f", loadPackageParam.classLoader, "i", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -409,7 +431,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                     param.setResult(param.getResult());
                 }
             }
-        });
+        });*/
 
         // return "[" + Build.BRAND + " " + Build.MODEL + "]";
         //  - v5.1.1 - nz.co.anz.android.mobilebanking.h.e.k
@@ -703,7 +725,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                     sb.append(deviceInfo.Build.MANUFACTURER);   // r1 = android.os.Build.MANUFACTURER;	 Catch:{ Exception -> 0x007d } (Line 267)
                     sb.append(deviceInfo.Build.BRAND);   // r1 = android.os.Build.BRAND;	 Catch:{ Exception -> 0x007d } (Line 269)
                     sb.append(deviceInfo.Build.HARDWARE);   // r1 = android.os.Build.HARDWARE;	 Catch:{ Exception -> 0x007d } (Line 289)
-                    sb.append(Build.UNKNOWN);   // r1 = android.os.Build.SERIAL;	 Catch:{ Exception -> 0x007d } (Line 306)
+                    sb.append(deviceInfo.Build.SERIAL);   // r1 = android.os.Build.SERIAL;	 Catch:{ Exception -> 0x007d } (Line 306)
 
                     final TelephonyManager mTelephony = (TelephonyManager) ((Context) param.args[0]).getSystemService(Context.TELEPHONY_SERVICE);
                     String myAndroidDeviceId = mTelephony.getDeviceId();
