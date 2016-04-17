@@ -40,23 +40,37 @@ import common.PACKAGES;
 
 
 public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage {
-    private static final String TAG = "SuperKiwi::Mod"; // Tag used for logging
+    private static final String TAG = "SuperKiwi::Mod"; // Tag used for debugLog
 
     private static XSharedPreferences prefs;
 
     /**
-     * Displays debugging messages if debug mode is enabled and will display them in logcat
-     * as well as the Xposed log file.
+     * Displays a message in Xposed Logs and logcat if and only if Debug Mode is enabled.
      *
-     * @param message The message to display in the log files
+     * @param message The message to be displayed in logs
      */
-    private static void logging(String message) {
+    public static void debugLog(String message) {
         if (isDebugMode()) {
-            XposedBridge.log("[" + TAG + "] " + message);
+           log(message);
         }
     }
 
-    private static boolean isDebugMode() {
+    /**
+     * Displays a message in Xposed Logs and logcat.
+     *
+     * @param message The message to be displayed in logs
+     */
+    public static void log(String message) {
+        XposedBridge.log("[" + TAG + "] " + message);
+    }
+
+    /**
+     * Indicates whether Debug Mode is enabled (either hard-coded or toggled by end-user) and will
+     * display them in logcat as well as the Xposed log file.
+     *
+     * @return Returns true if Debug Mode is enabled, otherwise return false.
+     */
+    public static boolean isDebugMode() {
         if (GLOBAL.DEBUG) {
             return true;
         }
@@ -66,41 +80,45 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         return prefs.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG);
     }
 
-    private static void refreshSharedPreferences() {
-        refreshSharedPreferences(true);
+    public static void refreshSharedPreferences() {
+        boolean displayLogs = isDebugMode();
+        refreshSharedPreferences(displayLogs);
     }
 
     /**
      * Reloads and refreshes the package's shared preferences file to reload new confirgurations
      * that may have changed on runtime.
+     *
+     * @param displayLogs To show logs or not.
      */
-    private static void refreshSharedPreferences(boolean displayLogs) {
+    public static void refreshSharedPreferences(boolean displayLogs) {
         prefs = new XSharedPreferences(PACKAGES.MODULE);
         prefs.makeWorldReadable();
         prefs.reload();
 
+        // Only continue if we want to produce logging
         if(!displayLogs) {
             return;
         }
 
         // Logging the properties to see if the file is actually readable
-        logging("Shared Preferences Properties:");
-        logging("\tWorld Readable: " + prefs.makeWorldReadable());
-        logging("\tPath: " + prefs.getFile().getAbsolutePath());
-        logging("\tFile Readable: " + prefs.getFile().canRead());
-        logging("\tExists: " + prefs.getFile().exists());
+        log("Shared Preferences Properties:");
+        log("\tWorld Readable: " + prefs.makeWorldReadable());
+        log("\tPath: " + prefs.getFile().getAbsolutePath());
+        log("\tFile Readable: " + prefs.getFile().canRead());
+        log("\tExists: " + prefs.getFile().exists());
 
         // Display the preferences loaded, only if the file was readable otherwise display an error
         if (prefs.getAll().size() == 0) {
-            logging("Shared Preferences seems not to be initialized or does not have read permissions. Common on Android 5.0+ with SELinux Enabled and Enforcing.");
-            logging("Loaded Shared Preferences Defaults Instead.");
+            log("Shared Preferences seems not to be initialized or does not have read permissions. Common on heavy ROMs with SELinux enforcing.");
+            log("Loaded Shared Preferences Defaults Instead.");
         } else {
-            logging("");
-            logging("Loaded Shared Preferences:");
+            log("");
+            log("Loaded Shared Preferences:");
             Map<String, ?> prefsMap = prefs.getAll();
             for(String key: prefsMap.keySet()) {
                 String val = prefsMap.get(key).toString();
-                logging("\t " + key + ": " + val);
+                log("\t " + key + ": " + val);
             }
         }
     }
@@ -108,13 +126,13 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
     @Override
     public void initZygote(StartupParam startupParam) throws Throwable {
-            refreshSharedPreferences(true);
-            XposedBridge.log("Module Loaded (Debug Mode: " + (isDebugMode() ? "ON" : "OFF") + ")");
+        refreshSharedPreferences(false);
+        XposedBridge.log("Module Loaded (Debug Mode: " + (isDebugMode() ? "ON" : "OFF") + ")");
     }
 
     @Override
     public void handleLoadPackage(final LoadPackageParam loadPackageParam) throws Throwable {
-        // Don't continue execution of the method unless its ANZ, Semble or TVNZ OnDemand being loaded
+        // Don't handle package param unless its ANZ, Semble, TVNZ OnDemand or 3NOW being loaded
         if(!(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY) ||
                 loadPackageParam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
                 loadPackageParam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
@@ -126,7 +144,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         }
 
         if(loadPackageParam.packageName.equals(PACKAGES.ANZ_GOMONEY)) {
-            logging("Hooking Methods for ANZ GoMoney New Zealand Application.");
+            debugLog("Hooking Methods for ANZ goMoney NZ Application.");
             hookAnzGoMoneyApplication(loadPackageParam);
         }
 
@@ -135,25 +153,25 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
            loadPackageParam.packageName.equals(PACKAGES.SEMBLE_VODAFONE)) {
             switch (loadPackageParam.packageName) {
                 case PACKAGES.SEMBLE_2DEGREES:
-                    logging("Hooking Methods for Semble for 2Degrees Application.");
+                    debugLog("Hooking Methods for Semble for 2Degrees Application.");
                     break;
                 case PACKAGES.SEMBLE_SPARK:
-                    logging("Hooking Methods for Semble for Spark Application.");
+                    debugLog("Hooking Methods for Semble for Spark Application.");
                     break;
                 case PACKAGES.SEMBLE_VODAFONE:
-                    logging("Hooking Methods for Semble for Vodafone Application.");
+                    debugLog("Hooking Methods for Semble for Vodafone Application.");
                     break;
             }
             hookSembleApplication(loadPackageParam);
         }
 
         if(loadPackageParam.packageName.equals(PACKAGES.TVNZ_ONDEMAND)) {
-            logging("Hooking Methods for TVNZ OnDemand Application.");
+            debugLog("Hooking Methods for TVNZ OnDemand Application.");
             hookTVNZOnDemandApplication(loadPackageParam);
         }
 
         if(loadPackageParam.packageName.equals(PACKAGES.TV3NOW)) {
-            logging("Hooking Methods for 3NOW Application.");
+            debugLog("Hooking Methods for 3NOW Application.");
             hook3NOWApplication(loadPackageParam);
         }
 
@@ -311,18 +329,20 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                     Map<String, ?> sp = ((SharedPreferences) getObjectField(param.thisObject, "a")).getAll();
 
                     for(String key : sp.keySet()) {
-                        logging("\t"+key+":"+sp.get(key));
+                        debugLog("\t"+key+":"+sp.get(key));
                     }
                 }
         });
 
-        //logging
+        // ANZ debugLog
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.z", loadPackageParam.classLoader, "a", String.class, String.class, Throwable.class, new XC_MethodHook() {
-                    @Override
-                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                        Log.d(String.valueOf(param.args[0]),String.valueOf(param.args[1]), (Throwable) param.args[2]);
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    if(isDebugMode()) {
+                        Log.d(String.valueOf(param.args[0]), String.valueOf(param.args[1]), (Throwable) param.args[2]);
                     }
-                });
+                }
+            });
 
 
         // Superuser.apk and shell check
@@ -395,7 +415,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     callMethod(param.args[0], "add", "Android-Device-Description", deviceInfo.Build.MODEL);
                     callMethod(param.args[0], "add", "Android-Api-Version", Integer.toString(deviceInfo.VERSION.SDK_INT));
-                    logging("we added spoof");
+                    debugLog("we added spoof");
                     param.setResult(null);
                 }
             }
@@ -413,7 +433,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
                     callMethod(param.args[0], "add", String.class, String.class, "User-Agent", "goMoney NZ/" + appVers + "/" + connectionType + "/" + deviceInfo.Build.BRAND+" "+deviceInfo.Build.MODEL + "/" + deviceInfo.VERSION.RELEASE + "/" + orientation + "/");
 
-                    logging("we added spoof_2");
+                    debugLog("we added spoof_2");
                     param.setResult(null);
                 }
             }
@@ -426,8 +446,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
                 if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    logging("we added spoof 3 - "+param.getResult());
-                    logging("we added spoof 3");
+                    debugLog("we added spoof 3 - "+param.getResult());
+                    debugLog("we added spoof 3");
                     param.setResult(param.getResult());
                 }
             }
@@ -873,37 +893,37 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
 
-                logging("[Semble] Calling Method: com.csam.mclient.core.WalletContext.getSystemOSVersion()");
+                debugLog("[Semble] Calling Method: com.csam.mclient.core.WalletContext.getSystemOSVersion()");
 
                 if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
-                    logging("[Semble] Overriding Unoffical Android OS Support Method Hook due to having Spoof Device feature enabled.");
+                    debugLog("[Semble] Overriding Unoffical Android OS Support Method Hook due to having Spoof Device feature enabled.");
                     param.setResult("5.0");
                     return;
                 }
 
 
                 if (prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT)) {
-                    logging("[Semble] Calling Method: Successfully hooked.");
+                    debugLog("[Semble] Calling Method: Successfully hooked.");
 
-                    logging("[Semble] Device: Brand: " + Build.BRAND + " Manufacturer: " + Build.MANUFACTURER + " Model: " + Build.MODEL);
-                    logging("[Semble] Device: Fingerprint: " + Build.FINGERPRINT);
-                    logging("[Semble] SembleCompatibilityList.isSupportedDevice(): " + SembleCompatibilityList.isSupportedDevice(loadPackageParam.packageName));
-                    logging("[Semble] SembleCompatibilityList.isOSVersionSupported(): " + SembleCompatibilityList.isOSVersionSupported(loadPackageParam.packageName));
+                    debugLog("[Semble] Device: Brand: " + Build.BRAND + " Manufacturer: " + Build.MANUFACTURER + " Model: " + Build.MODEL);
+                    debugLog("[Semble] Device: Fingerprint: " + Build.FINGERPRINT);
+                    debugLog("[Semble] SembleCompatibilityList.isSupportedDevice(): " + SembleCompatibilityList.isSupportedDevice(loadPackageParam.packageName));
+                    debugLog("[Semble] SembleCompatibilityList.isOSVersionSupported(): " + SembleCompatibilityList.isOSVersionSupported(loadPackageParam.packageName));
 
                     if (SembleCompatibilityList.isSupportedDevice(loadPackageParam.packageName)
                             && !SembleCompatibilityList.isOSVersionSupported(loadPackageParam.packageName)) {
                         SembleCompatibilityList.SembleDevice dInfo = SembleCompatibilityList.getSupportedDevice(loadPackageParam.packageName);
                         if (dInfo != null) {
-                            logging("[Semble] Device's system OS is now seen as \"" + dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1) + "\" instead of \"" + Build.VERSION.RELEASE + "\"");
+                            debugLog("[Semble] Device's system OS is now seen as \"" + dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1) + "\" instead of \"" + Build.VERSION.RELEASE + "\"");
                             param.setResult(dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1));
                         } else {
-                            logging("[Semble] Device is not supported by Semble at all. Check Semble Compatibility List. (Errno 2)");
+                            debugLog("[Semble] Device is not supported by Semble at all. Check Semble Compatibility List. (Errno 2)");
                         }
                     } else {
-                        logging("[Semble] Device is either not supported by Semble at all OR is completely supported hence no hook method execution is needed. Check Semble Compatibility List. (Errno 1)");
+                        debugLog("[Semble] Device is either not supported by Semble at all OR is completely supported hence no hook method execution is needed. Check Semble Compatibility List. (Errno 1)");
                     }
                 } else {
-                    logging("[Semble] Failed to Enter Hooked Method as feature is not enabled. Check SharedPrefs file to see if its readable. (Errno 1)");
+                    debugLog("[Semble] Failed to Enter Hooked Method as feature is not enabled. Check SharedPrefs file to see if its readable. (Errno 1)");
                 }
             }
         });
