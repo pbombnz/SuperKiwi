@@ -2,9 +2,12 @@ package nz.pbomb.xposed.anzmods;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -240,7 +243,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // Returns "false" to indicate that no root tools were detected.
         // v2.2 - B
         // v2.3 - F
-        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "F", new XC_MethodHook() {
+        // v2.4 - D
+        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "D", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
