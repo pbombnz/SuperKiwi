@@ -338,7 +338,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 }
         });
 
-        // ANZ debugLog
+        // ANZ debugLog - Logcat only
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.z", lpparam.classLoader, "a", String.class, String.class, Throwable.class, new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
