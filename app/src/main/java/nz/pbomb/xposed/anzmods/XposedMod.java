@@ -865,6 +865,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             @SuppressLint("SetTextI18n")
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                //TODO: Add Commenting
 
                 Class<?> settingGroupEnumClass = findClass("nz.co.anz.android.mobilebanking.ui.fragment.SettingsFragment.SettingsGroup", lpparam.classLoader);
                 Object[] consts = settingGroupEnumClass.getEnumConstants();
@@ -993,8 +994,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-        // Spoofs Device System OS Version based on their current device unless the "Spoof Device"
-        // feature is enabled, then we Device System OS Version to Samsung Galaxy Note 3 instead.
+        // Spoofs Device System Android OS Version based on their actual device's information
+        // unless the "Spoof Device" feature is enabled, then we Device System OS Version to
+        // Samsung Galaxy Note 3 instead. This is handy when you have a compatible device, but
+        // the OS Version is not which occurs when the OEM or your operator updates the firmware
+        // of your device but Semble hasn't updated to handle the new firmware.
         findAndHookMethod("com.csam.mclient.core.WalletContext", loadPackageParam.classLoader, "getSystemOSVersion", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -1003,7 +1007,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 debugLog("[Semble] Calling Method: com.csam.mclient.core.WalletContext.getSystemOSVersion()");
 
                 if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
-                    debugLog("[Semble] Overriding Unoffical Android OS Support Method Hook due to having Spoof Device feature enabled.");
+                    debugLog("[Semble] Overriding Unofficial Android OS Support Method Hook due to having Spoof Device feature enabled.");
                     param.setResult("5.0");
                     return;
                 }
