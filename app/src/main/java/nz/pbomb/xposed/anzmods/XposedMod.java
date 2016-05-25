@@ -186,6 +186,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      * @param lpparam The package and process information of the current package
      */
     private void hook3NOWApplication(XC_LoadPackage.LoadPackageParam lpparam) {
+        // Hooks Method which always returns "false" to indicate that no root tools were detected.
+        // v2.0 - Class: ? | Method: ?
+        // v2.0.1 - Class: com.scottyab.rootbeer.b | Method: a,b,c,d,a(str)
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -240,10 +243,10 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      * @param lpparam The package and process information of the current package
      */
     private void hookTVNZOnDemandApplication(XC_LoadPackage.LoadPackageParam lpparam) {
-        // Returns "false" to indicate that no root tools were detected.
-        // v2.2 - B
-        // v2.3 - F
-        // v2.4 - D
+        // Hooks Method which always returns "false" to indicate that no root tools were detected.
+        // v2.2 - Class: B | Method: ?
+        // v2.3 - Class: F | Method: ?
+        // v2.4 - Class: D | Method: D
         findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "D", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -439,7 +442,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // Device Information Builder used to communicate to ANZ Servers (Model and SDK INT)
         //  - v5.2.2 and Previous - Class: nz.co.anz.android.mobilebanking.i.c.i | Method: d
         //  - v5.3.0 - Class: nz.co.anz.android.mobilebanking.i.c.m | Method: d
-        findAndHookMethod("nz.co.anz.android.mobilebanking.i.c.i", lpparam.classLoader, "d", builder, new XC_MethodHook() {
+        findAndHookMethod("nz.co.anz.android.mobilebanking.i.c.m", lpparam.classLoader, "d", builder, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 refreshSharedPreferences();
@@ -858,6 +861,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
         // Inserts a "SuperKiwi" Setting into the ANZ GoMoney Settings Fragement
         // If Debug mode is enabled, also inserts a "Device Info" fragment orginally hidden
+        // v5.1.1 - ?
+        // v5.2.2 - Class: nz.co.anz.android.mobilebanking.ui.fragment.SettingsFragment | Method: addTermsAndConditions
+        // v5.3.0 - Class: nz.co.anz.android.mobilebanking.ui.fragment.SettingsFragment | Method: addTermsAndConditions
         findAndHookMethod("nz.co.anz.android.mobilebanking.ui.fragment.SettingsFragment", lpparam.classLoader, "addTermsAndConditions", LayoutInflater.class, new XC_MethodHook() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -866,7 +872,10 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 Class<?> settingGroupEnumClass = findClass("nz.co.anz.android.mobilebanking.ui.fragment.SettingsFragment.SettingsGroup", lpparam.classLoader);
                 Object[] consts = settingGroupEnumClass.getEnumConstants();
 
-                Class settingEnumClass = findClass("nz.co.anz.android.mobilebanking.ui.c.a", lpparam.classLoader);
+                // v5.1.1 - ?
+                // v5.2.2 - Enum: nz.co.anz.android.mobilebanking.ui.c.a | Method: -
+                // v5.3.0 - Enum: nz.co.anz.android.mobilebanking.ui.d.a | Method: -
+                Class settingEnumClass = findClass("nz.co.anz.android.mobilebanking.ui.d.a", lpparam.classLoader);
                 Object[] consts2 = settingEnumClass.getEnumConstants();
 
                 Activity act = (Activity) callMethod(param.thisObject, "getActivity");
