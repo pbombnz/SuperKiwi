@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Create the SharedPreferences and set the defaults if they aren't already created
+        if(!sharedPref.contains(PREFERENCES.KEYS.ASB.ROOT_DETECTION)) {
+            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ASB.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ASB.ROOT_DETECTION);
+        }
         if(!sharedPref.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
         }

@@ -3,6 +3,8 @@ package common;
 public final class PACKAGES {
     public static final String MODULE = "nz.pbomb.xposed.anzmods";
 
+    public static final String ASB_MOBILE = "nz.co.asb.asbmobile";
+
     public static final String ANZ_GOMONEY = "nz.co.anz.android.mobilebanking";
 
     public static final String SEMBLE_SPARK = "com.sparknz.semble";

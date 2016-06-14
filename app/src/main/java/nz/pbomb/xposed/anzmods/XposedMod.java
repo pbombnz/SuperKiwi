@@ -133,7 +133,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
         // Don't handle package param unless its ANZ, Semble, TVNZ OnDemand or 3NOW being loaded
-        if(!(lpparam.packageName.equals(PACKAGES.ANZ_GOMONEY) ||
+        if(!(lpparam.packageName.equals(PACKAGES.ASB_MOBILE) ||
+                lpparam.packageName.equals(PACKAGES.ANZ_GOMONEY) ||
                 lpparam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
                 lpparam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
                 lpparam.packageName.equals(PACKAGES.SEMBLE_VODAFONE) ||
@@ -141,6 +142,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 lpparam.packageName.equals(PACKAGES.TV3NOW)
         )) {
             return;
+        }
+
+        if(lpparam.packageName.equals(PACKAGES.ASB_MOBILE)) {
+            debugLog("Hooking Methods for ASB Mobile Application.");
+            hookAsbMobileApplication(lpparam);
         }
 
         if(lpparam.packageName.equals(PACKAGES.ANZ_GOMONEY)) {
@@ -175,6 +181,18 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             hook3NOWApplication(lpparam);
         }
 
+    }
+
+    private void hookAsbMobileApplication(LoadPackageParam lpparam) {
+        findAndHookMethod("nz.co.asb.mobile.helpers.RootHelper", lpparam.classLoader, "isDeviceRooted", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.ASB.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ASB.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
     }
 
     /**

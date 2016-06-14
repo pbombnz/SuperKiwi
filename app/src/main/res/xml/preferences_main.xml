@@ -2,6 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="Application Preferences">
         <Preference
+            android:key="asbPrefs"
+            android:title="@string/MainPrefFragement_asbPrefs_title"
+            android:summary="@string/MainPrefFragement_asbPrefs_summary"
+            />
+        <Preference
             android:key="anzPrefs"
             android:title="@string/MainPrefFragement_anzPrefs_title"
             android:summary="@string/MainPrefFragement_anzPrefs_summary"

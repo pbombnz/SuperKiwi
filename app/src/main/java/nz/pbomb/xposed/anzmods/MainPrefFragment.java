@@ -8,6 +8,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
+import android.util.Log;
 
 import common.PREFERENCES;
 
@@ -19,6 +20,7 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_main);
 
+        findPreference(PREFERENCES.KEYS.MAIN.ASB).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.ANZ).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setOnPreferenceClickListener(this);
@@ -32,8 +34,14 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
     public boolean onPreferenceClick(Preference preference) {
         String prefKey = preference.getKey();
         Intent intent = null;
-
+        Log.i("SuperKiwi", "prefkey: "+prefKey);
         switch (prefKey) {
+            case PREFERENCES.KEYS.MAIN.ASB:
+                intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+                intent.putExtra("id", R.xml.preferences_asb);
+                intent.putExtra("title", getString(R.string.label_asb));
+                intent.putExtra("preference", preference.getKey());
+                break;
             case PREFERENCES.KEYS.MAIN.ANZ:
                 intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
                 intent.putExtra("id", R.xml.preferences_anz);
