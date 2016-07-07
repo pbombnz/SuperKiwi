@@ -8,28 +8,19 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 
-import java.io.File;
-
-import common.PACKAGES;
-import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import nz.pbomb.xposed.anzmods.R;
 
-public class ContactActivity extends AppCompatActivity implements OnClickListener {
-
+public class ContactActivity extends AppCompatActivity {
     @Override
+    @SuppressWarnings("all")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-
-        findViewById(R.id.contact_twitter_button).setOnClickListener(this);
-        findViewById(R.id.contact_email_button).setOnClickListener(this);
-        findViewById(R.id.contact_xda_button).setOnClickListener(this);
-
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        ButterKnife.bind(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -42,22 +33,21 @@ public class ContactActivity extends AppCompatActivity implements OnClickListene
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View v) {
-        Intent intent = null;
-        switch(v.getId()) {
-            case R.id.contact_twitter_button:
-                try {
-                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=528317895"));
-                }catch (ActivityNotFoundException e) {
-                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/PBombNZ"));
-                }
-                break;
-            case R.id.contact_email_button:
-                intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:pbomb.nz@gmail.com"));
-                intent.putExtra(Intent.EXTRA_SUBJECT, "[XPOSED][SUPERKIWI] General Feedback");
-                intent.putExtra(Intent.EXTRA_TEXT,
-                        "Build Fingerprint: "+ Build.FINGERPRINT + "\n" +
+    @OnClick(R.id.contact_twitter_button)
+    public void onTwitterButtonClicked() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=528317895")));
+        }catch (ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/PBombNZ")));
+        }
+    }
+
+    @OnClick(R.id.contact_email_button)
+    public void onEmailButtonClicked() {
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:pbomb.nz@gmail.com"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "[XPOSED][SUPERKIWI] General Feedback");
+        intent.putExtra(Intent.EXTRA_TEXT,
+                "Build Fingerprint: "+ Build.FINGERPRINT + "\n" +
                         "Build Manufacturer: "+ Build.MANUFACTURER + "\n" +
                         "Build Brand: "+ Build.BRAND + "\n" +
                         "Build Model: "+ Build.MODEL + "\n" +
@@ -67,26 +57,12 @@ public class ContactActivity extends AppCompatActivity implements OnClickListene
                         "\n" +
                         "Additional Text (Insert Feedback/Bug Report/Feature Request Here):\n");
 
-                intent = Intent.createChooser(intent, "Chooser Email Client");
-                break;
-            case R.id.contact_xda_button:
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623"));
-                break;
-            default:
-                return;
-        }
+        intent = Intent.createChooser(intent, "Chooser Email Client");
         startActivity(intent);
     }
 
-    @Override
-    protected void onDestroy() {
-        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true, false);
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onPause() {
-        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true, false);
-        super.onPause();
+    @OnClick(R.id.contact_xda_button)
+    public void onXDAButtonClicked() {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/xposed/modules/xposed-anz-gomoney-zealand-mods-bypass-t3270623")));
     }
 }
