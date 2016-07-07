@@ -1,4 +1,4 @@
-package nz.pbomb.xposed.anzmods;
+package nz.pbomb.xposed.anzmods.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.preference.PreferenceFragment;
 import android.util.Log;
 
 import common.PREFERENCES;
+import nz.pbomb.xposed.anzmods.R;
+import nz.pbomb.xposed.anzmods.activities.HelpActivity;
+import nz.pbomb.xposed.anzmods.activities.PrefActivity;
 
 
 public class MainPrefFragment extends PreferenceFragment implements OnPreferenceClickListener {
@@ -20,7 +23,7 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_main);
 
-        findPreference(PREFERENCES.KEYS.MAIN.ASB).setOnPreferenceClickListener(this);
+        //findPreference(PREFERENCES.KEYS.MAIN.ASB).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.ANZ).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setOnPreferenceClickListener(this);
@@ -37,25 +40,25 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
         Log.i("SuperKiwi", "prefkey: "+prefKey);
         switch (prefKey) {
             case PREFERENCES.KEYS.MAIN.ASB:
-                intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+                intent = new Intent(getActivity(), PrefActivity.class);
                 intent.putExtra("id", R.xml.preferences_asb);
                 intent.putExtra("title", getString(R.string.label_asb));
                 intent.putExtra("preference", preference.getKey());
                 break;
             case PREFERENCES.KEYS.MAIN.ANZ:
-                intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+                intent = new Intent(getActivity(), PrefActivity.class);
                 intent.putExtra("id", R.xml.preferences_anz);
                 intent.putExtra("title", getString(R.string.label_anz));
                 intent.putExtra("preference", preference.getKey());
                 break;
             case PREFERENCES.KEYS.MAIN.SEMBLE:
-                intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+                intent = new Intent(getActivity(), PrefActivity.class);
                 intent.putExtra("id", R.xml.preferences_semble);
                 intent.putExtra("title", getString(R.string.label_semble));
                 intent.putExtra("preference", preference.getKey());
                 break;
             case PREFERENCES.KEYS.MAIN.TVNZ:
-                intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+                intent = new Intent(getActivity(), PrefActivity.class);
                 intent.putExtra("id", R.xml.preferences_tvnz);
                 intent.putExtra("title", getString(R.string.label_tvnz));
                 intent.putExtra("preference", preference.getKey());
@@ -81,7 +84,7 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
 
                 return true;
             case PREFERENCES.KEYS.MAIN.HELP:
-                intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                intent = new Intent(getActivity(), HelpActivity.class);
                 break;
         }
         startActivity(intent);

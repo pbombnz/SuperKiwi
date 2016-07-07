@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="nz.pbomb.xposed.anzmods">
 
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
@@ -8,7 +9,8 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
-        android:theme="@style/MainTheme">
+        android:theme="@style/MainTheme"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <meta-data
             android:name="xposedmodule"
@@ -21,32 +23,33 @@
             android:value="30" />
 
         <activity
-            android:name="nz.pbomb.xposed.anzmods.MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/label_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
-            android:name="nz.pbomb.xposed.anzmods.HelpActivity"
-            android:label="@string/label_help" />
+            android:name=".activities.HelpActivity"
+            android:label="@string/label_help"
+            android:parentActivityName=".activities.MainActivity" />
 
         <activity
-            android:name="nz.pbomb.xposed.anzmods.ContactActivity"
-            android:label="@string/label_main_contact"/>
+            android:name=".activities.ContactActivity"
+            android:label="@string/label_main_contact"
+            android:parentActivityName=".activities.MainActivity" />
 
         <activity
-            android:name="nz.pbomb.xposed.anzmods.AboutActivity"
-            android:label="@string/label_about">
-        </activity>
+            android:name=".activities.AboutActivity"
+            android:label="@string/label_about"
+            android:parentActivityName=".activities.MainActivity" />
+
 
         <activity
-            android:name="nz.pbomb.xposed.anzmods.PrefActivity"
-            android:label="Potato">
-        </activity>
+            android:name=".activities.PrefActivity"
+            android:parentActivityName=".activities.MainActivity"/>
     </application>
 
 

@@ -1,116 +1,121 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16sp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="42sp"
+                android:src="@drawable/pbomb_banner"
+                android:contentDescription="@string/AboutActivity_author_logo"
+                />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:id="@+id/imageView"
-            android:src="@drawable/app_logo"
-            android:contentDescription="Application Logo"
-            android:paddingTop="20dp"
-            android:paddingBottom="5dp"
-            android:layout_gravity="center_horizontal"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:text="@string/AboutActivity_author_title"
+                android:padding="5dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold"
-            android:text="Author"
-            android:padding="5dp"
-            android:id="@+id/textView"
-            android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/AboutActivity_author_1"
+                android:id="@+id/activity_about_textView_author_1"
+                android:gravity="center"
+                android:padding="5dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Prashant B. (PBombNZ)"
-            android:id="@+id/textView2"
-            android:padding="5dp"
-            android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="@string/AboutActivity_contributer_title"
+                android:padding="10dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold"
-            android:text="Contributions and Thanks"
-            android:padding="10dp"
-            android:id="@+id/textView3"
-            android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/AboutActivity_contributer_text_1"
+                android:id="@+id/activity_about_textView_contributer_text_1"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/AboutActivity_contributer_text_2"
+                android:id="@+id/activity_about_textView_contributer_text_2"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/AboutActivity_contributer_text_3"
+                android:id="@+id/activity_about_textView_contributer_text_3"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/AboutActivity_contributer_text_4"
+                android:id="@+id/activity_about_textView_contributer_text_4"
+                android:gravity="left"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/AboutActivity_LicenseAndCP_title"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:padding="10dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="rovo89 - Providing Xposed Framework"
-            android:id="@+id/textView5"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_gravity="center_horizontal" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Liam Cottle - Providing base code for TVNZ OnDemand \nRoot Detection Bypass"
-            android:gravity="center"
-            android:id="@+id/textView4"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:gravity="center"
+                android:text="@string/AboutActivity_LicenseAndCP_text"
+                android:linksClickable="true"
+                android:autoLink="email"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="License &amp; Copyright"
-            android:textStyle="bold"
-            android:padding="10dp"
-            android:id="@+id/textView6"
-            android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/AboutActivity_disclaimer_title"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:layout_gravity="center_horizontal" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Copyright 2016 Prashant B. (PBombNZ) &lt;pbomb.nz@gmail.com&gt;\n\n This source code of this program is distributed under the terms of the GNU General Public License v3."
-            android:gravity="center"
-            android:id="@+id/textView7"
-            android:layout_gravity="center_horizontal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/AboutActivity_disclaimer_message"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </ScrollView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/Disclaimer_title"
-            android:textStyle="bold"
-            android:padding="10dp"
-            android:id="@+id/textView8"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/Disclaimer_message"
-            android:gravity="center"
-            android:id="@+id/textView9"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
-</ScrollView>
-
-</FrameLayout>
+</RelativeLayout>

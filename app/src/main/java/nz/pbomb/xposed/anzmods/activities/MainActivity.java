@@ -1,13 +1,10 @@
-package nz.pbomb.xposed.anzmods;
+package nz.pbomb.xposed.anzmods.activities;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +16,7 @@ import java.io.File;
 import common.GLOBAL;
 import common.PACKAGES;
 import common.PREFERENCES;
-import de.robv.android.xposed.SELinuxHelper;
+import nz.pbomb.xposed.anzmods.R;
 
 public class MainActivity extends AppCompatActivity {
 

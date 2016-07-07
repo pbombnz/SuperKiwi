@@ -80,7 +80,16 @@
     <string name="ANZPrefActivity_quit_message">You MUST clear all cache and data of the ANZ GoMoney application and re-login in order fro your changes to be in effect. So keep your Account Number and password on hand.</string>
     <string name="ANZPrefActivity_spoofDeviceChecked_message">In order to spoof your device you must clear all cache and data of the ANZ GoMoney application and re-login otherwise the spoofing feature will not activate. So keep your Account Number and password on hand.</string>
 
-    <string name="Disclaimer_title">Disclaimer</string>
-    <string name="Disclaimer_message">The author and contributors of SuperKiwi as well as ANZ, Semble, TVNZ and their partners take no responsibility for any loss of data, monetary loss, damage to your device or any other consequences that arise as a result of using this program.\n\nUSE AT YOUR OWN RISK.</string>
-
+    <string name="AboutActivity_author_logo">PBomb Logo</string>
+    <string name="AboutActivity_author_title">Author</string>
+    <string name="AboutActivity_author_1"><a href="https://github.com/PBombNZ">Prashant B. (PBombNZ)</a></string>
+    <string name="AboutActivity_contributer_title">Libraries Used and Contributions</string>
+    <string name="AboutActivity_contributer_text_1">rovo89 - <a href="https://github.com/rovo89/">Xposed Bridge Framework</a></string>
+    <string name="AboutActivity_contributer_text_2">Jake Wharton - <a href="https://github.com/JakeWharton/butterknife">ButterKnife</a></string>
+    <string name="AboutActivity_contributer_text_3">Liam Cottle - <a href="https://github.com/liamcottle/TVNZ-Root-Unblocker">TVNZ-Root-Unblocker</a> (Obsolete)</string>
+    <string name="AboutActivity_contributer_text_4">Andrew Sun - <a href="https://github.com/apsun/RemotePreferences">RemotePreferences</a></string>
+    <string name="AboutActivity_LicenseAndCP_title">License &amp; Copyright</string>
+    <string name="AboutActivity_LicenseAndCP_text">Copyright 2016 Prashant B.\n&lt;pbomb.nz@gmail.com&gt;\n\n This source code of this program is distributed under the terms of the GNU General Public License v3.</string>
+    <string name="AboutActivity_disclaimer_title">Disclaimer</string>
+    <string name="AboutActivity_disclaimer_message">The author and contributors of SuperKiwi as well as ANZ, Semble, TVNZ and their partners take no responsibility for any loss of data, monetary loss, damage to your device or any other consequences that arise as a result of using this program.\n\nUSE AT YOUR OWN RISK.</string>
 </resources>

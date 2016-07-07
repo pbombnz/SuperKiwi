@@ -1,4 +1,4 @@
-package nz.pbomb.xposed.anzmods;
+package nz.pbomb.xposed.anzmods.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -21,6 +21,7 @@ import java.util.Map;
 import common.PACKAGES;
 import common.PREFERENCES;
 import de.robv.android.xposed.XposedBridge;
+import nz.pbomb.xposed.anzmods.R;
 
 @SuppressWarnings("unchecked")
 public class PrefFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener {

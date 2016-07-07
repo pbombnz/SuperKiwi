@@ -6,7 +6,7 @@
     <!--fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="nz.pbomb.xposed.anzmods.PrefFragment"
+        android:name="nz.pbomb.xposed.anzmods.fragments.PrefFragment"
         android:id="@+id/prefFragment"
         android:layout_marginBottom="5sp"
         android:layout_marginLeft="5sp"

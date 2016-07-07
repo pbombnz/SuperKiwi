@@ -1,4 +1,4 @@
-package nz.pbomb.xposed.anzmods;
+package nz.pbomb.xposed.anzmods.activities;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import java.io.File;
 
 import common.PACKAGES;
 import common.PREFERENCES;
+import nz.pbomb.xposed.anzmods.R;
 
 public class HelpActivity extends AppCompatActivity {
 

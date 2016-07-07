@@ -1,14 +1,19 @@
 package common;
 
 
-public class DeviceInfo {
-
+public class SpoofDevice {
+    private final String humanReadableName;
     public VERSION VERSION;
     public Build Build;
 
-    public DeviceInfo(String BOARD, String INCREMENTAL, String RELEASE, String SDK, int SDK_INT, String CODENAME, String ID, String DISPLAY, String PRODUCT, String DEVICE, String CPU_ABI, String CPU_ABI2, String MANUFACTURER, String BRAND, String MODEL, String BOOTLOADER, String RADIO, String HARDWARE, String SERIAL, String[] SUPPORTED_ABIS, String[] SUPPORTED_32_BIT_ABIS, String[] SUPPORTED_64_BIT_ABIS, String TYPE, String TAGS, String FINGERPRINT) {
+    public SpoofDevice(String humanReadableName, String BOARD, String INCREMENTAL, String RELEASE, String SDK, int SDK_INT, String CODENAME, String ID, String DISPLAY, String PRODUCT, String DEVICE, String CPU_ABI, String CPU_ABI2, String MANUFACTURER, String BRAND, String MODEL, String BOOTLOADER, String RADIO, String HARDWARE, String SERIAL, String[] SUPPORTED_ABIS, String[] SUPPORTED_32_BIT_ABIS, String[] SUPPORTED_64_BIT_ABIS, String TYPE, String TAGS, String FINGERPRINT) {
+        this.humanReadableName = humanReadableName;
         this.Build = new Build(BOARD,ID,DISPLAY,PRODUCT,DEVICE,CPU_ABI,CPU_ABI2,MANUFACTURER,BRAND,MODEL,BOOTLOADER,RADIO,HARDWARE,SERIAL,SUPPORTED_ABIS,SUPPORTED_32_BIT_ABIS,SUPPORTED_64_BIT_ABIS,TYPE,TAGS,FINGERPRINT);
         this.VERSION = new VERSION(CODENAME,INCREMENTAL,RELEASE,SDK,SDK_INT);
+    }
+
+    public String getHumanReadableName() {
+        return humanReadableName;
     }
 
     public static class VERSION {
