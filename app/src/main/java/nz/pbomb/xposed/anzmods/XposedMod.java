@@ -15,6 +15,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crossbowffs.remotepreferences.RemotePreferences;
+
 import java.util.Map;
 
 import static de.robv.android.xposed.XposedHelpers.callMethod;
@@ -40,9 +42,11 @@ import common.PACKAGES;
 
 
 public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage {
-    private static final String TAG = "SuperKiwi::Mod"; // Tag used for debugLog
+    private static final String TAG = "SuperKiwi:Mod"; // Tag used for debugLog
 
     private static XSharedPreferences prefs;
+    private static SharedPreferences sharedPreferences;
+
 
     /**
      * Displays a message in Xposed Logs and logcat if and only if Debug Mode is enabled.
@@ -144,10 +148,10 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             return;
         }
 
-        if(lpparam.packageName.equals(PACKAGES.ASB_MOBILE)) {
+        /*if(lpparam.packageName.equals(PACKAGES.ASB_MOBILE)) {
             debugLog("Hooking Methods for ASB Mobile Application.");
             hookAsbMobileApplication(lpparam);
-        }
+        }*/
 
         if(lpparam.packageName.equals(PACKAGES.ANZ_GOMONEY)) {
             debugLog("Hooking Methods for ANZ goMoney NZ Application.");
@@ -200,15 +204,24 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      *
      * @param lpparam The package and process information of the current package
      */
-    private void hook3NOWApplication(XC_LoadPackage.LoadPackageParam lpparam) {
+    private void hook3NOWApplication(final XC_LoadPackage.LoadPackageParam lpparam) {
+
+        findAndHookMethod("android.app.Application", lpparam.classLoader, "onCreate", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                sharedPreferences = new RemotePreferences((Context) param.thisObject, "nz.pbomb.xposed.anzmods.provider.preferences", PREFERENCES.SHARED_PREFS_FILE_NAME);
+            }
+        });
+
+
         // Hooks Method which always returns "false" to indicate that no root tools were detected.
         // v2.0 - Class: ? | Method: ?
         // v2.0.1 - Class: com.scottyab.rootbeer.b | Method: a,b,c,d,a(str)
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -216,8 +229,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "b", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -225,8 +238,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "c", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -234,8 +247,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "d", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -243,8 +256,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "a", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -262,11 +275,19 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v2.2 - Class: B | Method: ?
         // v2.3 - Class: F | Method: ?
         // v2.4 - Class: D | Method: D
+        findAndHookMethod("android.app.Application", lpparam.classLoader, "onCreate", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                sharedPreferences = new RemotePreferences((Context) param.thisObject, "nz.pbomb.xposed.anzmods.provider.preferences", PREFERENCES.SHARED_PREFS_FILE_NAME);
+            }
+        });
+
+
         findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "D", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -280,6 +301,15 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      */
     public void hookAnzGoMoneyApplication(final XC_LoadPackage.LoadPackageParam lpparam) {
         final SpoofDevice spoofDevice = SpoofDevices.getDevices().get(0);
+
+
+        findAndHookMethod("android.app.Application", lpparam.classLoader, "onCreate", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                sharedPreferences = new RemotePreferences((Context) param.thisObject, "nz.pbomb.xposed.anzmods.provider.preferences", PREFERENCES.SHARED_PREFS_FILE_NAME);
+            }
+        });
+
         /**
          * Seitc API Root Check Hooks
          */
@@ -287,8 +317,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.jejeee", lpparam.classLoader, "isRooted", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -298,8 +328,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.jejeee", lpparam.classLoader, "isRootedQuickCheck", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -309,8 +339,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.jejeee", lpparam.classLoader, "isDebug", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -328,8 +358,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("nz.co.anz.android.mobilebanking.h.a.n", lpparam.classLoader, "k", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -386,8 +416,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.ai", lpparam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -412,8 +442,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("nz.co.anz.android.mobilebanking.b.bo", lpparam.classLoader, "p", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(true);
                 }
             }
@@ -426,8 +456,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("nz.co.anz.android.mobilebanking.j.a.b.aw", lpparam.classLoader, "isEligibleForWallet", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(true);
                 }
             }
@@ -439,8 +469,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("nz.co.anz.android.mobilebanking.ui.util.MobileWalletPromoIgnoreCondition", lpparam.classLoader, "shouldIgnore", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -460,8 +490,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.c.m", lpparam.classLoader, "d", builder, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     callMethod(param.args[0], "add", "Android-Device-Description", spoofDevice.Build.MODEL);
                     callMethod(param.args[0], "add", "Android-Api-Version", Integer.toString(spoofDevice.VERSION.SDK_INT));
                     debugLog("we added spoof");
@@ -514,8 +544,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", lpparam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("[samsung SM-N9005]");
                 }
             }
@@ -529,8 +559,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", lpparam.classLoader, "b", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("samsung SM-N9005");
                 }
             }
@@ -544,8 +574,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.k", lpparam.classLoader, "e", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("4.4.2");
                 }
             }
@@ -560,8 +590,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("nz.co.anz.android.mobilebanking.i.e.v", lpparam.classLoader, "a", String.class, String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.setResult("SM-N9005");
                 }
             }
@@ -574,8 +604,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("com.google.android.gms.analytics.internal.l", lpparam.classLoader, "a", String.class, String.class, String.class, String.class, String.class, String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     String str = (String) param.args[0];
                     String str2 = (String) param.args[1];
                     String str3 = (String) param.args[2];
@@ -598,8 +628,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b04160416ЖЖ0416ЖЖ0416", Integer.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     param.args[0] = Integer.valueOf(spoofDevice.VERSION.SDK_INT);
                     super.afterHookedMethod(param);
 
@@ -614,8 +644,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416Ж0416Ж0416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "f6987b044504450445", "hlte");
                     param.args[0] = spoofDevice.VERSION.CODENAME;
                     super.afterHookedMethod(param);
@@ -630,8 +660,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b041604160416Ж0416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if (prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "f6987b044504450445", "hlte");
                     param.args[0] = spoofDevice.Build.DEVICE;
                     super.afterHookedMethod(param);
@@ -646,8 +676,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416ЖЖ04160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "bх0445ххх04450445х", "SM-N9005");
                     param.args[0] = spoofDevice.Build.MODEL;
                     super.afterHookedMethod(param);
@@ -661,8 +691,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b04160416Ж04160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b04450445ххх04450445х", "hltexx");
                     param.args[0] = spoofDevice.Build.PRODUCT;
                     super.afterHookedMethod(param);
@@ -677,8 +707,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416Ж041604160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b04450445ххх04450445х", "hltexx");
                     param.args[0] = spoofDevice.Build.DISPLAY;
                     super.afterHookedMethod(param);
@@ -693,7 +723,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b04160416041604160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
                     param.args[0] = spoofDevice.Build.BOARD;
                     super.afterHookedMethod(param);
@@ -708,7 +738,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416ЖЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
                     param.args[0] = spoofDevice.Build.CPU_ABI;
                     super.afterHookedMethod(param);
@@ -723,7 +753,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b04160416ЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
                     param.args[0] = spoofDevice.Build.CPU_ABI2;
                     super.afterHookedMethod(param);
@@ -738,8 +768,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416Ж0416ЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b044504450445хх04450445х", "samsung");
                     param.args[0] = spoofDevice.Build.MANUFACTURER;
                     super.afterHookedMethod(param);
@@ -754,8 +784,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b041604160416ЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
                     param.args[0] = spoofDevice.Build.BRAND;
                     super.afterHookedMethod(param);
@@ -770,8 +800,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416ЖЖ0416Ж0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
                     param.args[0] = spoofDevice.Build.BOOTLOADER;
                     super.afterHookedMethod(param);
@@ -786,8 +816,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b04160416Ж0416Ж0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
                     param.args[0] = spoofDevice.Build.HARDWARE;
                     super.afterHookedMethod(param);
@@ -802,8 +832,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416Ж04160416Ж0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
                     param.args[0] = spoofDevice.Build.SERIAL;
                     super.afterHookedMethod(param);
@@ -818,8 +848,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b041604160416ЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
                     param.args[0] = spoofDevice.Build.ID;
                     super.afterHookedMethod(param);
@@ -834,9 +864,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "bЖ04160416ЖЖЖ04160416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
+                //refreshSharedPreferences();
                 Log.e("SuperKiwi", "afterHookedMethod: " + String.valueOf(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)));
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
                     param.args[0] = spoofDevice.Build.FINGERPRINT;
                     super.afterHookedMethod(param);
@@ -852,8 +882,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("xxxxxx.hchchh", lpparam.classLoader, "b04220422ТТ0422042204220422", android.content.Context.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     StringBuilder sb = new StringBuilder(500);
                     sb.append(spoofDevice.Build.DEVICE);      // r1 = android.os.Build.DEVICE;	 Catch:{ Exception -> 0x007d } (Line 261)
                     sb.append(spoofDevice.Build.MODEL);  // r1 = android.os.Build.MODEL;	 Catch:{ Exception -> 0x007d } (Line 263)
@@ -944,8 +974,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("android.view.Window", lpparam.classLoader, "setFlags", int.class, int.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED, PREFERENCES.DEFAULT_VALUES.ANZ.SCREENSHOT_ENABLED)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED, PREFERENCES.DEFAULT_VALUES.ANZ.SCREENSHOT_ENABLED)) {
                     Integer flags = (Integer) param.args[0];
                     flags &= ~WindowManager.LayoutParams.FLAG_SECURE;
                     param.args[0] = flags;
@@ -957,30 +987,37 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
     /**
      * A method that hooks all Semble packages if Semble is present on the device
      *
-     * @param loadPackageParam The package and process information of the current package
+     * @param lpparam The package and process information of the current package
      */
-    private void hookSembleApplication(final LoadPackageParam loadPackageParam) {
+    private void hookSembleApplication(final LoadPackageParam lpparam) {
+
+        findAndHookMethod("android.app.Application", lpparam.classLoader, "onCreate", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                sharedPreferences = new RemotePreferences((Context) param.thisObject, "nz.pbomb.xposed.anzmods.provider.preferences", PREFERENCES.SHARED_PREFS_FILE_NAME);
+            }
+        });
         /**
          * Root Detection Methods
          */
 
         // Returns "true" to confirm that the integrity of the device is fine and is untouched to any modifications
-        findAndHookMethod("com.csam.wallet.integrity.IntegrityCheckerImpl", loadPackageParam.classLoader, "checkDeviceIntegrity", new XC_MethodHook() {
+        findAndHookMethod("com.csam.wallet.integrity.IntegrityCheckerImpl", lpparam.classLoader, "checkDeviceIntegrity", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
                     param.setResult(true);
                 }
             }
         });
 
         // Returns "false" to confirm that their is no root tools are installed.
-        findAndHookMethod("com.mastercard.mtp.mobileclientutilities.DeviceUtility", loadPackageParam.classLoader, "isOSPossiblyCompromised", new XC_MethodHook() {
+        findAndHookMethod("com.mastercard.mtp.mobileclientutilities.DeviceUtility", lpparam.classLoader, "isOSPossiblyCompromised", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -991,22 +1028,22 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
          */
 
         // Spoof Device Model to Samsung Galaxy Note 3
-        findAndHookMethod("com.csam.mclient.core.WalletContext", loadPackageParam.classLoader, "getDeviceModel", new XC_MethodHook() {
+        findAndHookMethod("com.csam.mclient.core.WalletContext", lpparam.classLoader, "getDeviceModel", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
                     param.setResult("SM-N9005");
                 }
             }
         });
 
         // Spoof Device Manufacturer to Samsung Galaxy Note 3
-        findAndHookMethod("com.csam.mclient.core.WalletContext", loadPackageParam.classLoader, "getManufacturer", new XC_MethodHook() {
+        findAndHookMethod("com.csam.mclient.core.WalletContext", lpparam.classLoader, "getManufacturer", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
-                if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
+                //refreshSharedPreferences();
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
                     param.setResult("samsung");
                 }
             }
@@ -1017,31 +1054,31 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // Samsung Galaxy Note 3 instead. This is handy when you have a compatible device, but
         // the OS Version is not which occurs when the OEM or your operator updates the firmware
         // of your device but Semble hasn't updated to handle the new firmware.
-        findAndHookMethod("com.csam.mclient.core.WalletContext", loadPackageParam.classLoader, "getSystemOSVersion", new XC_MethodHook() {
+        findAndHookMethod("com.csam.mclient.core.WalletContext", lpparam.classLoader, "getSystemOSVersion", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
+                //refreshSharedPreferences();
 
                 debugLog("[Semble] Calling Method: com.csam.mclient.core.WalletContext.getSystemOSVersion()");
 
-                if(prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
+                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
                     debugLog("[Semble] Overriding Unofficial Android OS Support Method Hook due to having Spoof Device feature enabled.");
                     param.setResult("5.0");
                     return;
                 }
 
 
-                if (prefs.getBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT)) {
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT)) {
                     debugLog("[Semble] Calling Method: Successfully hooked.");
 
                     debugLog("[Semble] Device: Brand: " + Build.BRAND + " Manufacturer: " + Build.MANUFACTURER + " Model: " + Build.MODEL);
                     debugLog("[Semble] Device: Fingerprint: " + Build.FINGERPRINT);
-                    debugLog("[Semble] SembleCompatibilityList.isSupportedDevice(): " + SembleCompatibilityList.isSupportedDevice(loadPackageParam.packageName));
-                    debugLog("[Semble] SembleCompatibilityList.isOSVersionSupported(): " + SembleCompatibilityList.isOSVersionSupported(loadPackageParam.packageName));
+                    debugLog("[Semble] SembleCompatibilityList.isSupportedDevice(): " + SembleCompatibilityList.isSupportedDevice(lpparam.packageName));
+                    debugLog("[Semble] SembleCompatibilityList.isOSVersionSupported(): " + SembleCompatibilityList.isOSVersionSupported(lpparam.packageName));
 
-                    if (SembleCompatibilityList.isSupportedDevice(loadPackageParam.packageName)
-                            && !SembleCompatibilityList.isOSVersionSupported(loadPackageParam.packageName)) {
-                        SembleCompatibilityList.SembleDevice dInfo = SembleCompatibilityList.getSupportedDevice(loadPackageParam.packageName);
+                    if (SembleCompatibilityList.isSupportedDevice(lpparam.packageName)
+                            && !SembleCompatibilityList.isOSVersionSupported(lpparam.packageName)) {
+                        SembleCompatibilityList.SembleDevice dInfo = SembleCompatibilityList.getSupportedDevice(lpparam.packageName);
                         if (dInfo != null) {
                             debugLog("[Semble] Device's system OS is now seen as \"" + dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1) + "\" instead of \"" + Build.VERSION.RELEASE + "\"");
                             param.setResult(dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1));
