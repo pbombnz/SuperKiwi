@@ -13,12 +13,14 @@ public final class PREFERENCES {
         public static final class ANZ {
             public static final boolean ROOT_DETECTION = true;
             public static final boolean SPOOF_DEVICE = false;
+            public static final String SPOOF_DEVICE_CHOOSER = "Samsung Galaxy Note 3 (4.4.2)";
             public static final boolean SCREENSHOT_ENABLED = false;
         }
 
         public static final class SEMBLE {
             public static final boolean ROOT_DETECTION = true;
             public static final boolean SPOOF_DEVICE = false;
+            public static final String SPOOF_DEVICE_CHOOSER = "Samsung Galaxy Note 3 (4.4.2)";
             public static final boolean MM_SUPPORT = true;
         }
 
