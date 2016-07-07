@@ -107,18 +107,4 @@ public class PrefActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
-
-    @SuppressLint({"setWorldReadable", "SdCardPath"})
-    @Override
-    protected void onDestroy() {
-        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true,false);
-        super.onDestroy();
-    }
-
-    @SuppressLint({"setWorldReadable", "SdCardPath"})
-    @Override
-    protected void onPause() {
-        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true, false);
-        super.onPause();
-    }
 }

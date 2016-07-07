@@ -25,29 +25,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         onCreateValidation();
-        //createDisclaimerDialog();
 
         if(GLOBAL.DEBUG) {
             setTitle(getTitle() + " (Debug Mode)");
         }
-
-        /*if(SELinuxHelper.isSELinuxEnabled()
-        && SELinuxHelper.isSELinuxEnforced()
-        && GLOBAL.isSamsungRom()
-        && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("SELinux Enforcing");
-            builder.setMessage("");
-            builder.setCancelable(false);
-            builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }*/
     }
 
     /**
@@ -226,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }*/
 
-    @Override
+    /*@Override
     protected void onDestroy() {
         new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true,false);
         super.onDestroy();
@@ -236,5 +217,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true,false);
         super.onPause();
-    }
+    }*/
 }

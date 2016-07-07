@@ -11,18 +11,16 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.File;
-
-import common.PACKAGES;
-import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
 
 public class HelpActivity extends AppCompatActivity {
 
     @Override
+    @SuppressWarnings("all")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         LinearLayout layout = (LinearLayout) this.findViewById(R.id.linearLayout);
 
@@ -102,9 +100,6 @@ public class HelpActivity extends AppCompatActivity {
             layout.addView(tvQuestion);
             layout.addView(tvAnswer);
         }
-
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -115,17 +110,5 @@ public class HelpActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onDestroy() {
-        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true,false);
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onPause() {
-        new File("/data/data/"+ PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true, false);
-        super.onPause();
     }
 }
