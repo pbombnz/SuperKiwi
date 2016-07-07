@@ -12,8 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import common.GLOBAL;
 import common.PACKAGES;
 import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
@@ -22,7 +20,7 @@ import nz.pbomb.xposed.anzmods.R;
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
 
-    @BindView(R.id.mainPrefFragment) protected PreferenceFragment preferenceFragment;
+    protected PreferenceFragment preferenceFragment;
 
     @Override
     @SuppressLint("WorldReadableFiles")
@@ -30,8 +28,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+
         mSharedPreferences = getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
+        preferenceFragment = (PreferenceFragment) getFragmentManager().findFragmentById(R.id.mainPrefFragment);
+
         onCreateValidation();
     }
 

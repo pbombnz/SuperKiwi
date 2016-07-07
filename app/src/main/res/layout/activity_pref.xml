@@ -3,19 +3,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal">
-    <!--fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="nz.pbomb.xposed.anzmods.fragments.PrefFragment"
-        android:id="@+id/prefFragment"
-        android:layout_marginBottom="5sp"
-        android:layout_marginLeft="5sp"
-        android:layout_marginRight="5sp"
-        android:layout_marginTop="2sp"/-->
     <LinearLayout
-        android:id="@+id/myfragment"
+        android:id="@+id/activity_pref_linearlayout_nested"
         android:orientation="vertical"
-        android:layout_weight="4"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_width="match_parent" />
 </LinearLayout>
