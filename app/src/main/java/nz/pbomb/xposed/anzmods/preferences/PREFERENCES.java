@@ -44,12 +44,14 @@ public final class PREFERENCES {
         public static final class ANZ {
             public static final String ROOT_DETECTION = "anzRootDetection";
             public static final String SPOOF_DEVICE = "anzSpoofDevice";
+            public static final String SPOOF_DEVICE_CHOOSER = "anzSpoofDeviceChooser";
             public static final String SCREENSHOT_ENABLED = "anzEnableScreenshots";
         }
 
         public static final class SEMBLE {
             public static final String ROOT_DETECTION = "sembleRootDetection";
             public static final String SPOOF_DEVICE = "sembleSpoofDevice";
+            public static final String SPOOF_DEVICE_CHOOSER = "sembleSpoofDeviceChooser";
             public static final String MM_SUPPORT = "sembleOSSupport";
         }
 

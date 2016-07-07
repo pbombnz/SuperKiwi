@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="Available Modifications">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Available Modifications">
         <CheckBoxPreference
             android:key="anzRootDetection"
             android:title="@string/ANZPrefFragment_preferences_rootDetection_title"
             android:summary="@string/ANZPrefFragment_preferences_rootDetection_summary"
-            android:defaultValue="true"
-        />
+            android:defaultValue="true" />
         <CheckBoxPreference
             android:key="anzSpoofDevice"
             android:title="@string/ANZPrefFragment_preferences_spoofDevice_title"
             android:summary="@string/ANZPrefFragment_preferences_spoofDevice_summary"
-            android:defaultValue="false"
-        />
+            android:defaultValue="false" />
+        <Preference
+            android:key="anzSpoofDeviceChooser"
+            android:title="@string/ANZPrefFragment_preferences_spoofDeviceChooser_title"
+            android:summary="@string/ANZPrefFragment_preferences_spoofDeviceChooser_summary" />
         <CheckBoxPreference
             android:key="anzEnableScreenshots"
             android:title="@string/ANZPrefFragment_anzEnableScreenshots_title"
             android:summary="@string/ANZPrefFragment_anzEnableScreenshots_summary"
-            android:defaultValue="false"
-            />
+            android:defaultValue="false" />
     </PreferenceCategory>
 </PreferenceScreen>

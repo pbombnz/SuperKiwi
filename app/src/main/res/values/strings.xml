@@ -50,9 +50,11 @@
 
     <!-- ANZ Preference Fragment -->
     <string name="ANZPrefFragment_preferences_rootDetection_title">Root Detection</string>
-    <string name="ANZPrefFragment_preferences_rootDetection_summary">Enable this to avoid root detection for the ANZ GoMoney app.</string>
+    <string name="ANZPrefFragment_preferences_rootDetection_summary">Enable to bypass the various root checks found in ANZ GoMoney NZ.</string>
     <string name="ANZPrefFragment_preferences_spoofDevice_title">Spoof Device</string>
-    <string name="ANZPrefFragment_preferences_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy Note 3) which may allow GoMoney Wallet to work. This function is limited to your phone\'s hardware and software capabilities.</string>
+    <string name="ANZPrefFragment_preferences_spoofDevice_summary">Spoofs your device information to trick GoMoney Wallet to work.</string>
+    <string name="ANZPrefFragment_preferences_spoofDeviceChooser_title">Spoof Device Selection</string>
+    <string name="ANZPrefFragment_preferences_spoofDeviceChooser_summary">Pick the device you want to use when device spoofing is enabled for ANZ.</string>
     <string name="ANZPrefFragment_anzEnableScreenshots_title">Allow Screenshots</string>
     <string name="ANZPrefFragment_anzEnableScreenshots_summary">Allow screenshots to be taken within the ANZ GoMoney application. Do not turn on this feature unless you actually need it at it\'s huge security breach. If you indeed do use this feature, make sure no sensitive information is displayed when you screenshot.</string>
 
@@ -61,9 +63,11 @@
     <string name="SemblePrefFragment_rootDetection_title">Root Detection</string>
     <string name="SemblePrefFragment_rootDetection_summary">Enable to bypass the various root checks found in the Semble applications.</string>
     <string name="SemblePrefFragment_unofficialOSSupport_title">Unofficial Android OS Support</string>
-    <string name="SemblePrefFragment_unofficialOSSupport_summary">Bypass the \"OS not supported\" message on Semble-supported devices that have newer Android OS version installed which Semble was not designed to be used on. Handy for Marshmallow or Lollipop users and users of Custom ROMs.</string>
-    <string name="SemblePrefFragment_spoofDevice_title">Spoof Device (Beta Feature)</string>
-    <string name="SemblePrefFragment_spoofDevice_summary">Spoofs your device information (to be shown as a Samsung Galaxy Note 3) which will bypass \"Device Not Supported\" messages and may allow Semble services to work. This function is limited to your phone\'s hardware and software capabilities. Made for devices that are not on the Semble Compatibility list.</string>
+    <string name="SemblePrefFragment_unofficialOSSupport_summary">Bypasses the \"OS not supported\" message on officially Semble-supported devices that have newer Android OS version installed which Semble was not designed to be used on.</string>
+    <string name="SemblePrefFragment_spoofDevice_title">Spoof Device</string>
+    <string name="SemblePrefFragment_spoofDevice_summary">Spoofs your device information which will bypass \"Device Not Supported\" messages and trick Semble services to work. Made for devices that are not on the Semble Compatibility list.</string>
+    <string name="SemblePrefFragment_spoofDeviceChooser_title">Spoof Device Selection</string>
+    <string name="SemblePrefFragment_spoofDeviceChooser_summary">Pick the device you want to use when device spoofing is enabled for Semble.</string>
 
 
     <!-- TVNZ Preference Fragment -->

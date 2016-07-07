@@ -11,8 +11,11 @@
             android:key="sembleSpoofDevice"
             android:title="@string/SemblePrefFragment_spoofDevice_title"
             android:summary="@string/SemblePrefFragment_spoofDevice_summary"
-            android:defaultValue="false"
-        />
+            android:defaultValue="false" />
+        <Preference
+            android:key="sembleSpoofDeviceChooser"
+            android:title="@string/SemblePrefFragment_spoofDeviceChooser_title"
+            android:summary="@string/SemblePrefFragment_spoofDeviceChooser_summary" />
         <CheckBoxPreference
             android:key="sembleOSSupport"
             android:title="@string/SemblePrefFragment_unofficialOSSupport_title"
