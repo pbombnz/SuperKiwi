@@ -93,8 +93,37 @@ public class SpoofDevices {
                 "release-keys",
                 "samsung/hero2ltexx/hero2lte:6.0.1/MMB29K/G935FXXU1APD1:user/release-keys");
 
+        SpoofDevice huawei_p8 = new SpoofDevice("Huawei P8 (5.0)",
+                "GRA-L09",
+                "C900B162",
+                "5.0",
+                "21",
+                21,
+                "REL",
+                "HUAWEIGRA-L09",
+                "GRA-L09C900B162",
+                "GRA-L09",
+                "HWGRA",
+                "arm64-v8a",
+                "armeabi-v7a",
+                "HUAWEI",
+                "HUAWEI",
+                "HUAWEI GRA-L09",
+                "C900B162",
+                "C900B162",
+                "Hisilicon Kirin 935", //?
+                Build.UNKNOWN,
+                new String[] {"arm64-v8a","armeabi-v7a","armeabi" },
+                new String[] {"arm64-v8a" },
+                new String[] {"armeabi-v7a","armeabi" },
+                "user",
+                "release-keys",
+                "HUAWEI/GRA-L09/HWGRA:5.0/HUAWEIGRA-L09/C900B162:user/release-keys");
+
+
         devices.add(samsung_galaxy_note_3);
         devices.add(samsung_galaxy_s7_edge);
+        devices.add(huawei_p8);
     }
 
     //public static SpoofDevice getDeviceInfo(DEVICE device) {
