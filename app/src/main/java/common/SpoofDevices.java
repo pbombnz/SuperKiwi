@@ -1,6 +1,7 @@
 package common;
 
 import android.os.Build;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,32 +9,6 @@ import java.util.List;
 
 public class SpoofDevices {
     private static List<SpoofDevice> devices;
-
-    public enum DEVICE {
-        SAMSUNG_GALAXY_NOTE_3("samsung", "samsung", "SM-N9005");
-
-        private String manufacturer;
-        private String brand;
-        private String model;
-
-        DEVICE(String manufacturer, String brand, String model) {
-            this.manufacturer = manufacturer;
-            this.brand = brand;
-            this.model = model;
-        }
-
-        public String getBrand() {
-            return brand;
-        }
-
-        public String getManufacturer() {
-            return manufacturer;
-        }
-
-        public String getModel() {
-            return model;
-        }
-    }
 
     static {
         devices = new ArrayList<>();
@@ -126,10 +101,7 @@ public class SpoofDevices {
         devices.add(huawei_p8);
     }
 
-    //public static SpoofDevice getDeviceInfo(DEVICE device) {
-    //    return getDeviceInfo(device.getManufacturer(), device.getBrand(), device.getModel());
-    //}
-
+    @Nullable
     public static SpoofDevice getDeviceByManufacturerBrandModel(String manufacturer, String brand, String model) {
         for(SpoofDevice device: devices) {
             if(device.Build.MANUFACTURER.equals(manufacturer)
@@ -141,6 +113,7 @@ public class SpoofDevices {
         return null;
     }
 
+    @Nullable
     public static SpoofDevice getDeviceInfoByHumanDeviceName(String humanDeviceName) {
         for(SpoofDevice device: devices) {
             if(device.getHumanReadableName().equals(humanDeviceName)) {
