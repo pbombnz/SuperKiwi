@@ -10,6 +10,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.util.Log;
 
+import common.GLOBAL;
 import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
 import nz.pbomb.xposed.anzmods.activities.HelpActivity;
@@ -35,16 +36,14 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        String prefKey = preference.getKey();
         Intent intent = null;
-        Log.i("SuperKiwi", "prefkey: "+prefKey);
-        switch (prefKey) {
-            case PREFERENCES.KEYS.MAIN.ASB:
+        switch (preference.getKey()) {
+            /*case PREFERENCES.KEYS.MAIN.ASB:
                 intent = new Intent(getActivity(), PrefActivity.class);
                 intent.putExtra("id", R.xml.preferences_asb);
                 intent.putExtra("title", getString(R.string.label_asb));
                 intent.putExtra("preference", preference.getKey());
-                break;
+                break;*/
             case PREFERENCES.KEYS.MAIN.ANZ:
                 intent = new Intent(getActivity(), PrefActivity.class);
                 intent.putExtra("id", R.xml.preferences_anz);
@@ -64,20 +63,22 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
                 intent.putExtra("preference", preference.getKey());
                 break;
             case PREFERENCES.KEYS.MAIN.TV3NOW:
-                intent = new Intent(getActivity().getApplicationContext(), PrefActivity.class);
+                intent = new Intent(getActivity(), PrefActivity.class);
                 intent.putExtra("id", R.xml.preferences_tv3now);
                 intent.putExtra("title", getString(R.string.label_tv3now));
                 intent.putExtra("preference", preference.getKey());
                 break;
             case PREFERENCES.KEYS.MAIN.DEBUG:
                 CheckBoxPreference checkBoxPreference = (CheckBoxPreference) preference;
-                if (checkBoxPreference.isChecked()) {
-                    getActivity().setTitle(getResources().getString(R.string.app_name) + " (Debug Mode)");
-                } else {
-                    getActivity().setTitle(getResources().getString(R.string.app_name));
+                if(!GLOBAL.DEBUG) {
+                    if (checkBoxPreference.isChecked()) {
+                        getActivity().setTitle(getResources().getString(R.string.app_name) + " (Debug Mode)");
+                    } else {
+                        getActivity().setTitle(getResources().getString(R.string.app_name));
+                    }
                 }
 
-                SharedPreferences sharedPref = getActivity().getApplicationContext().getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
+                SharedPreferences sharedPref = getActivity().getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
                 SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
                 sharedPrefEditor.putBoolean(PREFERENCES.KEYS.MAIN.DEBUG, checkBoxPreference.isChecked());
                 sharedPrefEditor.apply();
