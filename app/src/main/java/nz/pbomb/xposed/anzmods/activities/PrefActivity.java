@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -68,11 +69,10 @@ public class PrefActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+                NavUtils.navigateUpFromSameTask(this);
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

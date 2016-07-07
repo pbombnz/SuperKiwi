@@ -2,6 +2,7 @@ package nz.pbomb.xposed.anzmods.activities;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -110,11 +111,10 @@ public class HelpActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+                NavUtils.navigateUpFromSameTask(this);
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
