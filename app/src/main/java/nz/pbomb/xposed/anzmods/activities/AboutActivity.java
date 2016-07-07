@@ -1,21 +1,18 @@
 package nz.pbomb.xposed.anzmods.activities;
 
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import common.PACKAGES;
-import common.PREFERENCES;
+import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
 
 /**

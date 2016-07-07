@@ -24,7 +24,7 @@ import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
 import common.SpoofDevice;
 import common.GLOBAL;
-import common.PREFERENCES;
+import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 
 import common.SembleCompatibilityList;
 import common.SpoofDevices;

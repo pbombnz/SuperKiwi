@@ -1,4 +1,6 @@
-package common;
+package nz.pbomb.xposed.anzmods.preferences;
+
+import common.PACKAGES;
 
 public final class PREFERENCES {
     public static final String SHARED_PREFS_FILE_NAME = PACKAGES.MODULE + "_preferences";

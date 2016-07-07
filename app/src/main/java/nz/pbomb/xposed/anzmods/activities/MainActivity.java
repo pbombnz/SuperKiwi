@@ -15,7 +15,7 @@ import java.io.File;
 
 import common.GLOBAL;
 import common.PACKAGES;
-import common.PREFERENCES;
+import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
 
 public class MainActivity extends AppCompatActivity {

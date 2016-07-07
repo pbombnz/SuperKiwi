@@ -10,7 +10,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.util.Log;
 
-import common.PREFERENCES;
+import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
 import nz.pbomb.xposed.anzmods.activities.HelpActivity;
 import nz.pbomb.xposed.anzmods.activities.PrefActivity;

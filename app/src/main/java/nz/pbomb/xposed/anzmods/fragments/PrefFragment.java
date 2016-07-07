@@ -1,12 +1,10 @@
 package nz.pbomb.xposed.anzmods.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -19,8 +17,7 @@ import java.io.InputStreamReader;
 import java.util.Map;
 
 import common.PACKAGES;
-import common.PREFERENCES;
-import de.robv.android.xposed.XposedBridge;
+import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
 
 @SuppressWarnings("unchecked")

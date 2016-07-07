@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="nz.pbomb.xposed.anzmods">
 
@@ -12,6 +13,7 @@
         android:theme="@style/MainTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
+
         <meta-data
             android:name="xposedmodule"
             android:value="true" />
@@ -21,6 +23,11 @@
         <meta-data
             android:name="xposedminversion"
             android:value="30" />
+
+        <provider
+            android:name=".preferences.PreferenceProvider"
+            android:authorities="nz.pbomb.xposed.anzmods.provider.preferences"
+            android:exported="true" />
 
         <activity
             android:name=".activities.MainActivity"

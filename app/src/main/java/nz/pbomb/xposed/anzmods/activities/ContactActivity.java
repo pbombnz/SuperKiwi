@@ -14,7 +14,7 @@ import android.view.View.OnClickListener;
 import java.io.File;
 
 import common.PACKAGES;
-import common.PREFERENCES;
+import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
 
 public class ContactActivity extends AppCompatActivity implements OnClickListener {
