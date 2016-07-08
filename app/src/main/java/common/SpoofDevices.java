@@ -41,7 +41,8 @@ public class SpoofDevices {
                 "release-keys",
                 "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
 
-        SpoofDevice samsung_galaxy_s7_edge = new SpoofDevice("Samsung Galaxy S7 Edge (6.0.1)",
+        SpoofDevice samsung_galaxy_s7_edge = new SpoofDevice(
+                "Samsung Galaxy S7 Edge (6.0.1)",
                 "universal8890",
                 "G935FXXU1APD1",
                 "6.0.1",
