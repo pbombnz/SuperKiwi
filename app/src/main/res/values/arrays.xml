@@ -7,8 +7,6 @@
         <item>How do we know your not storing our sensitive account information?</item>
         <item>Why are some of the application settings disabled?</item>
         <item>What does the "Spoof Device" feature do when enabled for Semble and ANZ GoMoney?</item>
-        <item>Its not working, who do I contact?</item>
-        <item>I have more questions and/or need your help getting it working?</item>
     </string-array>
 
     <string-array name="helpAnswers_General">
@@ -55,19 +53,6 @@
             If spoofing is enabled for ANZ GoMoney, you MUST clear all cache and data of the ANZ GoMoney
             application and re-login. So keep your Account Number and password handy. This is not
             necessary for Semble though.
-        </item>
-        <item>
-            Depending on the issue, I might not always be the best person to contact. Semble and
-            ANZ GoMoney Wallet are relatively new applications and still have bugs which is
-            something out of my hands. If you have a payment issue, most likely contact the
-            application provider or your bank for support. If you are having root detection problem
-            or the module is not working then its best to contact me via XDA or email.
-        </item>
-        <item>
-            Cool! Im happy to help to answer more questions and help individuals. If you are
-            experiencing a problem, please tell me a full description of problem otherwise
-            I can\'t determine how to solve the problem. You can contact me via XDA or email.
-            You can also contact me for feature requests as well.
         </item>
     </string-array>
 

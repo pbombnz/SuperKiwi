@@ -36,10 +36,10 @@
             android:summary="@string/MainPrefFragement_debug_summary"
             android:defaultValue="false"
             />
-        <Preference
+        <!--Preference
             android:key="help"
             android:title="@string/MainPrefFragement_help_title"
             android:summary="@string/MainPrefFragement_help_summary"
-        />
+        /-->
     </PreferenceCategory>
 </PreferenceScreen>

@@ -42,7 +42,18 @@
     <string name="ContactActivity_contactViaTwitterButton">Follow me! Tweet Me!</string>
     <string name="ContactActivity_contactViaEmailButton">Email Me!</string>
     <string name="ContactActivity_contactViaXDAButton">Post a Message on the XDA Thread!</string>
-    <string name="ContactActivity_message">You can contact me using any of the methods below where you can send me feedback, bug reports, feature requests or to simply follow me on social media for updates.\n\nRemember to actually write an actual message when contacting me! You\'d be surprised how many people emailed me with no message.</string>
+    <string name="ContactActivity_message">Depending on the issue, I might not always be the best person to contact.
+        Semble and ANZ GoMoney Wallet are relatively new applications and still have bugs which is
+        something out of my hands. If you have a payment issue, most likely contact the
+        application provider or your bank for support. If you are having root detection problem
+        or the module is not working then its best to contact me via XDA or email.\n
+        \n
+        You can contact me using any of the methods below where you can send me feedback,
+        bug reports, feature requests or to simply follow me on social media for updates.\n
+        \n
+        Remember to actually write an actual message when contacting me!
+        You\'d be surprised how many people emailed me with no message.
+    </string>
 
     <!-- ASB Mobile Preference Fragment -->
     <string name="ASBPrefFragment_preferences_rootDetection_title">Root Detection</string>

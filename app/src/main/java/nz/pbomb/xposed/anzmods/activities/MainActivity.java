@@ -123,9 +123,9 @@ public class MainActivity extends AppCompatActivity {
         // Determine which MenuItem was pressed and act accordingly based on the button pressed
         Intent intent = null;
         switch (item.getItemId()) {
-            case R.id.action_help:
-                intent = new Intent(getApplicationContext(), HelpActivity.class);
-                break;
+            //case R.id.action_help:
+            //    intent = new Intent(getApplicationContext(), HelpActivity.class);
+            //    break;
             case R.id.action_donate:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QNQDESEMGWDPY"));
                 break;

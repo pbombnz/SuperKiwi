@@ -1,10 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.manvir.SnapColors.MainActivity" >
-    <item
+    <!--item
         android:id="@+id/action_help"
         android:orderInCategory="1"
-        android:title="@string/MainPrefActivity_settings_help" />
+        android:title="@string/MainPrefActivity_settings_help" /-->
     <item
         android:id="@+id/action_donate"
         android:orderInCategory="2"
