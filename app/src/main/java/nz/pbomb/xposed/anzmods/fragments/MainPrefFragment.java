@@ -31,7 +31,7 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
         findPreference(PREFERENCES.KEYS.MAIN.TV3NOW).setOnPreferenceClickListener(this);
 
         findPreference(PREFERENCES.KEYS.MAIN.DEBUG).setOnPreferenceClickListener(this);
-        findPreference(PREFERENCES.KEYS.MAIN.HELP).setOnPreferenceClickListener(this);
+        //findPreference(PREFERENCES.KEYS.MAIN.HELP).setOnPreferenceClickListener(this);
     }
 
     @Override
