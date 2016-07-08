@@ -1,7 +1,7 @@
 package nz.pbomb.xposed.anzmods.fragments;
 
 import android.app.ActivityManager;
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -10,18 +10,23 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import common.PACKAGES;
+import common.SpoofDevice;
+import common.SpoofDevices;
 import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
 
 @SuppressWarnings("unchecked")
-public class PrefFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener {
+public class PrefFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
     private Map<String, ?> oldPreferences;
 
     @Override
@@ -40,10 +45,19 @@ public class PrefFragment extends PreferenceFragment implements SharedPreference
                 if (getArguments().getString("preference").equals(PREFERENCES.KEYS.MAIN.ANZ)) {
                     //getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.ROOT_DETECTION).setOnPreferenceChangeListener(this);
                     getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE).setOnPreferenceChangeListener(this);
+                    getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER).setOnPreferenceClickListener(this);
                     getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED).setOnPreferenceChangeListener(this);
+                } else if(getArguments().getString("preference").equals(PREFERENCES.KEYS.MAIN.SEMBLE)) {
+                    getPreferenceManager().findPreference(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER).setOnPreferenceClickListener(this);
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        displaySpoofDeviceChooserDialog();
+        return true;
     }
 
     @Override
@@ -57,19 +71,13 @@ public class PrefFragment extends PreferenceFragment implements SharedPreference
 
         if(getArguments().getString("preference").equals(PREFERENCES.KEYS.MAIN.ANZ)) {
             if(key.equals(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
-               Log.i("PBOMBNZ", String.valueOf(getActivity().getPackageManager().hasSystemFeature("android.hardware.nfc.hce")));
                 if (Boolean.valueOf(newValue.toString())) {
                     displaySpoofDeviceCheckedDialog();
                 }
 
-                if(!getActivity().getPackageManager().hasSystemFeature("android.hardware.nfc.hce") && !cp.isChecked()) {
-                    displaySpoofDeviceCheckedNoNFCDialog();
-                    //return false;
-                }
-
             } else if(key.equals(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
                 // The primary way of killing the ANZ GoMoney application
-                ActivityManager mActivityManager = (ActivityManager) getActivity().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+                ActivityManager mActivityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
                 mActivityManager.killBackgroundProcesses(PACKAGES.ANZ_GOMONEY);
 
                 // The secondary way of killing the ANZ GoMoney application used as a backup.
@@ -128,38 +136,39 @@ public class PrefFragment extends PreferenceFragment implements SharedPreference
         alert.show();
     }
 
-    public void displaySpoofDeviceCheckedNoNFCDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Device Incompatibility");
-        builder.setMessage("Enabling this will not allow GoMoney Wallet to work as your device has no NFC and/or Host Card Emulation Support.");
-        builder.setCancelable(true);
-        builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+    public void displaySpoofDeviceChooserDialog() {
+        List<String> templateList = new ArrayList<>();
+        for(SpoofDevice spoofDevice : SpoofDevices.getDevices()) {
+            templateList.add(spoofDevice.getHumanReadableName());
+        }
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.textview_dialog_item);
+        arrayAdapter.addAll(templateList);
+
+        final String intentPreference = getArguments().getString("preference");
+
+        AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity())
+                .setTitle("Pick a Spoof Device")
+                .setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String deviceName = arrayAdapter.getItem(which);
+                        SharedPreferences.Editor sharedPrefEditor = getPreferenceManager().getSharedPreferences().edit();
+                        if(intentPreference.equals(PREFERENCES.KEYS.MAIN.ANZ)) {
+                            sharedPrefEditor.putString(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER, deviceName);
+                        } else if(intentPreference.equals(PREFERENCES.KEYS.MAIN.SEMBLE)) {
+                            sharedPrefEditor.putString(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER, deviceName);
+                        }
+                        sharedPrefEditor.apply();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.show();
     }
-
-
-    /**
-     * Displays the Alert Dialog when leaving the application
-     */
-    /*public void displayScreenshotsEnabledCheckedDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("ANZ GoMoney Application needs to be relaunched");
-        //builder.setMessage("Enabling this feature can be a very dangerous operation. It's recommended if you need to copy your account deposit number use the copy-paste features within the application instead. Use this feature at your own risk!");
-        builder.setMessage("If you have opened ANZ GoMoney NZ previously and it is still in the recent apps list, then simply clear it from the list. Next time you open the application, the screenshot feature will be activated or deactivated (depending on your actions). No system restart is required.");
-        builder.setCancelable(false);
-        builder.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }*/
 }

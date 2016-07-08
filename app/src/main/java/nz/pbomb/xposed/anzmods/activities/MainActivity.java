@@ -44,14 +44,17 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor sharedPrefEditor = mSharedPreferences.edit();
 
         // Create the SharedPreferences and set the defaults if they aren't already created
-        if(!mSharedPreferences.contains(PREFERENCES.KEYS.ASB.ROOT_DETECTION)) {
+        if (!mSharedPreferences.contains(PREFERENCES.KEYS.ASB.ROOT_DETECTION)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ASB.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ASB.ROOT_DETECTION);
         }
-        if(!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
+        if (!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
         }
-        if(!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
+        if (!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
+        }
+        if (!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER)) {
+            sharedPrefEditor.putString(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE_CHOOSER);
         }
         if(!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED, PREFERENCES.DEFAULT_VALUES.ANZ.SCREENSHOT_ENABLED);
@@ -61,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if(!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE);
+        }
+        if (!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER)) {
+            sharedPrefEditor.putString(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE_CHOOSER);
         }
         if(!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT);
@@ -73,10 +79,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if(!mSharedPreferences.contains(PREFERENCES.KEYS.MAIN.DEBUG)) {
             sharedPrefEditor.putBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG);
-        } else {
-            if(mSharedPreferences.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG) || GLOBAL.DEBUG) {
+        }
+        if(mSharedPreferences.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG) || GLOBAL.DEBUG) {
                 setTitle(getTitle() + " (Debug Mode)");
-            }
         }
         sharedPrefEditor.apply();
 

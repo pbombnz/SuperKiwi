@@ -33,7 +33,7 @@
     <string name="MainPrefFragement_tv3nowPrefs_summary">Toggle preferences that can be used to bypass 3NOW\'s Root Detection checks when entering the application.</string>
 
     <string name="MainPrefFragement_debug_title">Debug Mode</string>
-    <string name="MainPrefFragement_debug_summary">Toggles logging which can be helpful when troubleshooting. Can reduce performance drastically due to constant reloading of data files therefore only enable if you actually need this feature.</string>
+    <string name="MainPrefFragement_debug_summary">Toggles debugging allows for logging in Xposed logs which can be helpful when troubleshooting an issue.</string>
     <string name="MainPrefFragement_help_title">Help and FAQ\'s</string>
     <string name="MainPrefFragement_help_summary">Displays helpful information about the module, troubleshooting etc.</string>
 
