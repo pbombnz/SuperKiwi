@@ -530,7 +530,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    param.setResult("[samsung SM-N9005]");
+                    param.setResult("["+anzSpoofDevice.Build.BRAND+" "+anzSpoofDevice.Build.MODEL+"]");
                 }
             }
         });
@@ -545,7 +545,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    param.setResult("samsung SM-N9005");
+                    param.setResult(anzSpoofDevice.Build.BRAND+" "+anzSpoofDevice.Build.MODEL);
                 }
             }
         });
@@ -560,7 +560,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    param.setResult("4.4.2");
+                    param.setResult(anzSpoofDevice.VERSION.RELEASE);
                 }
             }
         });
@@ -576,7 +576,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    param.setResult("SM-N9005");
+                    param.setResult(anzSpoofDevice.Build.MODEL);
+
                 }
             }
         });
@@ -594,7 +595,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                     String str2 = (String) param.args[1];
                     String str3 = (String) param.args[2];
                     String str4 = (String) param.args[3];
-                    String str5 = "SM-N9005";
+                    String str5 = anzSpoofDevice.Build.MODEL;
                     String str6 = (String) param.args[5];
 
                     param.setResult(String.format("%s/%s (Linux; U; Android %s; %s; %s Build/%s)", str, str2, str3, str4, str5, str6));
