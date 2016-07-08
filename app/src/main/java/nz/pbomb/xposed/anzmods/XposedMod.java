@@ -44,6 +44,8 @@ import common.PACKAGES;
 public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage {
     private static final String TAG = "SuperKiwi:Mod"; // Tag used for debugLog
 
+    private static SpoofDevice anzSpoofDevice;
+    private static SpoofDevice sembleSpoofDevice;
     private static XSharedPreferences prefs;
     private static SharedPreferences sharedPreferences;
 
@@ -148,6 +150,15 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             return;
         }
 
+        findAndHookMethod("android.app.Application", lpparam.classLoader, "onCreate", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                sharedPreferences = new RemotePreferences((Context) param.thisObject, "nz.pbomb.xposed.anzmods.provider.preferences", PREFERENCES.SHARED_PREFS_FILE_NAME);
+                anzSpoofDevice = SpoofDevices.getDeviceInfoByHumanDeviceName(sharedPreferences.getString(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER, null));
+                sembleSpoofDevice = SpoofDevices.getDeviceInfoByHumanDeviceName(sharedPreferences.getString(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER, null));
+            }
+        });
+
         /*if(lpparam.packageName.equals(PACKAGES.ASB_MOBILE)) {
             debugLog("Hooking Methods for ASB Mobile Application.");
             hookAsbMobileApplication(lpparam);
@@ -187,7 +198,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
     }
 
-    private void hookAsbMobileApplication(LoadPackageParam lpparam) {
+    /*private void hookAsbMobileApplication(LoadPackageParam lpparam) {
         findAndHookMethod("nz.co.asb.mobile.helpers.RootHelper", lpparam.classLoader, "isDeviceRooted", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -197,7 +208,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 }
             }
         });
-    }
+    }*/
 
     /**
      * A method that hooks the 3NOW packages if 3NOW is present on the device
@@ -205,15 +216,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      * @param lpparam The package and process information of the current package
      */
     private void hook3NOWApplication(final XC_LoadPackage.LoadPackageParam lpparam) {
-
-        findAndHookMethod("android.app.Application", lpparam.classLoader, "onCreate", new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                sharedPreferences = new RemotePreferences((Context) param.thisObject, "nz.pbomb.xposed.anzmods.provider.preferences", PREFERENCES.SHARED_PREFS_FILE_NAME);
-            }
-        });
-
-
         // Hooks Method which always returns "false" to indicate that no root tools were detected.
         // v2.0 - Class: ? | Method: ?
         // v2.0.1 - Class: com.scottyab.rootbeer.b | Method: a,b,c,d,a(str)
@@ -275,14 +277,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v2.2 - Class: B | Method: ?
         // v2.3 - Class: F | Method: ?
         // v2.4 - Class: D | Method: D
-        findAndHookMethod("android.app.Application", lpparam.classLoader, "onCreate", new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                sharedPreferences = new RemotePreferences((Context) param.thisObject, "nz.pbomb.xposed.anzmods.provider.preferences", PREFERENCES.SHARED_PREFS_FILE_NAME);
-            }
-        });
-
-
         findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "D", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -300,16 +294,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      * @param lpparam The package and process information of the current package
      */
     public void hookAnzGoMoneyApplication(final XC_LoadPackage.LoadPackageParam lpparam) {
-        final SpoofDevice spoofDevice = SpoofDevices.getDevices().get(0);
-
-
-        findAndHookMethod("android.app.Application", lpparam.classLoader, "onCreate", new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                sharedPreferences = new RemotePreferences((Context) param.thisObject, "nz.pbomb.xposed.anzmods.provider.preferences", PREFERENCES.SHARED_PREFS_FILE_NAME);
-            }
-        });
-
         /**
          * Seitc API Root Check Hooks
          */
@@ -492,8 +476,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    callMethod(param.args[0], "add", "Android-Device-Description", spoofDevice.Build.MODEL);
-                    callMethod(param.args[0], "add", "Android-Api-Version", Integer.toString(spoofDevice.VERSION.SDK_INT));
+                    callMethod(param.args[0], "add", "Android-Device-Description", anzSpoofDevice.Build.MODEL);
+                    callMethod(param.args[0], "add", "Android-Api-Version", Integer.toString(anzSpoofDevice.VERSION.SDK_INT));
                     debugLog("we added spoof");
                     param.setResult(null);
                 }
@@ -630,7 +614,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    param.args[0] = Integer.valueOf(spoofDevice.VERSION.SDK_INT);
+                    param.args[0] = Integer.valueOf(anzSpoofDevice.VERSION.SDK_INT);
                     super.afterHookedMethod(param);
 
                 }
@@ -647,7 +631,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "f6987b044504450445", "hlte");
-                    param.args[0] = spoofDevice.VERSION.CODENAME;
+                    param.args[0] = anzSpoofDevice.VERSION.CODENAME;
                     super.afterHookedMethod(param);
                 }
             }
@@ -663,7 +647,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "f6987b044504450445", "hlte");
-                    param.args[0] = spoofDevice.Build.DEVICE;
+                    param.args[0] = anzSpoofDevice.Build.DEVICE;
                     super.afterHookedMethod(param);
                 }
             }
@@ -679,7 +663,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "bх0445ххх04450445х", "SM-N9005");
-                    param.args[0] = spoofDevice.Build.MODEL;
+                    param.args[0] = anzSpoofDevice.Build.MODEL;
                     super.afterHookedMethod(param);
                 }
             }
@@ -694,7 +678,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b04450445ххх04450445х", "hltexx");
-                    param.args[0] = spoofDevice.Build.PRODUCT;
+                    param.args[0] = anzSpoofDevice.Build.PRODUCT;
                     super.afterHookedMethod(param);
                 }
             }
@@ -710,7 +694,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b04450445ххх04450445х", "hltexx");
-                    param.args[0] = spoofDevice.Build.DISPLAY;
+                    param.args[0] = anzSpoofDevice.Build.DISPLAY;
                     super.afterHookedMethod(param);
                 }
             }
@@ -725,7 +709,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
-                    param.args[0] = spoofDevice.Build.BOARD;
+                    param.args[0] = anzSpoofDevice.Build.BOARD;
                     super.afterHookedMethod(param);
                 }
             }
@@ -740,7 +724,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
-                    param.args[0] = spoofDevice.Build.CPU_ABI;
+                    param.args[0] = anzSpoofDevice.Build.CPU_ABI;
                     super.afterHookedMethod(param);
                 }
             }
@@ -755,7 +739,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445х0445хх04450445х", "MSM8974");
-                    param.args[0] = spoofDevice.Build.CPU_ABI2;
+                    param.args[0] = anzSpoofDevice.Build.CPU_ABI2;
                     super.afterHookedMethod(param);
                 }
             }
@@ -771,7 +755,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b044504450445хх04450445х", "samsung");
-                    param.args[0] = spoofDevice.Build.MANUFACTURER;
+                    param.args[0] = anzSpoofDevice.Build.MANUFACTURER;
                     super.afterHookedMethod(param);
                 }
             }
@@ -787,7 +771,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
-                    param.args[0] = spoofDevice.Build.BRAND;
+                    param.args[0] = anzSpoofDevice.Build.BRAND;
                     super.afterHookedMethod(param);
                 }
             }
@@ -803,7 +787,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
-                    param.args[0] = spoofDevice.Build.BOOTLOADER;
+                    param.args[0] = anzSpoofDevice.Build.BOOTLOADER;
                     super.afterHookedMethod(param);
                 }
             }
@@ -819,7 +803,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
-                    param.args[0] = spoofDevice.Build.HARDWARE;
+                    param.args[0] = anzSpoofDevice.Build.HARDWARE;
                     super.afterHookedMethod(param);
                 }
             }
@@ -835,7 +819,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
-                    param.args[0] = spoofDevice.Build.SERIAL;
+                    param.args[0] = anzSpoofDevice.Build.SERIAL;
                     super.afterHookedMethod(param);
                 }
             }
@@ -851,7 +835,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445хх0445х04450445х", "samsung");
-                    param.args[0] = spoofDevice.Build.ID;
+                    param.args[0] = anzSpoofDevice.Build.ID;
                     super.afterHookedMethod(param);
                 }
             }
@@ -868,7 +852,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 Log.e("SuperKiwi", "afterHookedMethod: " + String.valueOf(prefs.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)));
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     //setObjectField(param.thisObject, "b0445ххх044504450445х", "samsung/hltexx/hlte:4.4.2/KOT49H/N9005XXUGNG1:user/release-keys");
-                    param.args[0] = spoofDevice.Build.FINGERPRINT;
+                    param.args[0] = anzSpoofDevice.Build.FINGERPRINT;
                     super.afterHookedMethod(param);
                 }
             }
@@ -885,14 +869,14 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
                     StringBuilder sb = new StringBuilder(500);
-                    sb.append(spoofDevice.Build.DEVICE);      // r1 = android.os.Build.DEVICE;	 Catch:{ Exception -> 0x007d } (Line 261)
-                    sb.append(spoofDevice.Build.MODEL);  // r1 = android.os.Build.MODEL;	 Catch:{ Exception -> 0x007d } (Line 263)
-                    sb.append(spoofDevice.Build.PRODUCT);    // r1 = android.os.Build.PRODUCT;	 Catch:{ Exception -> 0x007d } (Line 265)
-                    sb.append(spoofDevice.Build.BOARD);   // r1 = android.os.Build.BOARD;	 Catch:{ Exception -> 0x007d } (Line 265)
-                    sb.append(spoofDevice.Build.MANUFACTURER);   // r1 = android.os.Build.MANUFACTURER;	 Catch:{ Exception -> 0x007d } (Line 267)
-                    sb.append(spoofDevice.Build.BRAND);   // r1 = android.os.Build.BRAND;	 Catch:{ Exception -> 0x007d } (Line 269)
-                    sb.append(spoofDevice.Build.HARDWARE);   // r1 = android.os.Build.HARDWARE;	 Catch:{ Exception -> 0x007d } (Line 289)
-                    sb.append(spoofDevice.Build.SERIAL);   // r1 = android.os.Build.SERIAL;	 Catch:{ Exception -> 0x007d } (Line 306)
+                    sb.append(anzSpoofDevice.Build.DEVICE);      // r1 = android.os.Build.DEVICE;	 Catch:{ Exception -> 0x007d } (Line 261)
+                    sb.append(anzSpoofDevice.Build.MODEL);  // r1 = android.os.Build.MODEL;	 Catch:{ Exception -> 0x007d } (Line 263)
+                    sb.append(anzSpoofDevice.Build.PRODUCT);    // r1 = android.os.Build.PRODUCT;	 Catch:{ Exception -> 0x007d } (Line 265)
+                    sb.append(anzSpoofDevice.Build.BOARD);   // r1 = android.os.Build.BOARD;	 Catch:{ Exception -> 0x007d } (Line 265)
+                    sb.append(anzSpoofDevice.Build.MANUFACTURER);   // r1 = android.os.Build.MANUFACTURER;	 Catch:{ Exception -> 0x007d } (Line 267)
+                    sb.append(anzSpoofDevice.Build.BRAND);   // r1 = android.os.Build.BRAND;	 Catch:{ Exception -> 0x007d } (Line 269)
+                    sb.append(anzSpoofDevice.Build.HARDWARE);   // r1 = android.os.Build.HARDWARE;	 Catch:{ Exception -> 0x007d } (Line 289)
+                    sb.append(anzSpoofDevice.Build.SERIAL);   // r1 = android.os.Build.SERIAL;	 Catch:{ Exception -> 0x007d } (Line 306)
 
                     final TelephonyManager mTelephony = (TelephonyManager) ((Context) param.args[0]).getSystemService(Context.TELEPHONY_SERVICE);
                     String myAndroidDeviceId = mTelephony.getDeviceId();
@@ -990,13 +974,6 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      * @param lpparam The package and process information of the current package
      */
     private void hookSembleApplication(final LoadPackageParam lpparam) {
-
-        findAndHookMethod("android.app.Application", lpparam.classLoader, "onCreate", new XC_MethodHook() {
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                sharedPreferences = new RemotePreferences((Context) param.thisObject, "nz.pbomb.xposed.anzmods.provider.preferences", PREFERENCES.SHARED_PREFS_FILE_NAME);
-            }
-        });
         /**
          * Root Detection Methods
          */
@@ -1033,7 +1010,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
-                    param.setResult("SM-N9005");
+                    param.setResult(sembleSpoofDevice.Build.MODEL);
                 }
             }
         });
@@ -1044,7 +1021,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
-                    param.setResult("samsung");
+                    param.setResult(sembleSpoofDevice.Build.MANUFACTURER);
                 }
             }
         });
@@ -1059,37 +1036,37 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
 
-                debugLog("[Semble] Calling Method: com.csam.mclient.core.WalletContext.getSystemOSVersion()");
+                debugLog("[Semble] Overriding Method: com.csam.mclient.core.WalletContext.getSystemOSVersion()");
 
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
-                    debugLog("[Semble] Overriding Unofficial Android OS Support Method Hook due to having Spoof Device feature enabled.");
-                    param.setResult("5.0");
+                    debugLog("[Semble]\tDisabled Method Hook as Spoof Device feature is enabled.");
+                    param.setResult(String.valueOf(sembleSpoofDevice.VERSION.SDK_INT));
                     return;
                 }
 
 
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT)) {
-                    debugLog("[Semble] Calling Method: Successfully hooked.");
+                    debugLog("[Semble]\tChecking device information is suitable for this feature...");
 
-                    debugLog("[Semble] Device: Brand: " + Build.BRAND + " Manufacturer: " + Build.MANUFACTURER + " Model: " + Build.MODEL);
-                    debugLog("[Semble] Device: Fingerprint: " + Build.FINGERPRINT);
-                    debugLog("[Semble] SembleCompatibilityList.isSupportedDevice(): " + SembleCompatibilityList.isSupportedDevice(lpparam.packageName));
-                    debugLog("[Semble] SembleCompatibilityList.isOSVersionSupported(): " + SembleCompatibilityList.isOSVersionSupported(lpparam.packageName));
+                    boolean isSupportedDevice = SembleCompatibilityList.isSupportedDevice(lpparam.packageName);
+                    boolean isSupportedOS = SembleCompatibilityList.isOSVersionSupported(lpparam.packageName);
 
-                    if (SembleCompatibilityList.isSupportedDevice(lpparam.packageName)
-                            && !SembleCompatibilityList.isOSVersionSupported(lpparam.packageName)) {
+                    debugLog("[Semble]\tDevice: Brand: " + Build.BRAND + " Manufacturer: " + Build.MANUFACTURER + " Model: " + Build.MODEL + " Fingerprint: \" + Build.FINGERPRINT");
+                    debugLog("[Semble]\tSembleCompatibilityList.isSupportedDevice(): " + isSupportedDevice);
+                    debugLog("[Semble]\tSembleCompatibilityList.isOSVersionSupported(): " + isSupportedOS);
+
+                    if (isSupportedDevice && !isSupportedOS) {
                         SembleCompatibilityList.SembleDevice dInfo = SembleCompatibilityList.getSupportedDevice(lpparam.packageName);
-                        if (dInfo != null) {
-                            debugLog("[Semble] Device's system OS is now seen as \"" + dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1) + "\" instead of \"" + Build.VERSION.RELEASE + "\"");
-                            param.setResult(dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1));
-                        } else {
-                            debugLog("[Semble] Device is not supported by Semble at all. Check Semble Compatibility List. (Errno 2)");
-                        }
-                    } else {
-                        debugLog("[Semble] Device is either not supported by Semble at all OR is completely supported hence no hook method execution is needed. Check Semble Compatibility List. (Errno 1)");
+                        String dInfo_latestOSSupport =  dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1);
+                        debugLog("[Semble]\tevice's system OS is now spoofed as \"" + dInfo_latestOSSupport + "\" instead of \"" + Build.VERSION.RELEASE + "\"");
+                        param.setResult(dInfo_latestOSSupport);
+                    } else if(!isSupportedDevice && !isSupportedOS) {
+                        debugLog("[Semble]\tDevice is not supported by Semble at all hence no hook method execution is needed. Check Semble Compatibility List or use Spoof Device feature.");
+                    } else if (isSupportedDevice && isSupportedOS) {
+                        debugLog("[Semble]\tDevice is completely supported hence no hook method execution is needed.");
                     }
                 } else {
-                    debugLog("[Semble] Failed to Enter Hooked Method as feature is not enabled. Check SharedPrefs file to see if its readable. (Errno 1)");
+                    debugLog("[Semble]\tfeature disabled. Hook did not continue.");
                 }
             }
         });
