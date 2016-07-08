@@ -11,22 +11,23 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import nz.pbomb.xposed.anzmods.R;
 
 public class HelpActivity extends AppCompatActivity {
+    @BindView(R.id.activity_help_linearlayout_nested) protected LinearLayout layout;
 
     @Override
     @SuppressWarnings("all")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
+        ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        LinearLayout layout = (LinearLayout) this.findViewById(R.id.linearLayout);
 
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lparams.gravity = Gravity.CENTER_HORIZONTAL;
-        lparams.setMargins(10, 10, 10, 10);
 
 
         TextView textView = new TextView(this);
@@ -35,7 +36,7 @@ public class HelpActivity extends AppCompatActivity {
         textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
         textView.setTextColor(ContextCompat.getColor(this, android.R.color.black));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
-        textView.setGravity(Gravity.START);
+        textView.setGravity(Gravity.LEFT);
         layout.addView(textView);
 
         String[] questions = getResources().getStringArray(R.array.helpQuestions_General);

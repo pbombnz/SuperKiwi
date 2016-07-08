@@ -3,15 +3,12 @@
     <string-array name="helpQuestions_General">
         <item>Note about Help and FAQ\'s</item>
         <item>What is this?</item>
-        <item>What happens if my device malfunctions or gets bricked?</item>
         <item>But can\'t I just use RootCloak?</item>
         <item>How do we know your not storing our sensitive account information?</item>
-        <item>How come the some of the application preferences are disabled on my device?</item>
+        <item>Why are some of the application settings disabled?</item>
         <item>What does the "Spoof Device" feature do when enabled for Semble and ANZ GoMoney?</item>
-        <item>Why spoof my current device to an old phone such as the Samsung Galaxy Note 3?</item>
         <item>Its not working, who do I contact?</item>
         <item>I have more questions and/or need your help getting it working?</item>
-        <item>Why do you keep updating the application so often?</item>
     </string-array>
 
     <string-array name="helpAnswers_General">
@@ -22,19 +19,9 @@
         </item>
         <item>
             This is a Xposed module application which hooks on the ANZ GoMoney, Semble
-            and TVNZ OnDemand to bypass certain root detection so users that have rooted and/or
+            and TVNZ OnDemand and 3NOW to bypass certain root detection so users that have rooted and/or
             non-supported devices can use GoMoney Wallet, Semble services and watch OnDemand videos
             respectively.
-        </item>
-        <item>
-            As a rooted user I suspect you knew the risks. A disclaimer is placed on the XDA thread
-            and Xposed Repository module page confirming that by using this application that
-            I, ANZ, Semble, TVNZ and their partners will not be responsible for any worst case
-            scenarios. To avoid bricking, do a full (nandroid) backup just in case anything
-            happens. The likelihood of something happening is very slim, but don\'t
-            take unnecessary chances.
-
-            USE AT YOUR OWN RISK, YOU HAVE BEEN WARNED.
         </item>
         <item>
             RootCloak rarely works for banking applications as the source code used is too generic
@@ -43,9 +30,10 @@
         </item>
         <item>
             I have no intention of doing that. If you are truly paranoid, the source code is
-            available on GitHub which can be viewed on the main menu of this module. There you can see
-            for yourself that there is no code storing bank information or sending it off to a remote
-            server or anything like that.
+            available on GitHub which can be reached by going to 3-dot settings on the main activity
+            of this module. There you can see for yourself that there is no code storing bank
+            information or sending it off to a remote server or anything like that. This application
+            doesn\'t even have the android permissions "android.permission.INTERNET" anyways.
         </item>
         <item>
             If an option is disabled it means the application used for those tweaks is not
@@ -69,15 +57,6 @@
             necessary for Semble though.
         </item>
         <item>
-            There are several reasons why the Samsung Galaxy Note 3 was chosen as the display device for the
-            spoofing feature. Firstly, its on the ANZ GoMoney Wallet and Semble compatibility list.
-            Secondly, I own a Note 3 so I can confirm that GoMoney Wallet and Semble work completely on
-            this device and it easy to get information out of a device you already own. Thirdly, as
-            previously stated, it works completely. Other devices, such as the newer S6 and S5
-            range have issues even for people without rooted devices making them not an
-            ideal candidate to use as the display device.
-        </item>
-        <item>
             Depending on the issue, I might not always be the best person to contact. Semble and
             ANZ GoMoney Wallet are relatively new applications and still have bugs which is
             something out of my hands. If you have a payment issue, most likely contact the
@@ -89,12 +68,6 @@
             experiencing a problem, please tell me a full description of problem otherwise
             I can\'t determine how to solve the problem. You can contact me via XDA or email.
             You can also contact me for feature requests as well.
-        </item>
-        <item>
-            For the most part, many of the upcoming updates will be for UI improvements, bug fixes,
-            or adding new features. Other times, its because ANZ, Semble and TVNZ improve their
-            root detection techniques so I have to find new workarounds in order for this module to
-            work with newer application versions.
         </item>
     </string-array>
 
