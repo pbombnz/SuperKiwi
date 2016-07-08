@@ -2,19 +2,10 @@ package common;
 
 
 import android.os.Build;
-import android.util.Log;
 
-//import org.jsoup.Jsoup;
-//import org.jsoup.nodes.Document;
-//import org.jsoup.nodes.Element;
-//import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Retrieves and parses the compatibility list on the Semble website to detect which devices and
@@ -27,7 +18,7 @@ import java.util.regex.Pattern;
  */
 public class SembleCompatibilityList {
     /** The URL for the compatibility list on the Semble website */
-    private static final String COMPATIBILITY_LIST_URI = "http://www.semble.co.nz/services/snapper";
+    //private static final String COMPATIBILITY_LIST_URI = "http://www.semble.co.nz/services/snapper";
 
     private static List<SembleDevice> sembleDevicesVodafone;
     private static List<SembleDevice> sembleDevices2Degrees;
@@ -131,8 +122,8 @@ public class SembleCompatibilityList {
         sembleDevices2Degrees.add(new SembleDevice("Samsung", "Galaxy A3", "SM-A300Y", "4.4.4, 5.0.2"));
         sembleDevices2Degrees.add(new SembleDevice("Huawei", "P8", "GRA-L09", "5.0, 5.0.1"));
         sembleDevices2Degrees.add(new SembleDevice("Huawei", "P8", "HUAWEI GRA-L09", "5.0, 5.0.1"));
-        sembleDevicesVodafone.add(new SembleDevice("Huawei", "Mate 8", "NXT-L09", "6.0"));
-        sembleDevicesVodafone.add(new SembleDevice("Huawei", "Mate 8", "HUAWEI NXT-L09", "6.0"));
+        sembleDevices2Degrees.add(new SembleDevice("Huawei", "Mate 8", "NXT-L09", "6.0"));
+        sembleDevices2Degrees.add(new SembleDevice("Huawei", "Mate 8", "HUAWEI NXT-L09", "6.0"));
         sembleDevices2Degrees.add(new SembleDevice("Sony", "Xperia Z5", "E6653", "5.1.1, 6.0"));
         sembleDevices2Degrees.add(new SembleDevice("Sony", "Xperia Z5 Compact", "E5823", "5.1.1, 6.0"));
         sembleDevices2Degrees.add(new SembleDevice("Sony", "Xperia Z3", "D6653", "5.1.1"));
@@ -180,8 +171,8 @@ public class SembleCompatibilityList {
         sembleDevicesSpark.add(new SembleDevice("Samsung", "Galaxy A3", "SM-A300Y", "4.4.4, 5.0.2"));
         sembleDevicesSpark.add(new SembleDevice("Huawei", "P8", "GRA-L09", "5.0, 5.0.1"));
         sembleDevicesSpark.add(new SembleDevice("Huawei", "P8", "HUAWEI GRA-L09", "5.0, 5.0.1"));
-        sembleDevicesVodafone.add(new SembleDevice("Huawei", "Mate 8", "NXT-L09", "6.0"));
-        sembleDevicesVodafone.add(new SembleDevice("Huawei", "Mate 8", "HUAWEI NXT-L09", "6.0"));
+        sembleDevicesSpark.add(new SembleDevice("Huawei", "Mate 8", "NXT-L09", "6.0"));
+        sembleDevicesSpark.add(new SembleDevice("Huawei", "Mate 8", "HUAWEI NXT-L09", "6.0"));
         sembleDevicesSpark.add(new SembleDevice("Sony", "Xperia Z5", "E6653", "5.1.1, 6.0"));
         sembleDevicesSpark.add(new SembleDevice("Sony", "Xperia Z5 Compact", "E5823", "5.1.1, 6.0"));
         sembleDevicesSpark.add(new SembleDevice("Sony", "Xperia Z3", "D6653", "5.1.1"));
