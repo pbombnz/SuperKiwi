@@ -65,7 +65,7 @@
     <string name="ANZPrefFragment_preferences_spoofDevice_title">Spoof Device</string>
     <string name="ANZPrefFragment_preferences_spoofDevice_summary">Spoofs your device information to trick GoMoney Wallet to work.</string>
     <string name="ANZPrefFragment_preferences_spoofDeviceChooser_title">Spoof Device Selection</string>
-    <string name="ANZPrefFragment_preferences_spoofDeviceChooser_summary">Pick the device you want to use when device spoofing is enabled for ANZ.</string>
+    <string name="ANZPrefFragment_preferences_spoofDeviceChooser_summary">Pick the device you want to use when device spoofing is enabled for ANZ. <i>[Currently Selected: %1$s]</i></string>
     <string name="ANZPrefFragment_anzEnableScreenshots_title">Allow Screenshots</string>
     <string name="ANZPrefFragment_anzEnableScreenshots_summary">Allow screenshots to be taken within the ANZ GoMoney application. Do not turn on this feature unless you actually need it at it\'s huge security breach. If you indeed do use this feature, make sure no sensitive information is displayed when you screenshot.</string>
 
@@ -78,7 +78,7 @@
     <string name="SemblePrefFragment_spoofDevice_title">Spoof Device</string>
     <string name="SemblePrefFragment_spoofDevice_summary">Spoofs your device information which will bypass \"Device Not Supported\" messages and trick Semble services to work. Made for devices that are not on the Semble Compatibility list.</string>
     <string name="SemblePrefFragment_spoofDeviceChooser_title">Spoof Device Selection</string>
-    <string name="SemblePrefFragment_spoofDeviceChooser_summary">Pick the device you want to use when device spoofing is enabled for Semble.</string>
+    <string name="SemblePrefFragment_spoofDeviceChooser_summary">Pick the device you want to use when device spoofing is enabled for Semble. <i>[Currently Selected: %1$s]</i></string>
 
 
     <!-- TVNZ Preference Fragment -->

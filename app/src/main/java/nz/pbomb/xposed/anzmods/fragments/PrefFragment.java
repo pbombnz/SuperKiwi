@@ -46,9 +46,13 @@ public class PrefFragment extends PreferenceFragment implements SharedPreference
                     //getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.ROOT_DETECTION).setOnPreferenceChangeListener(this);
                     getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE).setOnPreferenceChangeListener(this);
                     getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER).setOnPreferenceClickListener(this);
+                    String curDeviceName = getPreferenceManager().getSharedPreferences().getString(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER, null);
+                    getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER).setSummary(getString(R.string.ANZPrefFragment_preferences_spoofDeviceChooser_summary, curDeviceName));
                     getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED).setOnPreferenceChangeListener(this);
                 } else if(getArguments().getString("preference").equals(PREFERENCES.KEYS.MAIN.SEMBLE)) {
                     getPreferenceManager().findPreference(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER).setOnPreferenceClickListener(this);
+                    String curDeviceName = getPreferenceManager().getSharedPreferences().getString(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER, null);
+                    getPreferenceManager().findPreference(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER).setSummary(getString(R.string.SemblePrefFragment_spoofDeviceChooser_summary, curDeviceName));
                 }
             }
         }
@@ -156,8 +160,10 @@ public class PrefFragment extends PreferenceFragment implements SharedPreference
                         SharedPreferences.Editor sharedPrefEditor = getPreferenceManager().getSharedPreferences().edit();
                         if(intentPreference.equals(PREFERENCES.KEYS.MAIN.ANZ)) {
                             sharedPrefEditor.putString(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER, deviceName);
+                            getPreferenceManager().findPreference(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER).setSummary(getString(R.string.ANZPrefFragment_preferences_spoofDeviceChooser_summary, deviceName));
                         } else if(intentPreference.equals(PREFERENCES.KEYS.MAIN.SEMBLE)) {
                             sharedPrefEditor.putString(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER, deviceName);
+                            getPreferenceManager().findPreference(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER).setSummary(getString(R.string.SemblePrefFragment_spoofDeviceChooser_summary, deviceName));
                         }
                         sharedPrefEditor.apply();
                         dialog.dismiss();
