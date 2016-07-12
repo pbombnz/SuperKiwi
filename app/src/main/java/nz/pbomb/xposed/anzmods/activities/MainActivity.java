@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import nz.pbomb.xposed.anzmods.R;
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
 
+
     protected PreferenceFragment preferenceFragment;
 
     @Override
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         mSharedPreferences = getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
         preferenceFragment = (PreferenceFragment) getFragmentManager().findFragmentById(R.id.mainPrefFragment);
 
-        onCreateValidation();
+        new ValidationASyncTask().execute();
     }
 
     /**
@@ -40,75 +42,80 @@ public class MainActivity extends AppCompatActivity {
      * SharedPreferences exist and if it doesn't then create the SharedPreferences accordingly.
      * Also checks whether either ANZ or Semble (any version) is installed
      */
-    private void onCreateValidation() {
-        SharedPreferences.Editor sharedPrefEditor = mSharedPreferences.edit();
+    protected class ValidationASyncTask extends AsyncTask<Void, Void, Void> {
 
-        // Create the SharedPreferences and set the defaults if they aren't already created
-        if (!mSharedPreferences.contains(PREFERENCES.KEYS.ASB.ROOT_DETECTION)) {
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ASB.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ASB.ROOT_DETECTION);
-        }
-        if (!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
-        }
-        if (!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
-        }
-        if (!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER)) {
-            sharedPrefEditor.putString(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE_CHOOSER);
-        }
-        if(!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED, PREFERENCES.DEFAULT_VALUES.ANZ.SCREENSHOT_ENABLED);
-        }
-        if(!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION)) {
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
-        }
-        if(!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE)) {
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE);
-        }
-        if (!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER)) {
-            sharedPrefEditor.putString(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE_CHOOSER);
-        }
-        if(!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT)) {
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT);
-        }
-        if(!mSharedPreferences.contains(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION)) {
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION);
-        }
-        if(!mSharedPreferences.contains(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION)) {
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION);
-        }
-        if(!mSharedPreferences.contains(PREFERENCES.KEYS.MAIN.DEBUG)) {
-            sharedPrefEditor.putBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG);
-        }
-        if(mSharedPreferences.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG) || GLOBAL.DEBUG) {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            SharedPreferences.Editor sharedPrefEditor = mSharedPreferences.edit();
+
+            // Create the SharedPreferences and set the defaults if they aren't already created
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.ASB.ROOT_DETECTION)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ASB.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ASB.ROOT_DETECTION);
+            }
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.ROOT_DETECTION)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ANZ.ROOT_DETECTION);
+            }
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE);
+            }
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER)) {
+                sharedPrefEditor.putString(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE_CHOOSER);
+            }
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED, PREFERENCES.DEFAULT_VALUES.ANZ.SCREENSHOT_ENABLED);
+            }
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
+            }
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE);
+            }
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER)) {
+                sharedPrefEditor.putString(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE_CHOOSER);
+            }
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT);
+            }
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION);
+            }
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION);
+            }
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.MAIN.DEBUG)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG);
+            }
+            if (mSharedPreferences.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG) || GLOBAL.DEBUG) {
                 setTitle(getTitle() + " (Debug Mode)");
-        }
-        sharedPrefEditor.apply();
+            }
+            sharedPrefEditor.apply();
 
-        // Checks if ANZ GoMoney is installed and if its not disable the preference option in the
-        // fragment
-        if(!isApplicationInstalled(PACKAGES.ANZ_GOMONEY)) {
-            preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
-        }
+            // Checks if ANZ GoMoney is installed and if its not disable the preference option in the
+            // fragment
+            if (!isApplicationInstalled(PACKAGES.ANZ_GOMONEY)) {
+                preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
+            }
 
-        // Checks if Semble is installed and if its not disable the preference option in the
-        // fragment
-        if(!(isApplicationInstalled(PACKAGES.SEMBLE_2DEGREES) ||
-                isApplicationInstalled(PACKAGES.SEMBLE_SPARK) ||
-                isApplicationInstalled(PACKAGES.SEMBLE_VODAFONE))) {
-            preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
-        }
+            // Checks if Semble is installed and if its not disable the preference option in the
+            // fragment
+            if (!(isApplicationInstalled(PACKAGES.SEMBLE_2DEGREES) ||
+                    isApplicationInstalled(PACKAGES.SEMBLE_SPARK) ||
+                    isApplicationInstalled(PACKAGES.SEMBLE_VODAFONE))) {
+                preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
+            }
 
-        // Checks if TVNZ is installed and if its not disable the preference option in the
-        // fragment
-        if(!isApplicationInstalled(PACKAGES.TVNZ_ONDEMAND)) {
-            preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);
-        }
+            // Checks if TVNZ is installed and if its not disable the preference option in the
+            // fragment
+            if (!isApplicationInstalled(PACKAGES.TVNZ_ONDEMAND)) {
+                preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);
+            }
 
-        // Checks if TVNZ is installed and if its not disable the preference option in the
-        // fragment
-        if(!isApplicationInstalled(PACKAGES.TV3NOW)) {
-            preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);
+            // Checks if TVNZ is installed and if its not disable the preference option in the
+            // fragment
+            if (!isApplicationInstalled(PACKAGES.TV3NOW)) {
+                preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);
+            }
+            return null;
         }
     }
 
