@@ -15,3 +15,18 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-keep class nz.pbomb.xposed.anzmods.XposedMod { public *; }
+#-keep class nz.pbomb.xposed.anzmods.Common { public *; }
+-keep class nz.pbomb.xposed.anzmods.preferences.PreferenceProvider { *; }
+-keep class com.crossbowffs.remotepreferences.* { *; }
+
+# Retain generated class which implement ViewBinder.
+-keep public class * implements butterknife.internal.ViewBinder { public <init>(); }
+
+# Prevent obfuscation of types which use ButterKnife annotations since the simple name
+# is used to reflectively look up the generated ViewBinder.
+-keep class butterknife.*
+-keepclasseswithmembernames class * { @butterknife.* <methods>; }
+-keepclasseswithmembernames class * { @butterknife.* <fields>; }
+
