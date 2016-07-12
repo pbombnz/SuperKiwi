@@ -217,8 +217,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      */
     private void hook3NOWApplication(final XC_LoadPackage.LoadPackageParam lpparam) {
         // Hooks Method which always returns "false" to indicate that no root tools were detected.
-        // v2.0 - Class: ? | Method: ?
+        // v2.0 - Class: ? | Method: ? (Most likely same as below)
         // v2.0.1 - Class: com.scottyab.rootbeer.b | Method: a,b,c,d,a(str)
+        // v2.0.2 - Class: com.scottyab.rootbeer.b | Method: a,b,c,d,a(str)
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -277,6 +278,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v2.2 - Class: B | Method: ?
         // v2.3 - Class: F | Method: ?
         // v2.4 - Class: D | Method: D
+        // v2.5 - Class: D | Method: D
         findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "D", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
