@@ -90,6 +90,10 @@ public class MainActivity extends AppCompatActivity {
             }
             sharedPrefEditor.apply();
 
+            if(GLOBAL.DEBUG) {
+                preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.DEBUG).setEnabled(false);
+            }
+
             // Checks if ANZ GoMoney is installed and if its not disable the preference option in the
             // fragment
             if (!isApplicationInstalled(PACKAGES.ANZ_GOMONEY)) {
