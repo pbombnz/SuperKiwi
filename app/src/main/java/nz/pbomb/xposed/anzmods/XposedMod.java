@@ -71,24 +71,30 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
     }
 
     /**
-     * Indicates whether Debug Mode is enabled (either hard-coded or toggled by end-user) and will
-     * display them in logcat as well as the Xposed log file.
+     * Indicates whether Debug Mode is enabled based on whether the hard-coded flag is enabled or
+     * by the user enabling the setting themselves.
      *
      * @return Returns true if Debug Mode is enabled, otherwise return false.
      */
     public static boolean isDebugMode() {
+        // Hard-coded flag check
         if (GLOBAL.DEBUG) {
             return true;
         }
+
+        // Load XSharedPreferences before we start checking if debug mode is enabled from user.
         if (prefs == null) {
             refreshSharedPreferences(false);
         }
-        return prefs.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG);
-    }
 
-    public static void refreshSharedPreferences() {
-        boolean displayLogs = isDebugMode();
-        refreshSharedPreferences(displayLogs);
+        // Attempt to check if debug mode is toggled by the user
+        // Use RemotePreference first as this will be have the most recent (and stable) data.
+        // Use XSharedPreference instance if RemotePreference instance doesn't exist yet.
+        if(sharedPreferences != null) {
+            return sharedPreferences.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG);
+        } else {
+            return prefs.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG);
+        }
     }
 
     /**
@@ -150,6 +156,10 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             return;
         }
 
+        // Hook the Application class of each application supported by SuperKiwi. This allows us
+        // to have some application Context and use it to update the RemotePreferences Content Provider
+        // and the other information. This allows us to read SharedPreference from the app process
+        // without tripping SELinux (when it's in enforcing mode)
         findAndHookMethod("android.app.Application", lpparam.classLoader, "onCreate", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -986,7 +996,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
-                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
                     param.setResult(true);
                 }
             }
@@ -997,7 +1007,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
-                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
@@ -1012,7 +1022,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
-                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
                     param.setResult(sembleSpoofDevice.Build.MODEL);
                 }
             }
@@ -1023,7 +1033,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
-                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
                     param.setResult(sembleSpoofDevice.Build.MANUFACTURER);
                 }
             }
@@ -1041,9 +1051,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
                 debugLog("[Semble] Overriding Method: com.csam.mclient.core.WalletContext.getSystemOSVersion()");
 
-                if(sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.SEMBLE.SPOOF_DEVICE)) {
                     debugLog("[Semble]\tDisabled Method Hook as Spoof Device feature is enabled.");
-                    param.setResult(String.valueOf(sembleSpoofDevice.VERSION.SDK_INT));
+                    param.setResult(String.valueOf(sembleSpoofDevice.VERSION.RELEASE));
                     return;
                 }
 
@@ -1060,16 +1070,118 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
                     if (isSupportedDevice && !isSupportedOS) {
                         SembleCompatibilityList.SembleDevice dInfo = SembleCompatibilityList.getSupportedDevice(lpparam.packageName);
-                        String dInfo_latestOSSupport =  dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1);
-                        debugLog("[Semble]\tevice's system OS is now spoofed as \"" + dInfo_latestOSSupport + "\" instead of \"" + Build.VERSION.RELEASE + "\"");
+                        String dInfo_latestOSSupport = dInfo.getSupportedOSVersions().get(dInfo.getSupportedOSVersions().size() - 1);
+                        debugLog("[Semble]\tDevice's system OS is now spoofed as \"" + dInfo_latestOSSupport + "\" instead of \"" + Build.VERSION.RELEASE + "\"");
                         param.setResult(dInfo_latestOSSupport);
-                    } else if(!isSupportedDevice && !isSupportedOS) {
+                    } else if (!isSupportedDevice && !isSupportedOS) {
                         debugLog("[Semble]\tDevice is not supported by Semble at all hence no hook method execution is needed. Check Semble Compatibility List or use Spoof Device feature.");
                     } else if (isSupportedDevice && isSupportedOS) {
                         debugLog("[Semble]\tDevice is completely supported hence no hook method execution is needed.");
                     }
                 } else {
                     debugLog("[Semble]\tfeature disabled. Hook did not continue.");
+                }
+            }
+        });
+
+        /*
+            Logging Methods
+         */
+        findAndHookMethod("com.csam.mclient.action.script.LoggerImpl", lpparam.classLoader, "isLoggingEnabled", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (isDebugMode()) {
+                    param.setResult(1);
+                }
+            }
+        });
+
+        findAndHookMethod("com.csam.mno.extension.logging.Logger", lpparam.classLoader, "isEnable", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (isDebugMode()) {
+                    param.setResult(true);
+                }
+            }
+        });
+
+        findAndHookMethod("com.csam.mno.extension.logging.Logger", lpparam.classLoader, "isDebugLevel", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (isDebugMode()) {
+                    param.setResult(true);
+                }
+            }
+        });
+
+        findAndHookMethod("com.csam.mno.extension.logging.Logger", lpparam.classLoader, "isErrorLevel", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (isDebugMode()) {
+                    param.setResult(true);
+                }
+            }
+        });
+
+        findAndHookMethod("com.csam.mno.extension.logging.Logger", lpparam.classLoader, "isInfoLevel", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (isDebugMode()) {
+                    param.setResult(true);
+                }
+            }
+        });
+
+        findAndHookMethod("com.csam.proxy.logging.Logger", lpparam.classLoader, "isEnable", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (isDebugMode()) {
+                    param.setResult(true);
+                }
+            }
+        });
+
+        findAndHookMethod("com.csam.sbu.manager.a.a", lpparam.classLoader, "b", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (isDebugMode()) {
+                    param.setResult(true);
+                }
+            }
+        });
+
+        findAndHookMethod("com.csam.sbu.manager.a.a", lpparam.classLoader, "d", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (isDebugMode()) {
+                    param.setResult(true);
+                }
+            }
+        });
+
+        findAndHookMethod("com.csam.sbu.manager.a.a", lpparam.classLoader, "e", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (isDebugMode()) {
+                    param.setResult(true);
+                }
+            }
+        });
+
+        findAndHookMethod("com.csam.tsmnz.logging.Logger", lpparam.classLoader, "isEnable", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (isDebugMode()) {
+                    param.setResult(true);
+                }
+            }
+        });
+
+        findAndHookMethod("com.gemalto.mbw.richclient.log.LoggerFactory", lpparam.classLoader, "isLoggingEnabled", new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                if (isDebugMode()) {
+                    param.setResult(true);
                 }
             }
         });
