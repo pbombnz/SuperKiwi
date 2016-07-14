@@ -7,26 +7,22 @@ import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.io.File;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import common.PACKAGES;
-import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
 
 /**
- * A UI for the xposed module that allows the users to toggle preferences and features
  *
  * @author Prashant Bhikhu (PBombNZ)
  */
 public class AboutActivity extends AppCompatActivity {
     @BindView(R.id.activity_about_textView_author_1) protected TextView author1;
-    @BindView(R.id.activity_about_textView_contributer_text_1) protected TextView contributer1;
-    @BindView(R.id.activity_about_textView_contributer_text_2) protected TextView contributer2;
-    @BindView(R.id.activity_about_textView_contributer_text_3) protected TextView contributer3;
-    @BindView(R.id.activity_about_textView_contributer_text_4) protected TextView contributer4;
+    @BindView(R.id.activity_about_textView_contributer_text_1) protected TextView contributor1;
+    @BindView(R.id.activity_about_textView_contributer_text_2) protected TextView contributor2;
+    @BindView(R.id.activity_about_textView_contributer_text_3) protected TextView contributor3;
+    @BindView(R.id.activity_about_textView_contributer_text_4) protected TextView contributor4;
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +31,10 @@ public class AboutActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         author1.setMovementMethod(LinkMovementMethod.getInstance());
-        contributer1.setMovementMethod(LinkMovementMethod.getInstance());
-        contributer2.setMovementMethod(LinkMovementMethod.getInstance());
-        contributer3.setMovementMethod(LinkMovementMethod.getInstance());
-        contributer4.setMovementMethod(LinkMovementMethod.getInstance());
+        contributor1.setMovementMethod(LinkMovementMethod.getInstance());
+        contributor2.setMovementMethod(LinkMovementMethod.getInstance());
+        contributor3.setMovementMethod(LinkMovementMethod.getInstance());
+        contributor4.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override
@@ -52,7 +48,7 @@ public class AboutActivity extends AppCompatActivity {
     }
 
 
-    @Override
+    /*@Override
     protected void onDestroy() {
         new File("/data/data/" + PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true, false);
         super.onDestroy();
@@ -62,5 +58,5 @@ public class AboutActivity extends AppCompatActivity {
     protected void onPause() {
         new File("/data/data/" + PACKAGES.MODULE + "/shared_prefs/" + PREFERENCES.SHARED_PREFS_FILE_NAME + ".xml").setReadable(true, false);
         super.onPause();
-    }
+    }*/
 }
