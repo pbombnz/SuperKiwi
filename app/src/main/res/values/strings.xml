@@ -33,7 +33,7 @@
     <string name="MainPrefFragement_tv3nowPrefs_summary">Toggle preferences that can be used to bypass 3NOW\'s Root Detection checks when entering the application.</string>
 
     <string name="MainPrefFragement_debug_title">Debug Mode</string>
-    <string name="MainPrefFragement_debug_summary">Toggles debugging allows for logging in Xposed logs which can be helpful when troubleshooting an issue.</string>
+    <string name="MainPrefFragement_debug_summary">When enabled, SuperKiwi and any of the applications listed above will display logging information in logcat for troubleshooting purposes. Its recommended to use a computer when viewing the logcat as it\'s much easier to read.</string>
     <string name="MainPrefFragement_help_title">Help and FAQ\'s</string>
     <string name="MainPrefFragement_help_summary">Displays helpful information about the module, troubleshooting etc.</string>
 
@@ -63,7 +63,7 @@
     <string name="ANZPrefFragment_preferences_rootDetection_title">Root Detection</string>
     <string name="ANZPrefFragment_preferences_rootDetection_summary">Enable to bypass the various root checks found in ANZ GoMoney NZ.</string>
     <string name="ANZPrefFragment_preferences_spoofDevice_title">Spoof Device</string>
-    <string name="ANZPrefFragment_preferences_spoofDevice_summary">Spoofs your device information to trick GoMoney Wallet to work.</string>
+    <string name="ANZPrefFragment_preferences_spoofDevice_summary">Spoofs your device information to trick GoMoney Wallet to work. Cannot guarantee this will work with older devices.</string>
     <string name="ANZPrefFragment_preferences_spoofDeviceChooser_title">Spoof Device Selection</string>
     <string name="ANZPrefFragment_preferences_spoofDeviceChooser_summary">Pick the device you want to use when device spoofing is enabled for ANZ. <i>[Currently Selected: %1$s]</i></string>
     <string name="ANZPrefFragment_anzEnableScreenshots_title">Allow Screenshots</string>
@@ -76,7 +76,7 @@
     <string name="SemblePrefFragment_unofficialOSSupport_title">Unofficial Android OS Support</string>
     <string name="SemblePrefFragment_unofficialOSSupport_summary">Bypasses the \"OS not supported\" message on officially Semble-supported devices that have newer Android OS version installed which Semble was not designed to be used on.</string>
     <string name="SemblePrefFragment_spoofDevice_title">Spoof Device</string>
-    <string name="SemblePrefFragment_spoofDevice_summary">Spoofs your device information which will bypass \"Device Not Supported\" messages and trick Semble services to work. Made for devices that are not on the Semble Compatibility list.</string>
+    <string name="SemblePrefFragment_spoofDevice_summary">Spoofs your device information which will bypass \"Device Not Supported\" messages and trick Semble services to work. Made for devices that are not on the Semble Compatibility list. Cannot guarantee this will work with older devices.</string>
     <string name="SemblePrefFragment_spoofDeviceChooser_title">Spoof Device Selection</string>
     <string name="SemblePrefFragment_spoofDeviceChooser_summary">Pick the device you want to use when device spoofing is enabled for Semble. <i>[Currently Selected: %1$s]</i></string>
 
