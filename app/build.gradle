@@ -9,8 +9,8 @@ android {
         applicationId "nz.pbomb.xposed.anzmods"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 14
-        versionName "2.0"
+        versionCode 15
+        versionName "2.0.1"
     }
     buildTypes {
         release {
