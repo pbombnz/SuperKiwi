@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import nz.pbomb.xposed.anzmods.Common;
+
 /**
  * Retrieves and parses the compatibility list on the Semble website to detect which devices and
  * operating systems are supported. Used to bypass OS version checking. Each device information
@@ -200,16 +202,14 @@ public class SembleCompatibilityList {
      */
     private static List<SembleDevice> getSupportedDevicesByCarrier(String packageName) {
         // Determine which package the user has, and return the correct list.
-        switch(packageName) {
-            case PACKAGES.SEMBLE_VODAFONE:
-                return sembleDevicesVodafone;
-            case PACKAGES.SEMBLE_2DEGREES:
-                return sembleDevices2Degrees;
-            case PACKAGES.SEMBLE_SPARK:
+        if(packageName.equals(Common.getInstance().PACKAGE_SEMBLE_VODAFONE)) {
+            return sembleDevicesVodafone;
+        } else if(packageName.equals(Common.getInstance().PACKAGE_SEMBLE_2DEGREES)) {
+            return sembleDevices2Degrees;
+        } else if(packageName.equals(Common.getInstance().PACKAGE_SEMBLE_SPARK)) {
                 return sembleDevicesSpark;
-            default:
-                // Dead code: here to quiet the compiler
-                return null;
+        } else {
+            return null;
         }
     }
 

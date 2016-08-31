@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import java.io.BufferedReader;
@@ -19,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import common.PACKAGES;
 import common.SpoofDevice;
 import common.SpoofDevices;
+import nz.pbomb.xposed.anzmods.Common;
 import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
 
@@ -82,12 +81,12 @@ public class PrefFragment extends PreferenceFragment implements SharedPreference
             } else if(key.equals(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
                 // The primary way of killing the ANZ GoMoney application
                 ActivityManager mActivityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
-                mActivityManager.killBackgroundProcesses(PACKAGES.ANZ_GOMONEY);
+                mActivityManager.killBackgroundProcesses(Common.getInstance().PACKAGE_ANZ_GOMONEY);
 
                 // The secondary way of killing the ANZ GoMoney application used as a backup.
                 // This is mainly for lollipop and TouchWiz ROMs where the primary way may not always work.
                 try {
-                    Process process = Runtime.getRuntime().exec(new String[] { "am force-stop " + PACKAGES.ANZ_GOMONEY });
+                    Process process = Runtime.getRuntime().exec(new String[] { "am force-stop " + Common.getInstance().PACKAGE_ANZ_GOMONEY });
                     BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
                     in.close();
                 } catch (IOException e) {

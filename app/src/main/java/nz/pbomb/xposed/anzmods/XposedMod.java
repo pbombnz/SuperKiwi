@@ -1,19 +1,11 @@
 package nz.pbomb.xposed.anzmods;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.crossbowffs.remotepreferences.RemotePreferences;
 
@@ -37,8 +29,6 @@ import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.XposedBridge;
-
-import common.PACKAGES;
 
 
 public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage {
@@ -104,7 +94,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      * @param displayLogs To show logs or not.
      */
     public static void refreshSharedPreferences(boolean displayLogs) {
-        prefs = new XSharedPreferences(PACKAGES.MODULE);
+        prefs = new XSharedPreferences(Common.getInstance().PACKAGE_APP);
         prefs.makeWorldReadable();
         prefs.reload();
 
@@ -145,13 +135,13 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
         // Don't handle package param unless its ANZ, Semble, TVNZ OnDemand or 3NOW being loaded
-        if(!(lpparam.packageName.equals(PACKAGES.ASB_MOBILE) ||
-                lpparam.packageName.equals(PACKAGES.ANZ_GOMONEY) ||
-                lpparam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
-                lpparam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
-                lpparam.packageName.equals(PACKAGES.SEMBLE_VODAFONE) ||
-                lpparam.packageName.equals(PACKAGES.TVNZ_ONDEMAND) ||
-                lpparam.packageName.equals(PACKAGES.TV3NOW)
+        if(!(lpparam.packageName.equals(Common.getInstance().PACKAGE_ASB_MOBILE) ||
+                lpparam.packageName.equals(Common.getInstance().PACKAGE_ANZ_GOMONEY) ||
+                lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_2DEGREES) ||
+                lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_SPARK) ||
+                lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_VODAFONE) ||
+                lpparam.packageName.equals(Common.getInstance().PACKAGE_TVNZ_ONDEMAND) ||
+                lpparam.packageName.equals(Common.getInstance().PACKAGE_TV3NOW)
         )) {
             return;
         }
@@ -163,7 +153,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         findAndHookMethod("android.app.Application", lpparam.classLoader, "onCreate", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                sharedPreferences = new RemotePreferences((Context) param.thisObject, "nz.pbomb.xposed.anzmods.provider.preferences", PREFERENCES.SHARED_PREFS_FILE_NAME);
+                sharedPreferences = new RemotePreferences((Context) param.thisObject, "nz.pbomb.xposed.anzmods.provider.preferences", Common.getInstance().SHARED_PREFS_FILE_NAME);
                 anzSpoofDevice = SpoofDevices.getDeviceInfoByHumanDeviceName(sharedPreferences.getString(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER, null));
                 sembleSpoofDevice = SpoofDevices.getDeviceInfoByHumanDeviceName(sharedPreferences.getString(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER, null));
             }
@@ -174,34 +164,31 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             hookAsbMobileApplication(lpparam);
         }*/
 
-        if(lpparam.packageName.equals(PACKAGES.ANZ_GOMONEY)) {
+        if(lpparam.packageName.equals(Common.getInstance().PACKAGE_ANZ_GOMONEY)) {
             debugLog("Hooking Methods for ANZ goMoney NZ Application.");
             hookAnzGoMoneyApplication(lpparam);
         }
 
-        if(lpparam.packageName.equals(PACKAGES.SEMBLE_2DEGREES) ||
-           lpparam.packageName.equals(PACKAGES.SEMBLE_SPARK) ||
-           lpparam.packageName.equals(PACKAGES.SEMBLE_VODAFONE)) {
-            switch (lpparam.packageName) {
-                case PACKAGES.SEMBLE_2DEGREES:
-                    debugLog("Hooking Methods for Semble for 2Degrees Application.");
-                    break;
-                case PACKAGES.SEMBLE_SPARK:
-                    debugLog("Hooking Methods for Semble for Spark Application.");
-                    break;
-                case PACKAGES.SEMBLE_VODAFONE:
-                    debugLog("Hooking Methods for Semble for Vodafone Application.");
-                    break;
+        if(lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_2DEGREES) ||
+           lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_SPARK) ||
+           lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_VODAFONE)) {
+
+            if(lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_2DEGREES)) {
+                debugLog("Hooking Methods for Semble for 2Degrees Application.");
+            } else if(lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_SPARK)) {
+                debugLog("Hooking Methods for Semble for Spark Application.");
+            } else if(lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_VODAFONE)) {
+                debugLog("Hooking Methods for Semble for Vodafone Application.");
             }
             hookSembleApplication(lpparam);
         }
 
-        if(lpparam.packageName.equals(PACKAGES.TVNZ_ONDEMAND)) {
+        if(lpparam.packageName.equals(Common.getInstance().PACKAGE_TVNZ_ONDEMAND)) {
             debugLog("Hooking Methods for TVNZ OnDemand Application.");
             hookTVNZOnDemandApplication(lpparam);
         }
 
-        if(lpparam.packageName.equals(PACKAGES.TV3NOW)) {
+        if(lpparam.packageName.equals(Common.getInstance().PACKAGE_TV3NOW)) {
             debugLog("Hooking Methods for 3NOW Application.");
             hook3NOWApplication(lpparam);
         }

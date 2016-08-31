@@ -14,7 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import common.GLOBAL;
-import common.PACKAGES;
+import nz.pbomb.xposed.anzmods.Common;
 import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSharedPreferences = getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
+        mSharedPreferences = getSharedPreferences(Common.getInstance().SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
         preferenceFragment = (PreferenceFragment) getFragmentManager().findFragmentById(R.id.mainPrefFragment);
 
         new ValidationASyncTask().execute();
@@ -96,27 +96,27 @@ public class MainActivity extends AppCompatActivity {
 
             // Checks if ANZ GoMoney is installed and if its not disable the preference option in the
             // fragment
-            if (!isApplicationInstalled(PACKAGES.ANZ_GOMONEY)) {
+            if (!isApplicationInstalled(Common.getInstance().PACKAGE_ANZ_GOMONEY)) {
                 preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
             }
 
             // Checks if Semble is installed and if its not disable the preference option in the
             // fragment
-            if (!(isApplicationInstalled(PACKAGES.SEMBLE_2DEGREES) ||
-                    isApplicationInstalled(PACKAGES.SEMBLE_SPARK) ||
-                    isApplicationInstalled(PACKAGES.SEMBLE_VODAFONE))) {
+            if (!(isApplicationInstalled(Common.getInstance().PACKAGE_SEMBLE_2DEGREES) ||
+                    isApplicationInstalled(Common.getInstance().PACKAGE_SEMBLE_SPARK) ||
+                    isApplicationInstalled(Common.getInstance().PACKAGE_SEMBLE_VODAFONE))) {
                 preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
             }
 
             // Checks if TVNZ is installed and if its not disable the preference option in the
             // fragment
-            if (!isApplicationInstalled(PACKAGES.TVNZ_ONDEMAND)) {
+            if (!isApplicationInstalled(Common.getInstance().PACKAGE_TVNZ_ONDEMAND)) {
                 preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);
             }
 
             // Checks if TVNZ is installed and if its not disable the preference option in the
             // fragment
-            if (!isApplicationInstalled(PACKAGES.TV3NOW)) {
+            if (!isApplicationInstalled(Common.getInstance().PACKAGE_TV3NOW)) {
                 preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);
             }
             return null;

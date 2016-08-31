@@ -11,6 +11,7 @@ import android.preference.PreferenceFragment;
 import android.util.Log;
 
 import common.GLOBAL;
+import nz.pbomb.xposed.anzmods.Common;
 import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
 import nz.pbomb.xposed.anzmods.activities.HelpActivity;
@@ -78,7 +79,7 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
                     }
                 }
 
-                SharedPreferences sharedPref = getActivity().getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
+                SharedPreferences sharedPref = getActivity().getSharedPreferences(Common.getInstance().SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
                 SharedPreferences.Editor sharedPrefEditor = sharedPref.edit();
                 sharedPrefEditor.putBoolean(PREFERENCES.KEYS.MAIN.DEBUG, checkBoxPreference.isChecked());
                 sharedPrefEditor.apply();
