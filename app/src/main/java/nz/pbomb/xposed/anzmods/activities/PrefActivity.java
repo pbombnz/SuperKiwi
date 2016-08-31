@@ -76,6 +76,12 @@ public class PrefActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+    }
+
 
     public void onFinishDialog_anzGoMoneyNZ() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)

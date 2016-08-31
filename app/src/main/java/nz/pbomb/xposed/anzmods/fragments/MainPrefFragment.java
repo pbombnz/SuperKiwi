@@ -69,7 +69,7 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
                 break;
             case PREFERENCES.KEYS.MAIN.DEBUG:
                 CheckBoxPreference checkBoxPreference = (CheckBoxPreference) preference;
-                if(!GLOBAL.DEBUG) {
+                if(!Common.getInstance().DEBUG) {
                     if (checkBoxPreference.isChecked()) {
                         getActivity().setTitle(getResources().getString(R.string.app_name) + " (Debug Mode)");
                     } else {
@@ -88,6 +88,7 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
                 break;
         }
         startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         return true;
     }
 }
