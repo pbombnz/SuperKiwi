@@ -17,7 +17,6 @@ import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 
 import common.SpoofDevice;
-import common.GLOBAL;
 import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 
 import common.SembleCompatibilityList;
@@ -68,7 +67,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      */
     public static boolean isDebugMode() {
         // Hard-coded flag check
-        if (GLOBAL.DEBUG) {
+        if (Common.getInstance().DEBUG) {
             return true;
         }
 

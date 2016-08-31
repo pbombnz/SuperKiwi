@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import common.GLOBAL;
 import nz.pbomb.xposed.anzmods.Common;
 import nz.pbomb.xposed.anzmods.preferences.PREFERENCES;
 import nz.pbomb.xposed.anzmods.R;
@@ -85,12 +84,12 @@ public class MainActivity extends AppCompatActivity {
             if (!mSharedPreferences.contains(PREFERENCES.KEYS.MAIN.DEBUG)) {
                 sharedPrefEditor.putBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG);
             }
-            if (mSharedPreferences.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG) || GLOBAL.DEBUG) {
+            if (mSharedPreferences.getBoolean(PREFERENCES.KEYS.MAIN.DEBUG, PREFERENCES.DEFAULT_VALUES.MAIN.DEBUG) || Common.getInstance().DEBUG) {
                 setTitle(getTitle() + " (Debug Mode)");
             }
             sharedPrefEditor.apply();
 
-            if(GLOBAL.DEBUG) {
+            if(Common.getInstance().DEBUG) {
                 preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.DEBUG).setEnabled(false);
             }
 

@@ -13,6 +13,8 @@ public class Common {
     private Common() {
     }
 
+    public static final boolean DEBUG = false;
+
     public final String PACKAGE_APP = "nz.pbomb.xposed.anzmods";
     public final String PACKAGE_ASB_MOBILE = "nz.co.asb.asbmobile";
     public final String PACKAGE_ANZ_GOMONEY = "nz.co.anz.android.mobilebanking";
