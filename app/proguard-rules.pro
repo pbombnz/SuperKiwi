@@ -30,3 +30,6 @@
 -keepclasseswithmembernames class * { @butterknife.* <methods>; }
 -keepclasseswithmembernames class * { @butterknife.* <fields>; }
 
+# Removes warning when includes JAR files
+-keepattributes EnclosingMethod
+
