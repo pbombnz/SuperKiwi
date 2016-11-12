@@ -329,10 +329,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: b
         findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "b", boolean.class, new XC_MethodHook() {
             @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.HDMI_DETECTION)) {
                     callMethod(param.thisObject, "b", false);
+                    param.setResult(null);
                 }
             }
         });
