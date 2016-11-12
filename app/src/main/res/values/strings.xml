@@ -4,9 +4,9 @@
     <!-- Activity Labels -->
     <string name="label_main">SuperKiwi</string>
     <string name="label_asb">ASB Mobile Tweaks</string>
-    <string name="label_anz">ANZ GoMoney NZ Tweaks</string>
+    <string name="label_anz">ANZ goMoney NZ Tweaks</string>
     <string name="label_semble">Semble Tweaks</string>
-    <string name="label_tvnz">TVNZ onDemand Tweaks</string>
+    <string name="label_tvnz">TVNZ OnDemand Tweaks</string>
     <string name="label_tv3now">3NOW Tweaks</string>
     <string name="label_help">Help &amp; FAQ\'s</string>
     <string name="label_main_contact">Contact Me</string>
@@ -83,7 +83,10 @@
 
     <!-- TVNZ Preference Fragment -->
     <string name="tvnzPrefFragment_rootDetection_title">Root Detection</string>
-    <string name="tvnzPrefFragment_rootDetection_summary">Enable to bypass the various root checks found in the TVNZ onDemand application.</string>
+    <string name="tvnzPrefFragment_rootDetection_summary">Toggle the ability to bypass the various root checks found in the TVNZ OnDemand application.</string>
+    <string name="tvnzPrefFragment_hdmiDetection_title">HDMI Detection</string>
+    <string name="tvnzPrefFragment_hdmiDetection_summary">Toggle the ability to bypass HDMI detection allowing you to output OnDemand to TV screens and monitors.</string>
+
 
     <!-- TV3 NOW Preference Fragment -->
     <string name="tv3now_rootDetection_title">Root Detection</string>

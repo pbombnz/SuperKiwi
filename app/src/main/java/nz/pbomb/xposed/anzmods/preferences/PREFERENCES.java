@@ -22,6 +22,7 @@ public final class PREFERENCES {
 
         public static final class TVNZ {
             public static final boolean ROOT_DETECTION = true;
+            public static final boolean HDMI_DETECTION = true;
         }
 
         public static final class TV3NOW {
@@ -55,6 +56,7 @@ public final class PREFERENCES {
 
         public static final class TVNZ {
             public static final String ROOT_DETECTION = "tvnzRootDetection";
+            public static final String HDMI_DETECTION = "tvnzHdmiDetection";
         }
 
         public static final class TV3NOW {

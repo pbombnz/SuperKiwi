@@ -1,6 +1,7 @@
 package nz.pbomb.xposed.anzmods;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.telephony.TelephonyManager;
@@ -283,6 +284,55 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION)) {
                     param.setResult(false);
+                }
+            }
+        });
+
+
+        // Hooks Method which always returns "false" to indicate that no HDMI cable were detected.
+        // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: G
+        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "G", new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.HDMI_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
+
+        // Hooks HDMI detection listening Method which should NOT execute the code in the app (otherwise this will disable the video playing).
+        // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: B
+        findAndHookMethod("nz.co.tvnz.ondemand.support.util.HdmiListener", lpparam.classLoader, "onReceive", Context.class, Intent.class, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.HDMI_DETECTION)) {
+                    param.setResult(null);
+                }
+            }
+        });
+
+
+        // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: B
+        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "B", new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.HDMI_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
+
+        // Hooks Method which always sets a field "false" to indicate that no HDMI cable were detected.
+        // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: b
+        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "b", boolean.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.HDMI_DETECTION)) {
+                    callMethod(param.thisObject, "b", false);
                 }
             }
         });

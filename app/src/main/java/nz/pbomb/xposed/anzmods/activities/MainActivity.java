@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
             if (!mSharedPreferences.contains(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION)) {
                 sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION);
             }
+            if (!mSharedPreferences.contains(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION)) {
+                sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.HDMI_DETECTION);
+            }
             if (!mSharedPreferences.contains(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION)) {
                 sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION);
             }
