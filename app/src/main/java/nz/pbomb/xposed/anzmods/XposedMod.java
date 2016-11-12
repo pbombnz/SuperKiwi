@@ -339,13 +339,13 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
         // Hooks Method which always tells the program to never to act on detection of HDMI connection
-        // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: _a
-        findAndHookMethod("nz.co.tvnz.ondemand.ui.video.ay", lpparam.classLoader, "_a", boolean.class, new XC_MethodHook() {
+        // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: a_
+        findAndHookMethod("nz.co.tvnz.ondemand.ui.video.ay", lpparam.classLoader, "a_", boolean.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.HDMI_DETECTION)) {
-                    callMethod(param.thisObject, "_a", false);
+                    callMethod(param.thisObject, "a_", false);
                     param.setResult(null);
                 }
             }
