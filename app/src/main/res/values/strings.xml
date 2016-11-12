@@ -84,7 +84,7 @@
     <!-- TVNZ Preference Fragment -->
     <string name="tvnzPrefFragment_rootDetection_title">Root Detection</string>
     <string name="tvnzPrefFragment_rootDetection_summary">Toggle the ability to bypass the various root checks found in the TVNZ OnDemand application.</string>
-    <string name="tvnzPrefFragment_hdmiDetection_title">HDMI Detection</string>
+    <string name="tvnzPrefFragment_hdmiDetection_title">HDMI Detection (Untested Feature)</string>
     <string name="tvnzPrefFragment_hdmiDetection_summary">Toggle the ability to bypass HDMI detection allowing you to output OnDemand to TV screens and monitors.</string>
 
 
