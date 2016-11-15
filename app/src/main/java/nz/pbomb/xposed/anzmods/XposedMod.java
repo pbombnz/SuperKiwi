@@ -332,8 +332,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.HDMI_DETECTION)) {
-                    callMethod(param.thisObject, "b", false);
-                    param.setResult(null);
+                    //callMethod(param.thisObject, "b", false);
+                    //param.setResult(null);
+                    param.args[0] = false;
                 }
             }
         });
@@ -345,8 +346,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.HDMI_DETECTION)) {
-                    callMethod(param.thisObject, "a_", false);
-                    param.setResult(null);
+                    //callMethod(param.thisObject, "a_", false);
+                    //param.setResult(null);
+                    param.args[0] = false;
                 }
             }
         });
@@ -481,7 +483,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         //  - v5.5.2 - Class: nz.co.anz.android.mobilebanking.b.bs Method: p
         //  - v5.6.4 - Class: nz.co.anz.android.mobilebanking.b.bt Method: p
         //  - v5.7.1 - Class: nz.co.anz.android.mobilebanking.c.bm Method: p
-        findAndHookMethod("nz.co.anz.android.mobilebanking.b.cm", lpparam.classLoader, "p", new XC_MethodHook() {
+        findAndHookMethod("nz.co.anz.android.mobilebanking.c.cm", lpparam.classLoader, "p", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
