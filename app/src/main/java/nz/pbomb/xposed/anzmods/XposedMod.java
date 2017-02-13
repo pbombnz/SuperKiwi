@@ -219,7 +219,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v2.0.2 - Class: com.scottyab.rootbeer.b | Method: a,b,c,d,a(str)
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "a", new XC_MethodHook() {
             @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
@@ -228,7 +228,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "b", new XC_MethodHook() {
             @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
@@ -237,7 +237,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "c", new XC_MethodHook() {
             @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
@@ -246,7 +246,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "d", new XC_MethodHook() {
             @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
@@ -255,7 +255,27 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "a", String.class, new XC_MethodHook() {
             @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
+
+        findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "a", String[].class, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                //refreshSharedPreferences();
+                if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
+
+        findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "b", String[].class, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if (sharedPreferences.getBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION)) {
                     param.setResult(false);
@@ -278,7 +298,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v2.5 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: D
         // v2.5.1 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: D
         // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: D
-        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "D", new XC_MethodHook() {
+        // v2.7.1 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: w
+        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "w", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
@@ -289,9 +310,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
 
+
         // Hooks Method which always returns "false" to indicate that no HDMI cable were detected.
         // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: G
-        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "G", new XC_MethodHook() {
+        // v2.7.1 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: z
+        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "z", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
@@ -302,7 +325,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
         // Hooks HDMI detection listening Method which should NOT execute the code in the app (otherwise this will disable the video playing).
-        // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: B
+        // v2.6.0 - Class: nz.co.tvnz.ondemand.support.util.HdmiListener | Method: onReceive
+        // v2.6.0 - Class: nz.co.tvnz.ondemand.support.util.HdmiListener  | Method: onReceive
         findAndHookMethod("nz.co.tvnz.ondemand.support.util.HdmiListener", lpparam.classLoader, "onReceive", Context.class, Intent.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -315,7 +339,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
 
         // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: B
-        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "B", new XC_MethodHook() {
+        // v2.7.1 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: u
+        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "u", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
@@ -327,6 +352,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
         // Hooks Method which always sets a field "false" to indicate that no HDMI cable were detected.
         // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: b
+        // v2.7.1 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: b
         findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "b", boolean.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -340,8 +366,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
         // Hooks Method which always tells the program to never to act on detection of HDMI connection
-        // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: a_
-        findAndHookMethod("nz.co.tvnz.ondemand.ui.video.ay", lpparam.classLoader, "a_", boolean.class, new XC_MethodHook() {
+        // v2.6.0 - Class: nz.co.tvnz.ondemand.ui.video.ay | Method: a_
+        // v2.7.1 - Class: nz.co.tvnz.ondemand.ui.video.g | Method: a_
+        findAndHookMethod("nz.co.tvnz.ondemand.ui.video.g", lpparam.classLoader, "a_", boolean.class, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
