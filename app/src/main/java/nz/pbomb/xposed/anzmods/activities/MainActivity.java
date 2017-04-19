@@ -96,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
                 preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.DEBUG).setEnabled(false);
             }
 
+            // Checks if ASB is installed and if its not disable the preference option in the
+            // fragment
+            if (!isApplicationInstalled(Common.getInstance().PACKAGE_ASB_MOBILE)) {
+                preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.ASB).setEnabled(false);
+            }
+
             // Checks if ANZ GoMoney is installed and if its not disable the preference option in the
             // fragment
             if (!isApplicationInstalled(Common.getInstance().PACKAGE_ANZ_GOMONEY)) {
@@ -116,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);
             }
 
-            // Checks if TVNZ is installed and if its not disable the preference option in the
+            // Checks if 3NOW is installed and if its not disable the preference option in the
             // fragment
             if (!isApplicationInstalled(Common.getInstance().PACKAGE_TV3NOW)) {
                 preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setEnabled(false);

@@ -195,17 +195,71 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
     }
 
-    /*private void hookAsbMobileApplication(LoadPackageParam lpparam) {
-        findAndHookMethod("nz.co.asb.mobile.helpers.RootHelper", lpparam.classLoader, "isDeviceRooted", new XC_MethodHook() {
+    private void hookAsbMobileApplication(LoadPackageParam lpparam) {
+
+        // v3.22.0.111 - Class: nz.co.asb.mobile.helpers.ag
+        Class loggerIntf = findClass("nz.co.asb.mobile.helpers.ag", lpparam.classLoader);
+
+        // v3.22.0.111 - Class: nz.co.asb.mobile.helpers.at
+        Class loggerImpl = findClass("nz.co.asb.mobile.helpers.at", lpparam.classLoader);
+
+        // ASB Root Checking
+        // v3.22.0.111 - Class: nz.co.asb.mobile.helpers.bc | Method: a
+        findAndHookMethod("nz.co.asb.mobile.helpers.bc", lpparam.classLoader, "a", loggerIntf, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                refreshSharedPreferences();
+                //refreshSharedPreferences();
                 if (prefs.getBoolean(PREFERENCES.KEYS.ASB.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ASB.ROOT_DETECTION)) {
                     param.setResult(false);
                 }
             }
         });
-    }*/
+
+        // v3.22.0.111 - Class: nz.co.asb.mobile.helpers.bc | Method: b
+        findAndHookMethod("nz.co.asb.mobile.helpers.bc", lpparam.classLoader, "b", loggerIntf, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                //refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.ASB.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ASB.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
+
+        // v3.22.0.111 - Class: nz.co.asb.mobile.helpers.bc | Method: c
+        findAndHookMethod("nz.co.asb.mobile.helpers.bc", lpparam.classLoader, "c", loggerIntf, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                //refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.ASB.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ASB.ROOT_DETECTION)) {
+                    param.setResult(false);
+                }
+            }
+        });
+
+        //Visa Root Checking
+        // v3.22.0.111 - Class: com.visa.cbp.sdk.facade.VisaPaymentSDKFlow2 | Method: checkForSuperUserAccess
+        findAndHookMethod("com.visa.cbp.sdk.facade.VisaPaymentSDKFlow2", lpparam.classLoader, "checkForSuperUserAccess", loggerIntf, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                //refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.ASB.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ASB.ROOT_DETECTION)) {
+                    param.setResult(null);
+                }
+            }
+        });
+
+        // v3.22.0.111 - Class: com.visa.cbp.sdk.ˋ | Method: checkForSuperUserAccess
+        findAndHookMethod("com.visa.cbp.sdk.ˋ", lpparam.classLoader, "checkForSuperUserAccess", loggerIntf, new XC_MethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                //refreshSharedPreferences();
+                if (prefs.getBoolean(PREFERENCES.KEYS.ASB.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.ASB.ROOT_DETECTION)) {
+                    param.setResult(null);
+                }
+            }
+        });
+    }
 
     /**
      * A method that hooks the 3NOW packages if 3NOW is present on the device

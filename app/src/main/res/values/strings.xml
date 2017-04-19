@@ -21,7 +21,7 @@
     <string name="MainPrefActivity_settings_about">About</string>
 
     <!-- Main Activity's Preference Fragment -->
-    <string name="MainPrefFragement_asbPrefs_title">ASB Mobile</string>
+    <string name="MainPrefFragement_asbPrefs_title">ASB Mobile (Untested Feature)</string>
     <string name="MainPrefFragement_asbPrefs_summary">Toggle preferences that can be used to bypass root detection when adding virtual cards.</string>
     <string name="MainPrefFragement_anzPrefs_title">ANZ GoMoney NZ</string>
     <string name="MainPrefFragement_anzPrefs_summary">Toggle preferences that can be used to bypass ANZ GoMoney\'s root detection and have the ability to spoof your device to enable GoMoney Wallet (NFC Payment).</string>
@@ -56,8 +56,8 @@
     </string>
 
     <!-- ASB Mobile Preference Fragment -->
-    <string name="ASBPrefFragment_preferences_rootDetection_title">Root Detection</string>
-    <string name="ASBPrefFragment_preferences_rootDetection_summary">Enable this to avoid root detection messages for the when adding virtual cards in the ASB Mobile app.</string>
+    <string name="ASBPrefFragment_preferences_rootDetection_title">Root Detection (Untested Feature)</string>
+    <string name="ASBPrefFragment_preferences_rootDetection_summary">Enable this to avoid root detection messages for the when adding virtual cards in the ASB Mobile app. Unclear if this actually works or not, so if you use this feature please provide feedback via email or XDA.</string>
 
     <!-- ANZ Preference Fragment -->
     <string name="ANZPrefFragment_preferences_rootDetection_title">Root Detection</string>
