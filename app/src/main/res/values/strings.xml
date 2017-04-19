@@ -42,11 +42,11 @@
     <string name="ContactActivity_contactViaTwitterButton">Follow me! Tweet Me!</string>
     <string name="ContactActivity_contactViaEmailButton">Email Me!</string>
     <string name="ContactActivity_contactViaXDAButton">Post a Message on the XDA Thread!</string>
-    <string name="ContactActivity_message">Depending on the issue, I might not always be the best person to contact.
-        Semble and ANZ GoMoney Wallet are relatively new applications and still have bugs which is
-        something out of my hands. If you have a payment issue, most likely contact the
-        application provider or your bank for support. If you are having root detection problem
-        or the module is not working then its best to contact me via XDA or email.\n
+    <string name="ContactActivity_message">Depending on the issue, I might not always be the best person to contact.\n
+        \n
+        If payment issues arise when using a supported banking application, contact your bank for support.
+        If viewing issues or glitches arise when using 3NOW or TVNZ OnDemand, most likely contact the application provider for support.
+        If the module is not working in a general sense then its best to contact me via the XDA thread or email.\n
         \n
         You can contact me using any of the methods below where you can send me feedback,
         bug reports, feature requests or to simply follow me on social media for updates.\n
@@ -67,7 +67,7 @@
     <string name="ANZPrefFragment_preferences_spoofDeviceChooser_title">Spoof Device Selection</string>
     <string name="ANZPrefFragment_preferences_spoofDeviceChooser_summary">Pick the device you want to use when device spoofing is enabled for ANZ. <i>[Currently Selected: %1$s]</i></string>
     <string name="ANZPrefFragment_anzEnableScreenshots_title">Allow Screenshots</string>
-    <string name="ANZPrefFragment_anzEnableScreenshots_summary">Allow screenshots to be taken within the ANZ GoMoney application. Do not turn on this feature unless you actually need it at it\'s huge security breach. If you indeed do use this feature, make sure no sensitive information is displayed when you screenshot.</string>
+    <string name="ANZPrefFragment_anzEnableScreenshots_summary">Allow screenshots to be taken within the ANZ GoMoney application. Do not turn on this feature unless you actually need it as it is a huge security breach. If you indeed do use this feature, make sure no sensitive information is displayed when you screenshot.</string>
 
 
     <!-- Semble's Preference Fragment -->
