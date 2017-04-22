@@ -243,7 +243,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
 
         //Visa Root Checking
         // v3.22.0.111 - Class: com.visa.cbp.sdk.facade.VisaPaymentSDKFlow2 | Method: checkForSuperUserAccess
-        findAndHookMethod("com.visa.cbp.sdk.facade.VisaPaymentSDKFlow2", lpparam.classLoader, "checkForSuperUserAccess", loggerIntf, new XC_MethodHook() {
+        findAndHookMethod("com.visa.cbp.sdk.facade.VisaPaymentSDKFlow2", lpparam.classLoader, "checkForSuperUserAccess", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
