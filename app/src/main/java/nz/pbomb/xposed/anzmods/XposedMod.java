@@ -254,7 +254,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
         // v3.22.0.111 - Class: com.visa.cbp.sdk.ˋ | Method: checkForSuperUserAccess
-        findAndHookMethod("com.visa.cbp.sdk.ˋ", lpparam.classLoader, "checkForSuperUserAccess", loggerIntf, new XC_MethodHook() {
+        findAndHookMethod("com.visa.cbp.sdk.ˋ", lpparam.classLoader, "checkForSuperUserAccess", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
