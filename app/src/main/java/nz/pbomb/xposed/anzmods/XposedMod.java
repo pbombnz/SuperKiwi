@@ -193,6 +193,10 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             hook3NOWApplication(lpparam);
         }
 
+        if(lpparam.packageName.equals(Common.getInstance().PACKAGE_ASB_MOBILE)) {
+            debugLog("Hooking Methods for ASB Mobile Application.");
+            hookAsbMobileApplication(lpparam);
+        }
     }
 
     private void hookAsbMobileApplication(LoadPackageParam lpparam) {
