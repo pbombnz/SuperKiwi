@@ -806,8 +806,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.7.1 - Class: com.google.android.gms.analytics.internal.l | Method: a
         // v5.8.1 - Class: com.google.android.gms.analytics.internal.l | Method: a
         // v5.9.2 - Class: com.google.android.gms.analytics.internal.l | Method: a
-        // v5.9.3 - Class: com.google.android.gms.analytics.internal.l | Method: a
-        findAndHookMethod("com.google.android.gms.analytics.internal.l", lpparam.classLoader, "a", String.class, String.class, String.class, String.class, String.class, String.class, new XC_MethodHook() {
+        // v5.9.3 - Class: com.google.android.gms.analytics.internal.i | Method: a
+        findAndHookMethod("com.google.android.gms.analytics.internal.i", lpparam.classLoader, "a", String.class, String.class, String.class, String.class, String.class, String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
