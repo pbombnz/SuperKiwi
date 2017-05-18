@@ -448,7 +448,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         /**
          * Seitc API Root Check Hooks
          */
-        //  - v5.8.1 and previous - Class: xxxxxx.jejeee | Method: isRooted
+        //  - v6.0.1 and previous - Class: xxxxxx.jejeee | Method: isRooted
         findAndHookMethod("xxxxxx.jejeee", lpparam.classLoader, "isRooted", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -459,7 +459,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-        //  - v5.8.1 and previous - Class: xxxxxx.jejeee | Method: isRootedQuickCheck
+        //  - v6.0.1 and previous - Class: xxxxxx.jejeee | Method: isRootedQuickCheck
         findAndHookMethod("xxxxxx.jejeee", lpparam.classLoader, "isRootedQuickCheck", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -470,7 +470,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-        //  - v5.8.1 and previous - Class: xxxxxx.jejeee | Method: isDebug
+        //  - v6.0.1 and previous - Class: xxxxxx.jejeee | Method: isDebug
         findAndHookMethod("xxxxxx.jejeee", lpparam.classLoader, "isDebug", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -497,7 +497,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         //  - v5.8.1 - Class: nz.co.anz.android.mobilebanking.i.a.m | Method: k
         //  - v5.9.2 - Class: nz.co.anz.android.mobilebanking.services.impl.UserPreferenceServiceImpl | Method: k
         //  - v5.9.3 - Class: nz.co.anz.android.mobilebanking.i.a.n | Method: k
-        findAndHookMethod("nz.co.anz.android.mobilebanking.i.a.n", lpparam.classLoader, "k", new XC_MethodHook() {
+        //  - v6.0.1 - Class: nz.co.anz.android.mobilebanking.j.a.h | Method: k
+        findAndHookMethod("nz.co.anz.android.mobilebanking.j.a.h", lpparam.classLoader, "k", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
@@ -519,7 +520,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         //  - v5.8.1 - Class: nz.co.anz.android.mobilebanking.i.a.m | Method: e
         //  - v5.9.2 - Class: nz.co.anz.android.mobilebanking.services.impl.UserPreferenceServiceImpl | Method: e
         //  - v5.9.3 - Class: nz.co.anz.android.mobilebanking.i.a.n | Method: e
-        findAndHookMethod("nz.co.anz.android.mobilebanking.i.a.n", lpparam.classLoader, "e", boolean.class, new XC_MethodHook() {
+        //  - v6.0.1 - Class: nz.co.anz.android.mobilebanking.j.a.h | Method: e
+        findAndHookMethod("nz.co.anz.android.mobilebanking.j.a.h", lpparam.classLoader, "e", boolean.class, new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     callMethod(param.thisObject, "e", false);
@@ -547,7 +549,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         //  - v5.8.1 - Class: nz.co.anz.android.mobilebanking.j.e.y | Method: a
         //  - v5.9.2 - Class: nz.co.anz.android.mobilebanking.shared.util.Logger | Method: a
         //  - v5.9.3 - Class: nz.co.anz.android.mobilebanking.shared.util.y | Method: a
-        findAndHookMethod("nz.co.anz.android.mobilebanking.shared.util.y", lpparam.classLoader, "a", String.class, String.class, Throwable.class, new XC_MethodHook() {
+        //  - v6.0.1 - Class: nz.co.anz.android.mobilebanking.shared.util.z | Method: a
+        findAndHookMethod("nz.co.anz.android.mobilebanking.shared.util.z", lpparam.classLoader, "a", String.class, String.class, Throwable.class, new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     if(isDebugMode()) {
@@ -568,7 +571,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         //  - v5.8.1 - Class: nz.co.anz.android.mobilebanking.j.e.ah | Method: a
         //  - v5.9.2 - Class: nz.co.anz.android.mobilebanking.shared.util.RootDetector | Method: a
         //  - v5.9.3 - Class: nz.co.anz.android.mobilebanking.shared.util.ah | Method: a
-        findAndHookMethod("nz.co.anz.android.mobilebanking.shared.util.ah", lpparam.classLoader, "a", new XC_MethodHook() {
+        //  - v6.0.1 - Class: nz.co.anz.android.mobilebanking.shared.util.ai | Method: a
+        findAndHookMethod("nz.co.anz.android.mobilebanking.shared.util.ai", lpparam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
@@ -588,7 +592,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         //  - v5.8.1 - Class: nz.co.anz.android.mobilebanking.c.bm Method: p
         //  - v5.9.2 - Class: nz.co.anz.android.mobilebanking.domain.SessionConfiguration | Method: q
         //  - v5.9.3 - Class: nz.co.anz.android.mobilebanking.domain.bf | Method: q
-        findAndHookMethod("nz.co.anz.android.mobilebanking.domain.bf", lpparam.classLoader, "q", new XC_MethodHook() {
+        //  - v6.0.1 - Class: nz.co.anz.android.mobilebanking.c.az | Method: q
+        findAndHookMethod("nz.co.anz.android.mobilebanking.c.az", lpparam.classLoader, "q", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
@@ -609,7 +614,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         //  - v5.8.1 - Class: nz.co.anz.android.mobilebanking.k.a.b.ba Method: isEligibleForWallet
         //  - v5.9.2 - Class: nz.co.anz.android.mobilebanking.source.g3.types.GoMoney Method: isEligibleForWallet
         //  - v5.9.3 - Class: nz.co.anz.android.mobilebanking.j.a.b.az Method: isEligibleForWallet
-        findAndHookMethod("nz.co.anz.android.mobilebanking.j.a.b.az", lpparam.classLoader, "isEligibleForWallet", new XC_MethodHook() {
+        //  - v6.0.1 - Class: nz.co.anz.android.mobilebanking.k.a.b.ay Method: isEligibleForWallet
+        findAndHookMethod("nz.co.anz.android.mobilebanking.k.a.b.ay", lpparam.classLoader, "isEligibleForWallet", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
@@ -629,6 +635,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         //  - v5.8.1 - Class: nz.co.anz.android.mobilebanking.ui.util.MobileWalletPromoIgnoreCondition | Method: shouldIgnore
         //  - v5.9.2 - Class: nz.co.anz.android.mobilebanking.ui.util.MobileWalletPromoIgnoreCondition | Method: shouldIgnore
         //  - v5.9.3 - Class: nz.co.anz.android.mobilebanking.ui.util.MobileWalletPromoIgnoreCondition | Method: shouldIgnore
+        //  - v6.0.1 - Class: nz.co.anz.android.mobilebanking.ui.util.MobileWalletPromoIgnoreCondition | Method: shouldIgnore
         findAndHookMethod("nz.co.anz.android.mobilebanking.ui.util.MobileWalletPromoIgnoreCondition", lpparam.classLoader, "shouldIgnore", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -645,7 +652,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
          */
 
 
-        Class<?> builder = findClass("com.squareup.okhttp.Headers.Builder", lpparam.classLoader);
+        //Class<?> builder = findClass("com.squareup.okhttp.Headers.Builder", lpparam.classLoader);
+        Class<?> builder = findClass("d.r.a", lpparam.classLoader);
 
         // Device Information Builder used to communicate to ANZ Servers (Model and SDK_INT)
         // builder.add("Android-Device-Description", Build.MODEL);
@@ -657,13 +665,14 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         //  - v5.8.1 - Class: nz.co.anz.android.mobilebanking.j.c.l | Method: d
         //  - v5.9.2 - Class: nz.co.anz.android.mobilebanking.shared.http.UnsecuredInterceptor | Method: d
         //  - v5.9.3 - Class: nz.co.anz.android.mobilebanking.shared.c.l | Method: d
-        findAndHookMethod("nz.co.anz.android.mobilebanking.shared.c.l", lpparam.classLoader, "d", builder, new XC_MethodHook() {
+        //  - v6.0.1 - Class: nz.co.anz.android.mobilebanking.shared.c.m | Method: d
+        findAndHookMethod("nz.co.anz.android.mobilebanking.shared.c.m", lpparam.classLoader, "d", builder, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
                 if(sharedPreferences.getBoolean(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE, PREFERENCES.DEFAULT_VALUES.ANZ.SPOOF_DEVICE)) {
-                    callMethod(param.args[0], "add", "Android-Device-Description", anzSpoofDevice.Build.MODEL);
-                    callMethod(param.args[0], "add", "Android-Api-Version", Integer.toString(anzSpoofDevice.VERSION.SDK_INT));
+                    callMethod(param.args[0], "a", "Android-Device-Description", anzSpoofDevice.Build.MODEL);
+                    callMethod(param.args[0], "a", "Android-Api-Version", Integer.toString(anzSpoofDevice.VERSION.SDK_INT));
                     debugLog("we added spoof");
                     param.setResult(null);
                 }
@@ -718,6 +727,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         //  - v5.8.1 - Class: nz.co.anz.android.mobilebanking.j.e.k | Method: a
         //  - v5.9.2 - Class: nz.co.anz.android.mobilebanking.shared.util.ApplicationUtil | Method: a
         //  - v5.9.3 - Class: nz.co.anz.android.mobilebanking.shared.util.j | Method: a
+        //  - v6.0.1 - Class: nz.co.anz.android.mobilebanking.shared.util.j | Method: a
         findAndHookMethod("nz.co.anz.android.mobilebanking.shared.util.j", lpparam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -740,6 +750,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         //  - v5.8.1 - Class: nz.co.anz.android.mobilebanking.j.e.k | Method: b
         //  - v5.9.2 - Class: nz.co.anz.android.mobilebanking.shared.util.ApplicationUtil | Method: b
         //  - v5.9.3 - Class: nz.co.anz.android.mobilebanking.shared.util.j | Method: b
+        //  - v6.0.1 - Class: nz.co.anz.android.mobilebanking.shared.util.j | Method: b
         findAndHookMethod("nz.co.anz.android.mobilebanking.shared.util.j", lpparam.classLoader, "b", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -762,6 +773,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         //  - v5.8.1 - Class: nz.co.anz.android.mobilebanking.j.e.k | Method: e
         //  - v5.9.2 - Class: nz.co.anz.android.mobilebanking.shared.util.ApplicationUtil | Method: e
         //  - v5.9.2 - Class: nz.co.anz.android.mobilebanking.shared.util.j | Method: e
+        //  - v6.0.1 - Class: nz.co.anz.android.mobilebanking.shared.util.j | Method: e
         findAndHookMethod("nz.co.anz.android.mobilebanking.shared.util.j", lpparam.classLoader, "e", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -773,6 +785,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
         // Hook method which uses device model for wallet eligibility
+        // DEPRECATED
         // ARGS EXAMPLE: str=Build.FINGERPRINT str2=Build.MODEL
         // FIND: return str.startsWith("generic")
         // v5.1.1 - Class: nz.co.anz.android.mobilebanking.h.e.u | Method: a
@@ -785,7 +798,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: nz.co.anz.android.mobilebanking.j.e.u | Method: a
         // v5.9.2 - Class: nz.co.anz.android.mobilebanking.shared.util.HeaderUtil | Method: a
         // v5.9.3 - Class: nz.co.anz.android.mobilebanking.shared.util.u | Method: a
-        findAndHookMethod("nz.co.anz.android.mobilebanking.shared.util.u", lpparam.classLoader, "a", String.class, String.class, new XC_MethodHook() {
+        // v6.0.1 - Class: nz.co.anz.android.mobilebanking.shared.util.v | Method: a
+        findAndHookMethod("nz.co.anz.android.mobilebanking.shared.util.v", lpparam.classLoader, "a", String.class, String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
@@ -806,8 +820,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.7.1 - Class: com.google.android.gms.analytics.internal.l | Method: a
         // v5.8.1 - Class: com.google.android.gms.analytics.internal.l | Method: a
         // v5.9.2 - Class: com.google.android.gms.analytics.internal.l | Method: a
-        // v5.9.3 - Class: com.google.android.gms.analytics.internal.i | Method: a
-        findAndHookMethod("com.google.android.gms.analytics.internal.i", lpparam.classLoader, "a", String.class, String.class, String.class, String.class, String.class, String.class, new XC_MethodHook() {
+        // v5.9.3 - Class: com.google.android.gms.analytics.internal.l | Method: a
+        // v6.0.1 - Class: com.google.android.gms.internal.ed | Method: a
+        findAndHookMethod("com.google.android.gms.internal.ed", lpparam.classLoader, "a", String.class, String.class, String.class, String.class, String.class, String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
@@ -842,6 +857,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b04160416ЖЖ0416ЖЖ0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b04160416ЖЖ0416ЖЖ0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b04160416ЖЖ0416ЖЖ0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b04160416ЖЖ0416ЖЖ0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b04160416ЖЖ0416ЖЖ0416", Integer.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -865,6 +881,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b0416Ж0416Ж0416ЖЖ0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b0416Ж0416Ж0416ЖЖ0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b0416Ж0416Ж0416ЖЖ0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b0416Ж0416Ж0416ЖЖ0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416Ж0416Ж0416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -888,6 +905,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b041604160416Ж0416ЖЖ0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b041604160416Ж0416ЖЖ0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b041604160416Ж0416ЖЖ0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b041604160416Ж0416ЖЖ0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b041604160416Ж0416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -911,6 +929,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b0416ЖЖ04160416ЖЖ0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b0416ЖЖ04160416ЖЖ0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b0416ЖЖ04160416ЖЖ0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b0416ЖЖ04160416ЖЖ0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416ЖЖ04160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -933,6 +952,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b04160416Ж04160416ЖЖ0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b04160416Ж04160416ЖЖ0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b04160416Ж04160416ЖЖ0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b04160416Ж04160416ЖЖ0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b04160416Ж04160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -956,6 +976,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b0416Ж041604160416ЖЖ0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b0416Ж041604160416ЖЖ0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b0416Ж041604160416ЖЖ0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b0416Ж041604160416ЖЖ0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416Ж041604160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -979,6 +1000,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b04160416041604160416ЖЖ0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b04160416041604160416ЖЖ0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b04160416041604160416ЖЖ0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b04160416041604160416ЖЖ0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b04160416041604160416ЖЖ0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -1001,6 +1023,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b0416ЖЖЖЖ0416Ж0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b0416ЖЖЖЖ0416Ж0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b0416ЖЖЖЖ0416Ж0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b0416ЖЖЖЖ0416Ж0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416ЖЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -1023,6 +1046,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b04160416ЖЖЖ0416Ж0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b04160416ЖЖЖ0416Ж0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b04160416ЖЖЖ0416Ж0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b04160416ЖЖЖ0416Ж0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b04160416ЖЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -1045,6 +1069,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b0416Ж0416ЖЖ0416Ж0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b0416Ж0416ЖЖ0416Ж0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b0416Ж0416ЖЖ0416Ж0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b0416Ж0416ЖЖ0416Ж0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416Ж0416ЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -1068,6 +1093,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b041604160416ЖЖ0416Ж0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b041604160416ЖЖ0416Ж0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b041604160416ЖЖ0416Ж0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b041604160416ЖЖ0416Ж0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b041604160416ЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -1091,6 +1117,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b0416ЖЖ0416Ж0416Ж0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b0416ЖЖ0416Ж0416Ж0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b0416ЖЖ0416Ж0416Ж0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b0416ЖЖ0416Ж0416Ж0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416ЖЖ0416Ж0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -1114,6 +1141,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b04160416Ж0416Ж0416Ж0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b04160416Ж0416Ж0416Ж0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b04160416Ж0416Ж0416Ж0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b04160416Ж0416Ж0416Ж0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b04160416Ж0416Ж0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -1137,6 +1165,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b0416Ж04160416Ж0416Ж0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b0416Ж04160416Ж0416Ж0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b0416Ж04160416Ж0416Ж0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b0416Ж04160416Ж0416Ж0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b0416Ж04160416Ж0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -1160,6 +1189,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: b041604160416ЖЖ0416Ж0416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: b041604160416ЖЖ0416Ж0416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: b041604160416ЖЖ0416Ж0416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: b041604160416ЖЖ0416Ж0416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b041604160416ЖЖ0416Ж0416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -1183,6 +1213,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.ajaaaj | Method: bЖ04160416ЖЖЖ04160416
         // v5.9.2 - Class: xxxxxx.ajaaaj | Method: bЖ04160416ЖЖЖ04160416
         // v5.9.3 - Class: xxxxxx.ajaaaj | Method: bЖ04160416ЖЖЖ04160416
+        // v6.0.1 - Class: xxxxxx.ajaaaj | Method: bЖ04160416ЖЖЖ04160416
         findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "bЖ04160416ЖЖЖ04160416", String.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -1208,6 +1239,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v5.8.1 - Class: xxxxxx.hchchh | Method: b04220422ТТ0422042204220422
         // v5.9.2 - Class: xxxxxx.hchchh | Method: b04220422ТТ0422042204220422
         // v5.9.3 - Class: xxxxxx.hchchh | Method: b04220422ТТ0422042204220422
+        // v6.0.1 - Class: xxxxxx.hchchh | Method: b04220422Т0422Т042204220422
         findAndHookMethod("xxxxxx.hchchh", lpparam.classLoader, "b04220422ТТ0422042204220422", android.content.Context.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
