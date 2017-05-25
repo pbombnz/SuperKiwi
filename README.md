@@ -1,7 +1,7 @@
 # SuperKiwi 
 _Master Branch:_  [![Build Status](https://travis-ci.org/pbombnz/SuperKiwi.svg?branch=master)](https://travis-ci.org/pbombnz/SuperKiwi)
 
-_Testing Branch:_ [![Build Status](https://travis-ci.org/pbombnz/SuperKiwi.svg?branch=testing)](https://travis-ci.org/pbombnz/SuperKiwi/tree/testing)
+_Testing Branch:_ [![Build Status](https://travis-ci.org/pbombnz/SuperKiwi.svg?branch=testing)](https://travis-ci.org/pbombnz/SuperKiwi/branches)
 
 This is a Xposed module allows users to bypass root detection and enable device spoofing tactics on all your favourite Kiwi applications such as ANZ GoMoney NZ, Semble, TVNZ OnDemand and newly added 3NOW. This module allows you to take advantage of Wallet features or streaming from rooted or non-supported devices. 
 
