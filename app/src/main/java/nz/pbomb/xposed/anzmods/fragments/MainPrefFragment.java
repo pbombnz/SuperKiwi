@@ -23,9 +23,9 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_main);
 
-        //findPreference(PREFERENCES.KEYS.MAIN.ASB).setOnPreferenceClickListener(this);
+        findPreference(PREFERENCES.KEYS.MAIN.ASB).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.ANZ).setOnPreferenceClickListener(this);
-        findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setOnPreferenceClickListener(this);
+        //findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.TVNZ).setOnPreferenceClickListener(this);
         findPreference(PREFERENCES.KEYS.MAIN.TV3NOW).setOnPreferenceClickListener(this);
 
@@ -37,24 +37,24 @@ public class MainPrefFragment extends PreferenceFragment implements OnPreference
     public boolean onPreferenceClick(Preference preference) {
         Intent intent = null;
         switch (preference.getKey()) {
-            /*case PREFERENCES.KEYS.MAIN.ASB:
+            case PREFERENCES.KEYS.MAIN.ASB:
                 intent = new Intent(getActivity(), PrefActivity.class);
                 intent.putExtra("id", R.xml.preferences_asb);
                 intent.putExtra("title", getString(R.string.label_asb));
                 intent.putExtra("preference", preference.getKey());
-                break;*/
+                break;
             case PREFERENCES.KEYS.MAIN.ANZ:
                 intent = new Intent(getActivity(), PrefActivity.class);
                 intent.putExtra("id", R.xml.preferences_anz);
                 intent.putExtra("title", getString(R.string.label_anz));
                 intent.putExtra("preference", preference.getKey());
                 break;
-            case PREFERENCES.KEYS.MAIN.SEMBLE:
+            /*case PREFERENCES.KEYS.MAIN.SEMBLE:
                 intent = new Intent(getActivity(), PrefActivity.class);
                 intent.putExtra("id", R.xml.preferences_semble);
                 intent.putExtra("title", getString(R.string.label_semble));
                 intent.putExtra("preference", preference.getKey());
-                break;
+                break;*/
             case PREFERENCES.KEYS.MAIN.TVNZ:
                 intent = new Intent(getActivity(), PrefActivity.class);
                 intent.putExtra("id", R.xml.preferences_tvnz);
