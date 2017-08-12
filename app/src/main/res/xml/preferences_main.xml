@@ -11,11 +11,11 @@
             android:title="@string/MainPrefFragement_anzPrefs_title"
             android:summary="@string/MainPrefFragement_anzPrefs_summary"
             />
-        <Preference
+        <!-- Preference
             android:key="semblePrefs"
             android:title="@string/MainPrefFragement_semblePrefs_title"
             android:summary="@string/MainPrefFragement_semblePrefs_summary"
-            />
+            /-->
         <Preference
             android:key="tvnzPrefs"
             android:title="@string/MainPrefFragement_tvnzPrefs_title"

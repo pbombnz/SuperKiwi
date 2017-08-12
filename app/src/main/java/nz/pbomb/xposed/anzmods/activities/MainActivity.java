@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             if (!mSharedPreferences.contains(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED)) {
                 sharedPrefEditor.putBoolean(PREFERENCES.KEYS.ANZ.SCREENSHOT_ENABLED, PREFERENCES.DEFAULT_VALUES.ANZ.SCREENSHOT_ENABLED);
             }
-            if (!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION)) {
+            /*if (!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION)) {
                 sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.SEMBLE.ROOT_DETECTION);
             }
             if (!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE)) {
@@ -74,13 +74,13 @@ public class MainActivity extends AppCompatActivity {
             }
             if (!mSharedPreferences.contains(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT)) {
                 sharedPrefEditor.putBoolean(PREFERENCES.KEYS.SEMBLE.MM_SUPPORT, PREFERENCES.DEFAULT_VALUES.SEMBLE.MM_SUPPORT);
-            }
+            }*/
             if (!mSharedPreferences.contains(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION)) {
                 sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TVNZ.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.ROOT_DETECTION);
             }
-            if (!mSharedPreferences.contains(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION)) {
+            /*if (!mSharedPreferences.contains(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION)) {
                 sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TVNZ.HDMI_DETECTION, PREFERENCES.DEFAULT_VALUES.TVNZ.HDMI_DETECTION);
-            }
+            }*/
             if (!mSharedPreferences.contains(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION)) {
                 sharedPrefEditor.putBoolean(PREFERENCES.KEYS.TV3NOW.ROOT_DETECTION, PREFERENCES.DEFAULT_VALUES.TV3NOW.ROOT_DETECTION);
             }
@@ -108,13 +108,14 @@ public class MainActivity extends AppCompatActivity {
                 preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.ANZ).setEnabled(false);
             }
 
+            /*
             // Checks if Semble is installed and if its not disable the preference option in the
             // fragment
             if (!(isApplicationInstalled(Common.getInstance().PACKAGE_SEMBLE_2DEGREES) ||
                     isApplicationInstalled(Common.getInstance().PACKAGE_SEMBLE_SPARK) ||
                     isApplicationInstalled(Common.getInstance().PACKAGE_SEMBLE_VODAFONE))) {
                 preferenceFragment.findPreference(PREFERENCES.KEYS.MAIN.SEMBLE).setEnabled(false);
-            }
+            }*/
 
             // Checks if TVNZ is installed and if its not disable the preference option in the
             // fragment

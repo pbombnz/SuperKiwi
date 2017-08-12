@@ -137,9 +137,9 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // Don't handle package param unless its ANZ, Semble, TVNZ OnDemand or 3NOW being loaded
         if(!(lpparam.packageName.equals(Common.getInstance().PACKAGE_ASB_MOBILE) ||
                 lpparam.packageName.equals(Common.getInstance().PACKAGE_ANZ_GOMONEY) ||
-                lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_2DEGREES) ||
-                lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_SPARK) ||
-                lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_VODAFONE) ||
+                //lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_2DEGREES) ||
+                //lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_SPARK) ||
+                //lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_VODAFONE) ||
                 lpparam.packageName.equals(Common.getInstance().PACKAGE_TVNZ_ONDEMAND) ||
                 lpparam.packageName.equals(Common.getInstance().PACKAGE_TV3NOW)
         )) {
@@ -155,7 +155,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 sharedPreferences = new RemotePreferences((Context) param.thisObject, "nz.pbomb.xposed.anzmods.provider.preferences", Common.getInstance().SHARED_PREFS_FILE_NAME);
                 anzSpoofDevice = SpoofDevices.getDeviceInfoByHumanDeviceName(sharedPreferences.getString(PREFERENCES.KEYS.ANZ.SPOOF_DEVICE_CHOOSER, null));
-                sembleSpoofDevice = SpoofDevices.getDeviceInfoByHumanDeviceName(sharedPreferences.getString(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER, null));
+                //sembleSpoofDevice = SpoofDevices.getDeviceInfoByHumanDeviceName(sharedPreferences.getString(PREFERENCES.KEYS.SEMBLE.SPOOF_DEVICE_CHOOSER, null));
             }
         });
 
@@ -169,7 +169,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             hookAnzGoMoneyApplication(lpparam);
         }
 
-        if(lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_2DEGREES) ||
+        /*if(lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_2DEGREES) ||
            lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_SPARK) ||
            lpparam.packageName.equals(Common.getInstance().PACKAGE_SEMBLE_VODAFONE)) {
 
@@ -181,7 +181,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 debugLog("Hooking Methods for Semble for Vodafone Application.");
             }
             hookSembleApplication(lpparam);
-        }
+        }*/
 
         if(lpparam.packageName.equals(Common.getInstance().PACKAGE_TVNZ_ONDEMAND)) {
             debugLog("Hooking Methods for TVNZ OnDemand Application.");
@@ -1148,7 +1148,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             @SuppressLint("SetTextI18n")
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                //TODO: Add Commenting
+                //OLD_TODO: Add Commenting
 
                 // v5.3.0 - Class: nz.co.anz.android.mobilebanking.ui.fragment.SettingsFragment.SettingsGroup
                 // v5.4.2 - Class: nz.co.anz.android.mobilebanking.ui.settings.bg
@@ -1227,10 +1227,11 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      *
      * @param lpparam The package and process information of the current package
      */
+    /*@Deprecated
+    @SuppressWarnings("unused")
     private void hookSembleApplication(final LoadPackageParam lpparam) {
-        /**
-         * Root Detection Methods
-         */
+         // Root Detection Methods
+
 
         // Returns "true" to confirm that the integrity of the device is fine and is untouched to any modifications
         findAndHookMethod("com.csam.wallet.integrity.IntegrityCheckerImpl", lpparam.classLoader, "checkDeviceIntegrity", new XC_MethodHook() {
@@ -1254,9 +1255,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-        /**
-         * Spoof Device / Unofficial Android OS Support Methods
-         */
+        // Spoof Device / Unofficial Android OS Support Methods
 
         // Spoof Device Model to Samsung Galaxy Note 3
         findAndHookMethod("com.csam.mclient.core.WalletContext", lpparam.classLoader, "getDeviceModel", new XC_MethodHook() {
@@ -1325,9 +1324,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             }
         });
 
-        /*
-            Logging Methods
-         */
+        // Logging Methods
+
         findAndHookMethod("com.csam.mclient.action.script.LoggerImpl", lpparam.classLoader, "isLoggingEnabled", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -1426,5 +1424,5 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                 }
             }
         });
-    }
+    }*/
 }
