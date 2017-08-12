@@ -7,11 +7,11 @@
             android:summary="@string/tvnzPrefFragment_rootDetection_summary"
             android:defaultValue="true"
         />
-        <CheckBoxPreference
+        <!--CheckBoxPreference
             android:key="tvnzHdmiDetection"
             android:title="@string/tvnzPrefFragment_hdmiDetection_title"
             android:summary="@string/tvnzPrefFragment_hdmiDetection_summary"
             android:defaultValue="true"
-            />
+            /-->
     </PreferenceCategory>
 </PreferenceScreen>
