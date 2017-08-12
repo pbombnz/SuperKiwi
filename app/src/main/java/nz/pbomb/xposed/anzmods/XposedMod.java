@@ -273,8 +273,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
     private void hook3NOWApplication(final XC_LoadPackage.LoadPackageParam lpparam) {
         // Hooks Method which always returns "false" to indicate that no root tools were detected.
         // v2.0 - Class: ? | Method: ? (Most likely same as below)
-        // v2.0.1 - Class: com.scottyab.rootbeer.b | Method: a,b,c,d,a(str)
-        // v2.0.2 - Class: com.scottyab.rootbeer.b | Method: a,b,c,d,a(str)
+        // v2.4 and Previous - Class: com.scottyab.rootbeer.b | Method: a,b,c,d,a(str)
         findAndHookMethod("com.scottyab.rootbeer.b", lpparam.classLoader, "a", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
@@ -357,7 +356,8 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // v2.5.1 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: D
         // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: D
         // v2.7.1 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: w
-        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "w", new XC_MethodHook() {
+        // v2.9.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: z
+        findAndHookMethod("nz.co.tvnz.ondemand.OnDemandApp", lpparam.classLoader, "z", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
@@ -368,7 +368,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
 
 
-
+        /*
         // Hooks Method which always returns "false" to indicate that no HDMI cable were detected.
         // v2.6.0 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: G
         // v2.7.1 - Class: nz.co.tvnz.ondemand.OnDemandApp | Method: z
@@ -436,7 +436,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                     param.args[0] = false;
                 }
             }
-        });
+        });*/
     }
 
     /**
