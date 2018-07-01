@@ -1,9 +1,8 @@
 package nz.pbomb.xposed.anzmods;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.WindowManager;
@@ -35,7 +34,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
     private static final String TAG = "SuperKiwi:Mod"; // Tag used for debugLog
 
     private static SpoofDevice anzSpoofDevice;
-    private static SpoofDevice sembleSpoofDevice;
+    //private static SpoofDevice sembleSpoofDevice;
     private static XSharedPreferences prefs;
     private static SharedPreferences sharedPreferences;
 
@@ -45,7 +44,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      *
      * @param message The message to be displayed in logs
      */
-    public static void debugLog(String message) {
+    private static void debugLog(String message) {
         if (isDebugMode()) {
            log(message);
         }
@@ -56,7 +55,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      *
      * @param message The message to be displayed in logs
      */
-    public static void log(String message) {
+    private static void log(String message) {
         XposedBridge.log("[" + TAG + "] " + message);
     }
 
@@ -66,7 +65,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      *
      * @return Returns true if Debug Mode is enabled, otherwise return false.
      */
-    public static boolean isDebugMode() {
+    private static boolean isDebugMode() {
         // Hard-coded flag check
         if (Common.getInstance().DEBUG) {
             return true;
@@ -93,7 +92,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      *
      * @param displayLogs To show logs or not.
      */
-    public static void refreshSharedPreferences(boolean displayLogs) {
+    private static void refreshSharedPreferences(boolean displayLogs) {
         prefs = new XSharedPreferences(Common.getInstance().PACKAGE_APP);
         prefs.makeWorldReadable();
         prefs.reload();
@@ -444,7 +443,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      *
      * @param lpparam The package and process information of the current package
      */
-    public void hookAnzGoMoneyApplication(final XC_LoadPackage.LoadPackageParam lpparam) {
+    private void hookAnzGoMoneyApplication(final XC_LoadPackage.LoadPackageParam lpparam) {
         /**
          * Seitc API Root Check Hooks
          */
@@ -1130,7 +1129,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                     sb.append(anzSpoofDevice.Build.SERIAL);   // r1 = android.os.Build.SERIAL;	 Catch:{ Exception -> 0x007d } (Line 306)
 
                     final TelephonyManager mTelephony = (TelephonyManager) ((Context) param.args[0]).getSystemService(Context.TELEPHONY_SERVICE);
-                    String myAndroidDeviceId = mTelephony.getDeviceId();
+                    @SuppressLint("MissingPermission") String myAndroidDeviceId = mTelephony.getDeviceId();
 
                     sb.append(myAndroidDeviceId);
 
@@ -1223,7 +1222,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         });
     }
 
-    /**
+    /*
      * A method that hooks all Semble packages if Semble is present on the device
      *
      * @param lpparam The package and process information of the current package
