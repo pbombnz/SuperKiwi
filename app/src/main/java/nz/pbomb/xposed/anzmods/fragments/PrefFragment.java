@@ -35,7 +35,7 @@ public class PrefFragment extends PreferenceFragment implements SharedPreference
 
         //this.sharedPreferences = getActivity().getSharedPreferences(PREFERENCES.SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
         //oldPreferences = (Map<String, Boolean>) sharedPreferences.getAll();
-        getPreferenceManager().setSharedPreferencesMode(Context.MODE_WORLD_READABLE);
+        getPreferenceManager().setSharedPreferencesMode(Context.MODE_PRIVATE);
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         oldPreferences = getPreferenceManager().getSharedPreferences().getAll();
 

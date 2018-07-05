@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSharedPreferences = getSharedPreferences(Common.getInstance().SHARED_PREFS_FILE_NAME, Context.MODE_WORLD_READABLE);
+        mSharedPreferences = getSharedPreferences(Common.getInstance().SHARED_PREFS_FILE_NAME, Context.MODE_PRIVATE);
         preferenceFragment = (PreferenceFragment) getFragmentManager().findFragmentById(R.id.mainPrefFragment);
 
         new ValidationASyncTask().execute();

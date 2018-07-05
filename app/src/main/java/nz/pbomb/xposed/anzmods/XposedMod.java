@@ -94,9 +94,13 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
      */
     private static void refreshSharedPreferences(boolean displayLogs) {
         prefs = new XSharedPreferences(Common.getInstance().PACKAGE_APP);
-        prefs.makeWorldReadable();
-        prefs.reload();
 
+        try {
+            prefs.makeWorldReadable();
+        } catch (SecurityException ignored) {
+        } finally {
+            prefs.reload();
+        }
         // Only continue if we want to produce logging
         if(!displayLogs) {
             return;
@@ -912,7 +916,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         // FIND: Version.SDK_INT
         // v5.1.1 - ?
         // v6.7.0 and Previous - Class: xxxxxx.ajaaaj | Method: b04160416ЖЖ0416ЖЖ0416
-        findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b04160416ЖЖ0416ЖЖ0416", Integer.class, new XC_MethodHook() {
+        /*findAndHookMethod("xxxxxx.ajaaaj", lpparam.classLoader, "b04160416ЖЖ0416ЖЖ0416", Integer.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 //refreshSharedPreferences();
@@ -1144,7 +1148,7 @@ public class XposedMod implements IXposedHookZygoteInit, IXposedHookLoadPackage 
                     super.afterHookedMethod(param);
                 }
             }
-        });
+        });*/
 
 
         // FIND: Build.ID
